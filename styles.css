@@ -1,0 +1,2090 @@
+/* ==========================================================================
+   SISTEMA DE ESTILOS - PEÑA DE LAS BELLAS ARTES DE LA PLATA
+   Soporte dinámico para 4 temas de color y 4 estructuras de página
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. IMPORTACIÓN DE FUENTES (Google Fonts)
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Merriweather:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
+
+/* --------------------------------------------------------------------------
+   2. CONFIGURACIÓN DE LOS 4 TEMAS DE COLOR (Mapeo de Variables)
+   -------------------------------------------------------------------------- */
+
+/* TEMA 1: Muy Formal, Sobrio y Profesional (Gama de Grises y Oro Viejo) */
+body.theme-formal {
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafaf9;
+  --bg-card: #ffffff;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-inverse: #ffffff;
+  --accent: #9a7d46;
+  --accent-rgb: 154, 125, 70;
+  --accent-hover: #7c6232;
+  --border-color: #e7e5e4;
+  --border-radius: 0px;
+  --font-family-title: 'Cinzel', serif;
+  --font-family-body: 'Inter', sans-serif;
+  --shadow: 0 0 0 1px #e7e5e4;
+  --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --header-bg: #ffffff;
+  --footer-bg: #1c1917;
+  --footer-text: #fafaf9;
+  --card-filter: grayscale(100%);
+  --card-filter-hover: grayscale(0%);
+  --badge-bg: #f5f5f4;
+  --badge-text: #57534e;
+}
+
+/* TEMA 2: Más Informal (Taller, Tonos Tierra) */
+body.theme-informal {
+  --bg-primary: #fdfaf4;
+  --bg-secondary: #f6efe2;
+  --bg-card: #faf5eb;
+  --text-primary: #3c2f2f;
+  --text-secondary: #6e5c5c;
+  --text-inverse: #fffbeb;
+  --accent: #c2410c;
+  --accent-rgb: 194, 65, 12;
+  --accent-hover: #e05615;
+  --border-color: #d6cfc7;
+  --border-radius: 16px;
+  --font-family-title: 'Fraunces', serif;
+  --font-family-body: 'Lora', serif;
+  --shadow: 3px 3px 0px #3c2f2f;
+  --shadow-hover: 6px 6px 0px #3c2f2f;
+  --header-bg: #f6efe2;
+  --footer-bg: #3c2f2f;
+  --footer-text: #fdfaf4;
+  --card-filter: none;
+  --card-filter-hover: none;
+  --badge-bg: #eae3d5;
+  --badge-text: #3c2f2f;
+  background-image: radial-gradient(rgba(60, 47, 47, 0.02) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* TEMA 3: Híbrido, equilibrio institucional-artístico (Pizarra y Naranja Coral) */
+body.theme-mixed {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-inverse: #ffffff;
+  --accent: #f97316;
+  --accent-rgb: 249, 115, 22;
+  --accent-hover: #ea580c;
+  --border-color: #cbd5e1;
+  --border-radius: 8px;
+  --font-family-title: 'Outfit', sans-serif;
+  --font-family-body: 'Merriweather', serif;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --header-bg: #ffffff;
+  --footer-bg: #0f172a;
+  --footer-text: #f8fafc;
+  --card-filter: none;
+  --card-filter-hover: none;
+  --badge-bg: #ffedd5;
+  --badge-text: #ea580c;
+}
+
+/* TEMA 4: Muy Actual, Colorido y Alegre (Oscuro Neón / Cyber-Art) */
+body.theme-colorful {
+  --bg-primary: #050508;
+  --bg-secondary: #0e0e13;
+  --bg-card: rgba(20, 20, 25, 0.6);
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-inverse: #050508;
+  --accent: #7c3aed;
+  --accent-rgb: 124, 58, 237;
+  --accent-hover: #db2777;
+  --border-color: rgba(75, 75, 90, 0.4);
+  --border-radius: 24px;
+  --font-family-title: 'Syne', sans-serif;
+  --font-family-body: 'Space Grotesk', sans-serif;
+  --shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+  --shadow-hover: 0 0 25px rgba(219, 39, 119, 0.25);
+  --header-bg: rgba(5, 5, 8, 0.85);
+  --footer-bg: #010103;
+  --footer-text: #f4f4f5;
+  --glass-blur: blur(12px);
+  --card-filter: none;
+  --card-filter-hover: scale(1.02);
+  --badge-bg: rgba(124, 58, 237, 0.2);
+  --badge-text: #a78bfa;
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   3. ESTILOS GLOBALES Y BARRA DE CONTROL SUPERIOR (MAQUETACIÓN Y TEMA)
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Barra de control superior */
+.global-control-bar {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-bottom: 2px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+}
+
+.control-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.layout-selector-wrapper, .theme-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.control-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.layout-selector-btn-group {
+  display: flex;
+  background-color: #1e293b;
+  padding: 0.2rem;
+  border-radius: 6px;
+  border: 1px solid #334155;
+}
+
+.layout-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layout-btn:hover {
+  color: #f8fafc;
+}
+
+.layout-btn.active {
+  background-color: var(--accent, #f97316);
+  color: white !important;
+}
+
+/* Conmutador de Temas (Premium) */
+.theme-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #1e293b;
+  padding: 0.2rem;
+  border-radius: 20px;
+  border: 1px solid #334155;
+}
+
+.theme-opt {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.theme-opt:hover {
+  transform: scale(1.2);
+}
+
+.theme-opt.active {
+  border-color: #ffffff;
+  box-shadow: 0 0 5px rgba(255,255,255,0.6);
+}
+
+.theme-opt.t-formal { background: linear-gradient(135deg, #1c1917 50%, #9a7d46 50%); }
+.theme-opt.t-informal { background: linear-gradient(135deg, #fffbeb 50%, #c2410c 50%); }
+.theme-opt.t-mixed { background: linear-gradient(135deg, #1e293b 50%, #f97316 50%); }
+.theme-opt.t-colorful { background: linear-gradient(135deg, #050508 50%, #7c3aed 50%); }
+
+.btn-control-panel-toggle {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.btn-control-panel-toggle:hover {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   4. CONTROL DE VISIBILIDAD DE ESTRUCTURAS
+   -------------------------------------------------------------------------- */
+.layout-main-wrapper {
+  display: none;
+  animation: fadeInLayout 0.5s ease-out forwards;
+}
+
+@keyframes fadeInLayout {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+body.layout-classic #layout-container-classic { display: block; }
+body.layout-newspaper #layout-container-newspaper { display: block; }
+body.layout-gallerywalk #layout-container-gallerywalk { display: block; }
+body.layout-vanguard #layout-container-vanguard { display: block; }
+
+/* En modo administrador, ocultar todo lo demás y mostrar el panel */
+body.layout-admin #layout-container-admin { display: block; }
+body.layout-admin .layout-main-wrapper:not(.admin-layout-view) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. COMPONENTES COMUNES (Botones, Grillas, Modales, Formularios)
+   -------------------------------------------------------------------------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.py-main {
+  padding: 2.5rem 0;
+}
+
+h2, h3, h4 {
+  font-family: var(--font-family-title);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+button, .btn {
+  font-family: var(--font-family-body);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--text-inverse) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent);
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: white !important;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+/* Modales */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.modal-content {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  max-width: 800px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  font-weight: bold;
+}
+
+.modal-image-panel {
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 420px;
+}
+
+.modal-image-panel img, .modal-image-panel svg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.modal-info-panel {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-info-panel h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-info-panel .artist {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.modal-info-panel .description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.modal-badge {
+  display: inline-block;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+/* Formularios */
+.contact-form {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 5px rgba(var(--accent-rgb), 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   6. ESTILOS DE ESTRUCTURA 1: CLÁSICA (Con Navbar y Pestañas)
+   -------------------------------------------------------------------------- */
+.classic-header {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 40px; /* Debajo de la barra de control */
+  z-index: 100;
+}
+
+.classic-header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--text-inverse);
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: justify;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-text h2 {
+  font-size: 1.25rem;
+}
+
+.logo-text span {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.4rem 0.7rem;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--accent);
+}
+
+.classic-view {
+  display: none;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.classic-view.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero Clásico */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.hero-content h2 {
+  font-size: 2.8rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.hero-art-container {
+  height: 320px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.hero-art-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Grilla de Características */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-icon {
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+/* Info y Comisión */
+.info-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.info-box-stat {
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.authorities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.authority-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow);
+}
+
+.authority-role {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.authority-name {
+  font-weight: 600;
+}
+
+.authority-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Historia */
+.history-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.history-text p {
+  margin-bottom: 1rem;
+}
+
+.history-img-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.history-img-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: calc(var(--border-radius)/2);
+  filter: var(--card-filter);
+}
+
+.history-img-box span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* Galería Grid */
+.gallery-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  width: 250px;
+}
+
+.gallery-filters {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background-color: var(--accent);
+  color: var(--text-inverse);
+  border-color: var(--accent);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-img-container {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  background-color: #eee;
+}
+
+.gallery-img-container img, .gallery-img-container svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--card-filter);
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-img-container img,
+.gallery-item:hover .gallery-img-container svg {
+  transform: scale(1.04);
+}
+
+.gallery-category-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+.gallery-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.gallery-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.gallery-artist {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.gallery-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Docentes y Cursos */
+.teachers-grid, .courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.teacher-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.teacher-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.teacher-specialty {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.teacher-bio {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0.75rem 0;
+}
+
+.teacher-experience {
+  font-size: 0.8rem;
+  background-color: var(--bg-secondary);
+  padding: 0.4rem 0.6rem;
+  border-left: 2px solid var(--accent);
+  color: var(--text-secondary);
+}
+
+.course-card {
+  justify-content: space-between;
+}
+
+.course-meta {
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 0;
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.course-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Contacto */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 2.5rem;
+}
+
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-info-item {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.contact-info-icon {
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-info-text h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.map-placeholder {
+  height: 200px;
+  border-radius: var(--border-radius);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.classic-footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  margin-top: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. ESTILOS DE ESTRUCTURA 2: PERIÓDICO EDITORIAL (Gaceta 1930)
+   -------------------------------------------------------------------------- */
+#layout-container-newspaper {
+  background-color: #ede6d0; /* Tono papel de diario envejecido */
+  color: #1a1510;
+  padding: 2rem 0;
+}
+
+.paper-page {
+  max-width: 1050px;
+  margin: 0 auto;
+  background-color: #f7f1e1; /* Papel impreso claro */
+  border: 1px solid #1a1510;
+  outline: 4px double #1a1510;
+  padding: 2.5rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  font-family: 'Merriweather', serif;
+}
+
+.newspaper-header {
+  border-bottom: 4px double #1a1510;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.paper-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  border-bottom: 1px solid #1a1510;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  color: #27272a;
+}
+
+.paper-title {
+  font-family: 'Cinzel', serif;
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1.0;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.subtitle-row {
+  border-top: 1px solid #1a1510;
+  border-bottom: 1px solid #1a1510;
+  padding: 0.25rem 0;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.newspaper-nav {
+  text-align: center;
+  border-bottom: 1px solid #1a1510;
+  padding: 0.4rem 0;
+  font-size: 0.75rem;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.newspaper-nav a {
+  color: #1a1510;
+  margin: 0 0.5rem;
+  text-decoration: underline;
+}
+
+.newspaper-nav a:hover {
+  color: #c2410c;
+}
+
+.newspaper-body {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+}
+
+.news-article {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.article-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-bottom: 1px solid #1a1510;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.article-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem 0;
+  border-bottom: 1px dashed #1a1510;
+  padding-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.article-columns-2 {
+  column-count: 2;
+  column-gap: 1.5rem;
+  text-align: justify;
+}
+
+.first-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  float: left;
+  line-height: 0.8;
+  padding-right: 6px;
+  font-weight: 800;
+  color: #111;
+}
+
+.news-divider-dashed {
+  border-top: 1px dashed #1a1510;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.news-divider-solid {
+  border-top: 1.5px solid #1a1510;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.news-divider-double {
+  border-top: 4px double #1a1510;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.news-table-authorities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.news-table-authorities .item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted #1a1510;
+  padding-bottom: 0.15rem;
+  font-size: 0.8rem;
+}
+
+.news-ad-box {
+  border: 1px solid #1a1510;
+  outline: 3px double #1a1510;
+  padding: 1.25rem;
+  text-align: center;
+  background-color: rgba(26, 21, 16, 0.02);
+}
+
+.news-ad-box h4 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+/* Historia Diario */
+.history-newspaper-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 2rem;
+}
+
+.history-news-text {
+  text-align: justify;
+  column-count: 2;
+  column-gap: 1.5rem;
+}
+
+.history-news-image-frame {
+  border: 1px solid #1a1510;
+  padding: 0.75rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.history-news-image-frame img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #1a1510;
+  filter: sepia(0.6) contrast(1.2);
+}
+
+.history-news-image-frame .caption {
+  font-size: 0.7rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+  line-height: 1.3;
+}
+
+/* Galería Diario */
+.newspaper-gallery-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.newspaper-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.news-gallery-card {
+  border: 1px solid #1a1510;
+  padding: 0.75rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.news-gallery-img-box {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #1a1510;
+  overflow: hidden;
+  background-color: #eee;
+  position: relative;
+}
+
+.news-gallery-img-box img, .news-gallery-img-box svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) sepia(0.5);
+}
+
+.news-gallery-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.2rem 0;
+  border-bottom: 1px solid #1a1510;
+}
+
+.news-gallery-artist {
+  font-size: 0.75rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Cursos Diario */
+.newspaper-teachers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.news-teacher-block {
+  border-left: 2px solid #1a1510;
+  padding-left: 0.75rem;
+}
+
+.news-teacher-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.newspaper-courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.news-course-block {
+  border-bottom: 1px dashed #1a1510;
+  padding-bottom: 0.75rem;
+}
+
+.news-course-block h4 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+}
+
+/* Contacto Diario */
+.newspaper-contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+}
+
+.newspaper-map-box {
+  border: 1px solid #1a1510;
+  padding: 0.75rem;
+  background-color: rgba(26,21,16,0.03);
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.newspaper-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.paper-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.paper-form-group label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+}
+
+.paper-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #1a1510;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+  color: #1a1510;
+}
+
+.paper-input:focus {
+  outline: none;
+  border-bottom-width: 2px;
+}
+
+.paper-textarea {
+  background-color: transparent;
+  border: 1px solid #1a1510;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.4rem;
+  color: #1a1510;
+}
+
+.paper-textarea:focus {
+  outline: none;
+}
+
+.btn-newspaper-submit {
+  background-color: #1a1510;
+  color: #f7f1e1;
+  border: none;
+  padding: 0.5rem;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-newspaper-submit:hover {
+  background-color: #c2410c;
+}
+
+.newspaper-footer {
+  border-top: 4px double #1a1510;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+/* --------------------------------------------------------------------------
+   8. ESTILOS DE ESTRUCTURA 3: RECORRIDO EXPOSITIVO (Salas Horizontales)
+   -------------------------------------------------------------------------- */
+#layout-container-gallerywalk {
+  background-color: var(--bg-secondary);
+  min-height: 90vh;
+  position: relative;
+  overflow-y: hidden;
+}
+
+.gallerywalk-navigation-bar {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 40px;
+  z-index: 90;
+}
+
+.walk-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.walk-map-nodes {
+  display: flex;
+  gap: 1rem;
+}
+
+.walk-node {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.25s ease;
+}
+
+.walk-node.active, .walk-node:hover {
+  background-color: var(--accent);
+  color: var(--text-inverse);
+  border-color: var(--accent);
+}
+
+.rooms-viewport {
+  width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.rooms-container {
+  display: flex;
+  width: 500vw; /* 5 salas de 100vw */
+  transform: translateX(0vw);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.room-panel {
+  width: 100vw;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 3rem 2rem 5rem 2rem;
+  min-height: calc(100vh - 120px);
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-inner-content {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.grid-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.room-left-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-number {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.room-title {
+  font-size: 2.2rem;
+  margin: 0.2rem 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.room-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.exhibit-frame {
+  border-left: 4px solid var(--accent);
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  box-shadow: var(--shadow);
+}
+
+.painting-wall-frame {
+  background-color: #2e2620; /* Color marco madera */
+  border: 10px solid #1a1510;
+  padding: 1rem;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+  text-align: center;
+  display: inline-block;
+  transform: rotate(1deg);
+  transition: transform 0.3s ease;
+}
+
+.painting-wall-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.painting-wall-frame svg {
+  border: 2px solid #000;
+}
+
+.painting-label {
+  background-color: #fffbee;
+  color: #1c1917;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  border: 1px solid #d6cfc7;
+  text-align: left;
+  font-family: serif;
+}
+
+.painting-label strong {
+  display: block;
+}
+
+/* Sala 2 Plaque */
+.museum-plaque {
+  background-color: #fcfbf7;
+  border: 1px solid #d6cfc7;
+  color: #3c2f2f;
+  padding: 1.5rem;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05), 2px 2px 5px rgba(0,0,0,0.1);
+  font-family: serif;
+  min-width: 280px;
+}
+
+.museum-plaque h4 {
+  font-family: serif;
+  font-size: 1.15rem;
+  border-bottom: 1.5px solid #3c2f2f;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  color: #111;
+}
+
+.plaque-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.plaque-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted #ccc;
+}
+
+.history-scroll-box {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 1rem;
+  text-align: justify;
+}
+
+.historical-photo-frame {
+  background-color: #fff;
+  border: 8px solid #333;
+  padding: 0.5rem;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  transform: rotate(-1deg);
+}
+
+.historical-photo-frame img {
+  max-width: 250px;
+  height: auto;
+  display: block;
+}
+
+/* Sala 3 Carrusel Horizontal */
+.rooms-horizontal-gallery-wrapper {
+  overflow-x: auto;
+  padding: 1.5rem 0.5rem;
+}
+
+.horizontal-gallery-scroll {
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.walk-gallery-card {
+  flex-shrink: 0;
+  width: 320px;
+  background-color: #27272a;
+  border: 8px solid #18181b;
+  padding: 0.75rem;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.walk-gallery-card:hover {
+  transform: translateY(-8px);
+}
+
+.walk-gallery-card .img-box {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border: 2px solid #000;
+  background-color: #333;
+}
+
+.walk-gallery-card .img-box img, .walk-gallery-card .img-box svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.walk-gallery-label {
+  background-color: #fafaf9;
+  color: #1c1917;
+  padding: 0.5rem;
+  margin-top: 0.75rem;
+  font-family: serif;
+  font-size: 0.8rem;
+  border: 1px solid #e7e5e4;
+}
+
+/* Sala 4 Acordeón */
+.walk-courses-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.walk-accordion-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+.walk-accordion-header {
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-secondary);
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.walk-accordion-body {
+  padding: 1rem;
+  display: none;
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.walk-teachers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.walk-teacher-card {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  padding: 1rem;
+  font-size: 0.8rem;
+  box-shadow: var(--shadow);
+}
+
+/* --------------------------------------------------------------------------
+   9. ESTILOS DE ESTRUCTURA 4: VANGUARDISTA (Diseño Fluido/Cyber-Art)
+   -------------------------------------------------------------------------- */
+#layout-container-vanguard {
+  background-color: #040407;
+  color: #f4f4f5;
+  font-family: 'Space Grotesk', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Luces Neón en el Fondo */
+.vanguard-bg-glows {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+}
+
+.glow-sphere.g1 {
+  width: 400px;
+  height: 400px;
+  background: #7c3aed;
+  top: 10%;
+  left: -100px;
+  animation: floatGlow1 12s infinite alternate;
+}
+
+.glow-sphere.g2 {
+  width: 500px;
+  height: 500px;
+  background: #db2777;
+  bottom: 10%;
+  right: -150px;
+  animation: floatGlow2 15s infinite alternate;
+}
+
+@keyframes floatGlow1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 40px) scale(1.15); }
+}
+
+@keyframes floatGlow2 {
+  0% { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-80px, -50px) scale(0.9); }
+}
+
+/* Héroe Vanguardista */
+.vanguard-hero {
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.vanguard-header-logo {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+}
+
+.glitch-logo {
+  color: #7c3aed;
+  text-shadow: 2px 0 0 #db2777, -2px 0 0 #06b6d4;
+}
+
+.vanguard-giant-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  margin-top: 3rem;
+}
+
+.outline-neon-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #7c3aed;
+  text-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+.vanguard-tagline {
+  font-size: 1.2rem;
+  max-width: 500px;
+  color: #a1a1aa;
+}
+
+.vanguard-scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.mouse-icon {
+  width: 20px;
+  height: 32px;
+  border: 2px solid #a1a1aa;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.mouse-icon .wheel {
+  width: 3px;
+  height: 6px;
+  background-color: #a1a1aa;
+  border-radius: 2px;
+  animation: scrollWheel 1.5s infinite;
+}
+
+@keyframes scrollWheel {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(6px); opacity: 0; }
+}
+
+/* Secciones Vanguardia */
+.vanguard-section {
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.vanguard-sec-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 3.5rem;
+  color: #f4f4f5;
+  border-left: 5px solid #7c3aed;
+  padding-left: 1rem;
+}
+
+.vanguard-grid-2 {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.vanguard-lead-text {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #d4d4d8;
+  text-align: justify;
+}
+
+.vanguard-glass-card {
+  background: rgba(20, 20, 25, 0.45);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.vanguard-authorities-bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vanguard-auth-bubble {
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  padding: 1rem;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.vanguard-auth-bubble:hover {
+  background: rgba(219, 39, 119, 0.1);
+  border-color: rgba(219, 39, 119, 0.3);
+  transform: translateX(5px);
+}
+
+/* Historia Vanguardia */
+.vanguard-history-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.vanguard-history-image-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.vanguard-history-image-container img {
+  width: 100%;
+  display: block;
+  filter: contrast(1.1) brightness(0.9);
+  transition: transform 0.5s ease;
+}
+
+.vanguard-history-image-container:hover img {
+  transform: scale(1.03);
+}
+
+/* Galería Vanguardista */
+.vanguard-gallery-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.vanguard-category-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.vanguard-pill {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #a1a1aa;
+  padding: 0.4rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vanguard-pill.active, .vanguard-pill:hover {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+}
+
+.vanguard-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.vanguard-gallery-card {
+  background: rgba(15, 15, 20, 0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.vanguard-gallery-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: #db2777;
+  box-shadow: 0 10px 30px rgba(219, 39, 119, 0.2);
+}
+
+.vanguard-gallery-card img, .vanguard-gallery-card svg {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.vanguard-gallery-card:hover img, .vanguard-gallery-card:hover svg {
+  transform: scale(1.05);
+}
+
+.vanguard-card-info {
+  padding: 1.5rem;
+}
+
+.vanguard-card-title {
+  font-size: 1.2rem;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+}
+
+/* Cursos Vanguardia */
+.vanguard-courses-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+}
+
+.vanguard-courses-capsules {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.vanguard-course-capsule {
+  background: rgba(25, 25, 30, 0.35);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.vanguard-course-capsule:hover {
+  background: rgba(124, 58, 237, 0.05);
+  border-color: #7c3aed;
+  box-shadow: 0 5px 25px rgba(124, 58, 237, 0.15);
+}
+
+.vanguard-teachers-scroller {
+  max-height: 450px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-right: 10px;
+}
+
+.vanguard-teacher-capsule {
+  background: rgba(25, 25, 30, 0.45);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 1.25rem;
+  border-radius: 16px;
+}
+
+.vanguard-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.vanguard-input-group {
+  position: relative;
+}
+
+.vanguard-input {
+  width: 100%;
+  padding: 0.75rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.vanguard-input:focus {
+  outline: none;
+  border-color: #7c3aed;
+}
+
+.vanguard-label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #71717a;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.vanguard-input:focus ~ .vanguard-label,
+.vanguard-input:not(:placeholder-shown) ~ .vanguard-label {
+  top: -12px;
+  font-size: 0.8rem;
+  color: #7c3aed;
+}
+
+.vanguard-radar-map {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.radar-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #06b6d4;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #06b6d4;
+  animation: pulseRadar 1.5s infinite;
+}
+
+@keyframes pulseRadar {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.vanguard-footer {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 3rem 0;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #52525b;
+  letter-spacing: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   10. ESTILOS DE VISTA PANEL ADMINISTRACIÓN (UNIFICADO)
+   -------------------------------------------------------------------------- */
+.admin-layout-view {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  z-index: 150;
+  position: relative;
+}
+
+.admin-panel-header {
+  margin-bottom: 2rem;
+}
+
+/* Acordeón Salas */
+.walk-accordion-header svg {
+  transition: transform 0.2s ease;
+}
+.walk-accordion-item.active .walk-accordion-header svg {
+  transform: rotate(90deg);
+}
+.walk-accordion-item.active .walk-accordion-body {
+  display: block;
+}
+
+/* Grilla de authorities vanguard */
+.vanguard-auth-bubble strong {
+  display: block;
+  font-family: var(--font-family-title);
+  color: #fff;
+  font-size: 1.05rem;
+}
+.vanguard-auth-bubble span {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+}
+.vanguard-auth-bubble .role {
+  color: #db2777;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+.vanguard-mini-title {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.25rem;
+}

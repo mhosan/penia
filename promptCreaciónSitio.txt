@@ -1,0 +1,44 @@
+Armar una aplicación web compuesta de una pagina para mostrar información y un panel de control web que 
+permita gestionar la pagina, administrarla, subir material, bajar material, editar la información que 
+se encuentra en la página. Todo desde un dashboard interactivo, que tambien contara con herramientas de
+medición y visualización sobre la pagina.
+
+La pagina web es para una organización sin fines de lucro, se trata de una asociación civil que pretende
+difundir el arte en todas sus formas. Esta organización se llama "Peña de las Bellas Artes", funciona con 
+una comisión directiva y tiene socios que hacen un aporte trimestral societario mínimo. 
+
+Cuenta con un plantel de docentes altamente calificado para dar cursos a la comunidad. Estos cursos se encuadran
+dentro de las actividades de difusión del arte. 
+
+Se encuentra en la ciudad de La Plata, provincia de Buenos Aires.
+
+En la carpeta del proyecto hay un archivo txt con el perfil de la Peña. El archivo es perfilDeLaPeña.txt.
+
+Este sitio web debe ser moderno y con todas las siguientes funcionalidades o apartados o secciones:
+
+1) Una pagina de inicio donde se presenta la institución, sus fines y caracteristicas.
+
+2) Una sección de "Info" donde se presenta el perfil de la Peña, sus autoridades y miembros de la comisión
+directiva.
+
+3) Un apartado o sección con la historia de la Peña. La historia de la Peña se encuentra en la carpeta
+del proyecto, en un archivo png que se llama historiaDeLaPeña.png.
+
+4) Una sección con una galeria de arte donde se exponen obras de los socios de la Peña y otras obras
+de interes general, también se exponen otras actividades culturales relacionadas al arte como por
+ejemple concursos de pintura.
+
+5) Un apartado o sección con el plantel docente donde cada docente tiene un breve resúmen sobre su especialidad
+formación y experiencias.
+
+6) Un apartado o sección con el listado de los cursos que se dictan en la Peña. Con el detalle de cada curso
+como por ejemplo de que se trata, quien lo dicta, alguna descripción sobre el mismo.
+
+7) Un apartado o sección para los contactos.
+
+Plantear cuatro opciones para poder seleccionar finalmente una de ellas.
+Las opciones deben ser:
+1) Muy formal, con un diseño sobrio y profesional
+2) Mas informal, con un diseño referido al arte pero mas descontracturado, mas informal
+3) Una mezcla entre los dos primeros.
+4) Un diseño muy actual, colorido y alegre.

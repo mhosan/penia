@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peña de las Bellas Artes - La Plata</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Asociación Civil Peña de las Bellas Artes en La Plata, Buenos Aires. Fomentamos y difundimos el arte en todas sus formas a través de cursos, talleres, exposiciones y salones artísticos.">
+  <meta name="keywords" content="Peña de las Bellas Artes, La Plata, arte, cursos de arte, pintura, escultura, cerámica, dibujo, asociación civil sin fines de lucro">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-mixed layout-classic">
+
+  <!-- ==========================================================================
+       BARRA SUPERIOR GLOBAL (Selectores de Maquetación y Temas de Color)
+       ========================================================================== -->
+  <div class="global-control-bar">
+    <div class="container control-bar-container">
+      <!-- Selector de Maquetación / Estructura -->
+      <div class="layout-selector-wrapper">
+        <span class="control-label">ESTRUCTURA DE PÁGINA:</span>
+        <div class="layout-selector-btn-group" id="layout-switcher">
+          <button class="layout-btn active" data-layout="classic">1. Clásico (Tabs)</button>
+          <button class="layout-btn" data-layout="newspaper">2. Periódico (1930)</button>
+          <button class="layout-btn" data-layout="gallerywalk">3. Salas (Horizontal)</button>
+          <button class="layout-btn" data-layout="vanguard">4. Vanguardia (Fluido)</button>
+        </div>
+      </div>
+
+      <!-- Selector de Temas de Color (Paletas) -->
+      <div class="theme-selector-wrapper">
+        <span class="control-label">PALETA:</span>
+        <div class="theme-selector-container" id="theme-switcher">
+          <div class="theme-opt t-formal" data-theme="formal" data-tooltip="Sobrio (Gris/Bronce)"></div>
+          <div class="theme-opt t-informal" data-theme="informal" data-tooltip="Taller (Tierra)"></div>
+          <div class="theme-opt t-mixed active" data-theme="mixed" data-tooltip="Híbrido (Pizarra)"></div>
+          <div class="theme-opt t-colorful" data-theme="colorful" data-tooltip="Vanguardia (Neon)"></div>
+        </div>
+      </div>
+
+      <!-- Botón Flotante/Acceso al Panel de Control Admin -->
+      <button class="btn btn-primary btn-control-panel-toggle" onclick="app.toggleAdminView()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+        </svg>
+        <span class="admin-btn-text">Panel de Administración</span>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       ESTRUCTURA 1: MAQUETA CLÁSICA (Con Navbar y Pestañas)
+       ========================================================================== -->
+  <div id="layout-container-classic" class="layout-main-wrapper">
+    <header class="classic-header">
+      <div class="container header-container">
+        <div class="logo-section">
+          <div class="logo-icon">P</div>
+          <div class="logo-text">
+            <h2>Peña de las Bellas Artes</h2>
+            <span>Asociación Civil - La Plata</span>
+          </div>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><span class="nav-link active" data-target="home">Inicio</span></li>
+            <li><span class="nav-link" data-target="info">Info</span></li>
+            <li><span class="nav-link" data-target="history">Historia</span></li>
+            <li><span class="nav-link" data-target="gallery">Galería</span></li>
+            <li><span class="nav-link" data-target="teachers">Docentes</span></li>
+            <li><span class="nav-link" data-target="courses">Cursos</span></li>
+            <li><span class="nav-link" data-target="contact">Contacto</span></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container py-main">
+      <!-- Vistas internas del layout clásico -->
+      <section id="classic-view-home" class="classic-view view-sub-section active">
+        <div class="hero">
+          <div class="hero-content">
+            <h2 class="accent-text">Fomentamos la Expresión Creativa desde 1936</h2>
+            <p id="classic-profile-desc-short">Cargando perfil...</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+              <button class="btn btn-primary" onclick="app.navigateClassic('courses')">Ver Cursos</button>
+              <button class="btn btn-secondary" onclick="app.navigateClassic('info')">Conocer la Peña</button>
+            </div>
+          </div>
+          <div class="hero-art-container">
+            <svg class="hero-art-svg" viewBox="0 0 400 300" fill="none">
+              <rect width="100%" height="100%" fill="var(--bg-secondary)"/>
+              <circle cx="200" cy="150" r="100" fill="var(--accent)" opacity="0.15" />
+              <path d="M50 220 C 150 120, 200 80, 350 180" stroke="var(--accent)" stroke-width="4" fill="none"/>
+              <circle cx="100" cy="180" r="20" fill="var(--accent)" opacity="0.2"/>
+              <rect x="250" y="50" width="60" height="60" rx="8" stroke="var(--accent-hover)" stroke-width="2" fill="none" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="features-grid" id="classic-features-container"></div>
+      </section>
+
+      <section id="classic-view-info" class="classic-view view-sub-section">
+        <h2 class="section-title accent-text">Perfil y Comisión Directiva</h2>
+        <div class="info-layout">
+          <div>
+            <h3>Nuestra Asociación</h3>
+            <p id="classic-profile-desc-full" style="text-align: justify; margin-top: 1rem; line-height: 1.8;"></p>
+            <div class="features-grid" style="margin-top: 2rem; grid-template-columns: 1fr 1fr;">
+              <div class="info-box-stat">
+                <strong>Fundación:</strong><br><span id="classic-info-founded"></span>
+              </div>
+              <div class="info-box-stat">
+                <strong>Sede Social:</strong><br><span id="classic-info-location"></span>
+              </div>
+            </div>
+          </div>
+          <div class="authorities-section">
+            <h3>Comisión Directiva</h3>
+            <div id="classic-authorities-list" class="authorities-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="classic-view-history" class="classic-view view-sub-section">
+        <h2 class="section-title accent-text">Nuestra Historia</h2>
+        <div class="history-layout">
+          <div class="history-text" id="classic-history-text-container"></div>
+          <div class="history-img-box">
+            <img src="historiaDeLaPeña.png" alt="Historia de la Peña">
+            <span>Manuscrito e impresión original del perfil de la Peña</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="classic-view-gallery" class="classic-view view-sub-section">
+        <h2 class="section-title accent-text">Galería de los Socios</h2>
+        <div class="gallery-controls">
+          <input type="text" placeholder="Buscar obras..." class="search-input gallery-search-el">
+          <div class="gallery-filters" id="classic-gallery-filters"></div>
+        </div>
+        <div class="gallery-grid" id="classic-gallery-grid"></div>
+      </section>
+
+      <section id="classic-view-teachers" class="classic-view view-sub-section">
+        <h2 class="section-title accent-text">Plantel Docente</h2>
+        <div class="teachers-grid" id="classic-teachers-grid"></div>
+      </section>
+
+      <section id="classic-view-courses" class="classic-view view-sub-section">
+        <h2 class="section-title accent-text">Talleres Artísticos</h2>
+        <div class="courses-grid" id="classic-courses-grid"></div>
+      </section>
+
+      <section id="classic-view-contact" class="classic-view view-sub-section">
+        <h2 class="section-title accent-text">Contacto</h2>
+        <div class="contact-layout" id="classic-contact-container"></div>
+      </section>
+    </main>
+
+    <footer class="classic-footer" id="classic-footer-container"></footer>
+  </div>
+
+
+  <!-- ==========================================================================
+       ESTRUCTURA 2: MAQUETA PERIÓDICO EDITORIAL (Gaceta Cultural de 1930)
+       ========================================================================== -->
+  <div id="layout-container-newspaper" class="layout-main-wrapper">
+    <div class="paper-page">
+      <!-- Encabezado del Periódico -->
+      <header class="newspaper-header">
+        <div class="paper-meta-row">
+          <span>AÑO XC - EDICIÓN SOCIAL PLATENSE</span>
+          <span>LA PLATA, BUENOS AIRES</span>
+          <span>APORTE SOCIO MÍNIMO: $5.000 (Trimestral)</span>
+        </div>
+        <h1 class="paper-title">GACETA DE LAS BELLAS ARTES</h1>
+        <div class="paper-meta-row subtitle-row">
+          <span>Fundada el 20 de Junio de 1936</span>
+          <span style="font-style: italic;">"El Arte es la expresión de la conciencia popular"</span>
+          <span>Sede Social: Calle 50 e/ 5 y 6</span>
+        </div>
+      </header>
+
+      <!-- Portada / Sumario y Navegación Rápida -->
+      <nav class="newspaper-nav">
+        <strong>SECCIONES DE LA EDICIÓN:</strong>
+        <a href="#news-section-editorial">1. EDITORIAL PRINCIPAL</a> | 
+        <a href="#news-section-history">2. MEMORIA HISTÓRICA</a> | 
+        <a href="#news-section-gallery">3. SALÓN AMBROSIO ALIVERTI</a> | 
+        <a href="#news-section-classes">4. ACADEMIA DE TALLERES</a> | 
+        <a href="#news-section-contact">5. CORRESPONDENCIA</a>
+      </nav>
+
+      <!-- Cuerpo del Diario -->
+      <div class="newspaper-body">
+        
+        <!-- Columna Izquierda: Editorial y Comisión -->
+        <article class="news-article" id="news-section-editorial" style="grid-column: span 8;">
+          <h2 class="article-title">LA PEÑA DE LAS BELLAS ARTES: UN FARO CULTURAL CUMPLIENDO SU MISIÓN</h2>
+          <div class="article-columns-2">
+            <span class="first-letter">L</span>
+            <span id="newspaper-profile-text">Cargando editorial...</span>
+          </div>
+          
+          <div class="news-divider-dashed"></div>
+
+          <!-- Junta Directiva -->
+          <h3 class="article-subtitle">JUNTA DIRECTIVA DE LA ASOCIACIÓN CIVIL</h3>
+          <p style="margin-bottom: 1rem; font-size: 0.9rem;">Nómina de los socios ilustres que componen la comisión encargada de guiar los destinos de la institución:</p>
+          <div class="news-table-authorities" id="newspaper-authorities-container"></div>
+        </article>
+
+        <!-- Columna Derecha: Anuncio Societario y Datos Clave -->
+        <aside class="newspaper-sidebar" style="grid-column: span 4;">
+          <div class="news-ad-box">
+            <h4>¡ASÓCIESE!</h4>
+            <p>Haga su aporte trimestral mínimo de <strong>$5.000 pesos</strong> y ayude a conservar el edificio propio y el salón de exposiciones de la capital bonaerense.</p>
+            <button class="btn btn-secondary" style="width:100%; border:2px solid #000; font-family:serif; text-transform:uppercase; font-weight:bold;" onclick="app.toggleAdminView()">Inscribir Nuevo Socio</button>
+          </div>
+          
+          <div class="news-divider-solid"></div>
+
+          <div style="padding: 0.5rem; background-color: rgba(0,0,0,0.03); border:1px solid #1c1917;">
+            <h4 style="font-family:var(--font-family-title); border-bottom:1px solid #000; padding-bottom: 0.2rem; margin-bottom: 0.5rem;">CRÓNICAS DEL DÍA</h4>
+            <ul style="padding-left:1.2rem; font-size:0.85rem; line-height:1.4;">
+              <li style="margin-bottom: 0.5rem;"><strong>Actividad en Museos:</strong> Comienzan los preparativos del tradicional Salón de Mayo.</li>
+              <li style="margin-bottom: 0.5rem;"><strong>Concurso de Pintura:</strong> Abierta la convocatoria para socios y artistas invitados de la Provincia de Buenos Aires.</li>
+            </ul>
+          </div>
+        </aside>
+
+        <div class="news-divider-double" style="grid-column: span 12;"></div>
+
+        <!-- Artículo 2: Historia -->
+        <article class="news-article" id="news-section-history" style="grid-column: span 12;">
+          <h2 class="article-title" style="text-align: center;">LA HISTORIA DETRÁS DE NUESTRO EDIFICIO CENTRAL</h2>
+          <div class="history-newspaper-layout">
+            <div class="history-news-text" id="newspaper-history-text"></div>
+            <div class="history-news-image-frame">
+              <img src="historiaDeLaPeña.png" alt="Imagen del Documento Histórico">
+              <p class="caption">Grabado e impresión tipográfica rescatada del archivo de la Peña de las Bellas Artes de La Plata.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="news-divider-dashed" style="grid-column: span 12;"></div>
+
+        <!-- Artículo 3: Galería -->
+        <article class="news-article" id="news-section-gallery" style="grid-column: span 12;">
+          <h2 class="article-title">SALÓN DE EXPOSICIONES AMBROSIO ALIVERTI</h2>
+          <p style="margin-bottom:1.5rem; text-align:center; font-style:italic;">Catálogo de grabados y obras de arte expuestas por los socios distinguidos:</p>
+          
+          <!-- Filtros de Galería versión Diario -->
+          <div class="newspaper-gallery-filters" id="newspaper-gallery-filters"></div>
+
+          <div class="newspaper-gallery-grid" id="newspaper-gallery-grid"></div>
+        </article>
+
+        <div class="news-divider-solid" style="grid-column: span 12;"></div>
+
+        <!-- Artículo 4: Cursos y Cátedras -->
+        <article class="news-article" id="news-section-classes" style="grid-column: span 12;">
+          <h2 class="article-title" style="text-align: center;">CÁTEDRAS LIBRES Y PLAN DOCENTE DE LA ACADEMIA</h2>
+          <p style="text-align:center; margin-bottom: 2rem;">Detalle de los cursos artísticos impartidos a la juventud y comunidad platense por docentes calificados:</p>
+          
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2.5rem;">
+            <div>
+              <h3 class="article-subtitle">NUESTRO CUERPO DE MAESTROS</h3>
+              <div class="newspaper-teachers-list" id="newspaper-teachers-container"></div>
+            </div>
+            <div>
+              <h3 class="article-subtitle">MATRÍCULA DE TALLERES DISPONIBLES</h3>
+              <div class="newspaper-courses-list" id="newspaper-courses-container"></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="news-divider-double" style="grid-column: span 12;"></div>
+
+        <!-- Artículo 5: Contacto -->
+        <article class="news-article" id="news-section-contact" style="grid-column: span 12; margin-bottom: 2rem;">
+          <h2 class="article-title" style="text-align: center;">BUZÓN DE CORRESPONDENCIA E INFORMES</h2>
+          <div class="newspaper-contact-layout">
+            <div style="border-right: 1px solid #1c1917; padding-right: 2rem;">
+              <h3 class="article-subtitle">DATOS DE REMITE</h3>
+              <p style="line-height: 1.8;">
+                <strong>Sede Social:</strong> Calle 50 Nro. 543 e/ 5 y 6, La Plata.<br>
+                <strong>Telégrafo:</strong> +54 (221) 422-8765<br>
+                <strong>Casilla Postal:</strong> contacto@penadebellasartes.org.ar<br>
+                <strong>Horario de visitas:</strong> Tardes de 14:00 a 21:00 hs.
+              </p>
+              <div class="newspaper-map-box">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                <span>Croquis y planos del casco de la ciudad de La Plata (Calle 50 entre 5 y 6).</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="article-subtitle">ENVÍE SU COMUNICADO</h3>
+              <form id="newspaper-contact-form" class="newspaper-form">
+                <div class="paper-form-group">
+                  <label>Nombre del Firmante:</label>
+                  <input type="text" class="paper-input" id="newsp-name" required>
+                </div>
+                <div class="paper-form-group">
+                  <label>Casilla Electrónica:</label>
+                  <input type="email" class="paper-input" id="newsp-email" required>
+                </div>
+                <div class="paper-form-group">
+                  <label>Mensaje o Solicitud:</label>
+                  <textarea class="paper-textarea" id="newsp-msg" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-newspaper-submit">Despachar Comunicado</button>
+              </form>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <footer class="newspaper-footer">
+        <p>GACETA DE LAS BELLAS ARTES - REGISTRO NACIONAL DE LA PROPIEDAD INTELECTUAL NRO 45672-LP</p>
+        <p>EDICIÓN PRESERVADA DIGITALMENTE PARA LA ASOCIACIÓN CIVIL PEÑA DE LAS BELLAS ARTES DE LA PLATA &copy; 2026</p>
+      </footer>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       ESTRUCTURA 3: MAQUETA RECORRIDO EXPOSITIVO (Galería Horizontal por Salas)
+       ========================================================================== -->
+  <div id="layout-container-gallerywalk" class="layout-main-wrapper">
+    <!-- Indicador de Navegación por Salas -->
+    <div class="gallerywalk-navigation-bar">
+      <div class="container walk-nav-container">
+        <strong>RECORRIDO DE LA PEÑA:</strong>
+        <div class="walk-map-nodes">
+          <span class="walk-node active" data-room="0">Sala 1: Recepción</span>
+          <span class="walk-node" data-room="1">Sala 2: Memorial</span>
+          <span class="walk-node" data-room="2">Sala 3: Exposición</span>
+          <span class="walk-node" data-room="3">Sala 4: Cátedras</span>
+          <span class="walk-node" data-room="4">Sala 5: Salida</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor Deslizable Horizontal -->
+    <div class="rooms-viewport">
+      <div class="rooms-container" id="rooms-horizontal-container">
+        
+        <!-- SALA 1: RECEPCIÓN (Presentación de la Peña) -->
+        <div class="room-panel" id="room-0">
+          <div class="room-inner-content grid-split">
+            <div class="room-left-panel">
+              <span class="room-number">SALA I</span>
+              <h2 class="room-title">Recepción y Bienvenida</h2>
+              <p class="room-subtitle">Difusión y fomento de las bellas artes en la ciudad de La Plata</p>
+              
+              <div class="exhibit-frame" style="margin-top: 2rem;">
+                <p id="gallerywalk-profile-desc" style="line-height: 1.8; text-align: justify; font-size:1.05rem;"></p>
+              </div>
+            </div>
+            
+            <div class="room-right-panel flex-center">
+              <div class="painting-wall-frame">
+                <svg width="350" height="280" viewBox="0 0 350 280">
+                  <rect width="100%" height="100%" fill="#27272a"/>
+                  <path d="M50 200 C100 100, 200 50, 300 200 Z" fill="var(--accent)" opacity="0.6"/>
+                  <circle cx="200" cy="100" r="30" fill="#f59e0b"/>
+                  <text x="175" y="240" fill="white" font-family="sans-serif" font-weight="bold">BIENVENIDOS A LA PEÑA</text>
+                </svg>
+                <div class="painting-label">
+                  <strong>Pórtico de Bienvenida (1936)</strong><br>
+                  <span>Óleo y acuarela institucional</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-next-room" onclick="app.changeRoom(1)" style="margin-top: 2rem;">
+                Avanzar a Sala 2: Memorial &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SALA 2: MEMORIAL (Historia y Comisión Directiva) -->
+        <div class="room-panel" id="room-1">
+          <div class="room-inner-content grid-split">
+            <div class="room-left-panel">
+              <span class="room-number">SALA II</span>
+              <h2 class="room-title">Memorial Histórico y Comisión</h2>
+              <p class="room-subtitle">Legado de los fundadores y presidentes notables</p>
+              
+              <div class="history-scroll-box" id="gallerywalk-history-text">
+                <!-- Inyectado por JS -->
+              </div>
+            </div>
+            
+            <div class="room-right-panel flex-center" style="gap:2rem;">
+              <div class="historical-photo-frame">
+                <img src="historiaDeLaPeña.png" alt="Manuscrito original">
+                <div class="painting-label">
+                  <strong>Documento del Acta Fundacional</strong><br>
+                  <span>Archivo de Bellas Artes</span>
+                </div>
+              </div>
+              
+              <div class="museum-plaque">
+                <h4>Comisión Directiva</h4>
+                <div class="plaque-list" id="gallerywalk-authorities-container"></div>
+              </div>
+
+              <div style="display:flex; gap:1rem; width:100%; justify-content:center;">
+                <button class="btn btn-secondary" onclick="app.changeRoom(0)">&larr; Sala 1</button>
+                <button class="btn btn-primary" onclick="app.changeRoom(2)">Avanzar a Sala 3 &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SALA 3: EXPOSICIÓN (Galería de Socios y Concursos) -->
+        <div class="room-panel" id="room-2">
+          <div class="room-inner-content" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+            <div>
+              <span class="room-number">SALA III</span>
+              <h2 class="room-title">Galería Expositiva de Socios</h2>
+              <p class="room-subtitle" style="margin-bottom:1.5rem;">Obras destacadas y convocatorias culturales vigentes</p>
+            </div>
+
+            <!-- Galería de Arte con Desplazamiento Lateral -->
+            <div class="rooms-horizontal-gallery-wrapper">
+              <div class="horizontal-gallery-scroll" id="gallerywalk-gallery-scroll-container">
+                <!-- Inyectado dinámicamente por JS con tarjetas grandes tipo cuadro colgante -->
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:1.5rem; margin-top:2rem;">
+              <button class="btn btn-secondary" onclick="app.changeRoom(1)">&larr; Sala 2</button>
+              <button class="btn btn-primary" onclick="app.changeRoom(3)">Avanzar a Sala 4 &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SALA 4: CÁTEDRAS (Cursos y Docentes) -->
+        <div class="room-panel" id="room-3">
+          <div class="room-inner-content grid-split">
+            <div class="room-left-panel">
+              <span class="room-number">SALA IV</span>
+              <h2 class="room-title">Cátedras Libres y Aulas</h2>
+              <p class="room-subtitle">Oferta formativa de difusión artística en la comunidad</p>
+              
+              <div style="margin-top:1.5rem;" class="exhibit-frame">
+                <h3>Talleres Vigentes</h3>
+                <p>Nuestros cursos son abiertos a todo público en La Plata y contemplan el desarrollo compositivo, alfarero y pictórico.</p>
+                <div class="walk-courses-accordion" id="gallerywalk-courses-accordion">
+                  <!-- Acordeón interactivo de talleres cargado por JS -->
+                </div>
+              </div>
+            </div>
+
+            <div class="room-right-panel flex-center">
+              <h3>Nuestros Maestros Académicos</h3>
+              <p style="font-size:0.85rem; margin-bottom:1rem; text-align:center;">Plantel docente altamente calificado de la institución:</p>
+              
+              <div class="walk-teachers-grid" id="gallerywalk-teachers-container">
+                <!-- Inyectado por JS -->
+              </div>
+
+              <div style="display:flex; gap:1rem; margin-top:2rem;">
+                <button class="btn btn-secondary" onclick="app.changeRoom(2)">&larr; Sala 3</button>
+                <button class="btn btn-primary" onclick="app.changeRoom(4)">Avanzar a Sala 5 &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SALA 5: SALIDA (Contacto, Aporte y Mapa) -->
+        <div class="room-panel" id="room-4">
+          <div class="room-inner-content grid-split">
+            <div class="room-left-panel">
+              <span class="room-number">SALA V</span>
+              <h2 class="room-title">Informes e Inscripciones</h2>
+              <p class="room-subtitle">Contáctese con la administración de la asociación civil</p>
+              
+              <form id="gallerywalk-contact-form" class="contact-form" style="margin-top:1.5rem; padding: 1.5rem;">
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <input type="text" class="form-control" id="walk-contact-name" required>
+                </div>
+                <div class="form-group">
+                  <label>Correo Electrónico:</label>
+                  <input type="email" class="form-control" id="walk-contact-email" required>
+                </div>
+                <div class="form-group">
+                  <label>Consulta:</label>
+                  <textarea class="form-control" id="walk-contact-msg" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Enviar Mensaje</button>
+              </form>
+            </div>
+
+            <div class="room-right-panel flex-center">
+              <div class="museum-plaque" style="text-align:center; padding:1.5rem; max-width:350px;">
+                <h4 style="color:var(--accent);">Peña de las Bellas Artes</h4>
+                <p style="font-size:0.9rem; margin-top:0.5rem; line-height:1.6;">
+                  Calle 50 Nro. 543, La Plata.<br>
+                  Tel: +54 (221) 422-8765<br>
+                  Lunes a Viernes de 14 a 21 hs.
+                </p>
+                <div style="border-top:1px solid var(--border-color); padding-top:0.75rem; margin-top:1rem; font-size:0.8rem; color:var(--text-secondary);">
+                  Asociación Civil Sin Fines de Lucro. Personería 1290-LP.
+                </div>
+              </div>
+
+              <div style="display:flex; gap:1rem; margin-top:2rem;">
+                <button class="btn btn-secondary" onclick="app.changeRoom(3)">&larr; Sala 4</button>
+                <button class="btn btn-primary" onclick="app.setView('home')">Regresar a Inicio</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       ESTRUCTURA 4: MAQUETA VANGUARDISTA / FLUIDA (Diseño Interactivo Neon)
+       ========================================================================== -->
+  <div id="layout-container-vanguard" class="layout-main-wrapper">
+    <div class="vanguard-bg-glows">
+      <div class="glow-sphere g1"></div>
+      <div class="glow-sphere g2"></div>
+    </div>
+    
+    <!-- Títulos Inmensos / Tipografía Rupturista -->
+    <div class="vanguard-hero">
+      <div class="vanguard-header-logo">
+        <span class="glitch-logo">P.B.A.</span>
+        <span>LA PLATA / 1936</span>
+      </div>
+      <h1 class="vanguard-giant-title">
+        DIFUNDIR <br>
+        <span class="outline-neon-text">EL ARTE</span> <br>
+        SIEMPRE.
+      </h1>
+      <p class="vanguard-tagline" id="vanguard-profile-desc-short"></p>
+      
+      <div class="vanguard-scroll-indicator">
+        <span>Desliza para explorar el manifiesto</span>
+        <div class="mouse-icon"><div class="wheel"></div></div>
+      </div>
+    </div>
+
+    <!-- Bloque 1: Manifiesto / Perfil y Comisión -->
+    <section class="vanguard-section" id="vanguard-sec-manifesto">
+      <h2 class="vanguard-sec-title">&frasl;&frasl; EL MANIFIESTO</h2>
+      <div class="vanguard-grid-2">
+        <div class="vanguard-text-block">
+          <p id="vanguard-profile-desc-full" class="vanguard-lead-text"></p>
+        </div>
+        <div class="vanguard-glass-card">
+          <h3 style="color:var(--accent); font-family:var(--font-family-title); margin-bottom:1.5rem;">Cuerpo de Gestión (CD)</h3>
+          <div class="vanguard-authorities-bubbles" id="vanguard-authorities-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bloque 2: Glitch Historia -->
+    <section class="vanguard-section" id="vanguard-sec-history">
+      <h2 class="vanguard-sec-title">&frasl;&frasl; LA CRÓNICA DEL TIEMPO</h2>
+      <div class="vanguard-history-layout">
+        <div class="vanguard-history-image-container">
+          <img src="historiaDeLaPeña.png" alt="Histórico Glitch">
+          <div class="glitch-line"></div>
+        </div>
+        <div class="vanguard-text-block" id="vanguard-history-text-container" style="font-size:1.1rem; line-height:1.8;">
+          <!-- Inyectado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Bloque 3: Galería Interactiva con Efectos Glow -->
+    <section class="vanguard-section" id="vanguard-sec-gallery">
+      <h2 class="vanguard-sec-title">&frasl;&frasl; EXPOSICIÓN VIRTUAL</h2>
+      <div class="vanguard-gallery-controls">
+        <input type="text" placeholder="BÚSQUEDA CREATIVA..." class="search-input gallery-search-el" style="border: 2px solid var(--accent); background:rgba(0,0,0,0.8); width:100%; max-width:400px; border-radius:30px;">
+        <div class="vanguard-category-pills" id="vanguard-gallery-filters"></div>
+      </div>
+      <div class="vanguard-gallery-grid" id="vanguard-gallery-grid">
+        <!-- Inyectado dinámicamente por JS -->
+      </div>
+    </section>
+
+    <!-- Bloque 4: Cursos / Burbujas de Talleres -->
+    <section class="vanguard-section" id="vanguard-sec-courses">
+      <h2 class="vanguard-sec-title">&frasl;&frasl; LABORATORIOS CREATIVOS</h2>
+      <p style="color:var(--text-secondary); margin-bottom:3rem; max-width:600px;">
+        Talleres formativos e interactivos en el centro de La Plata. Haz clic en las tarjetas flotantes para abrir el panel de matriculación.
+      </p>
+
+      <div class="vanguard-courses-layout">
+        <div class="vanguard-courses-capsules" id="vanguard-courses-grid">
+          <!-- Inyectado por JS -->
+        </div>
+        
+        <div class="vanguard-teachers-capsules">
+          <h3 class="vanguard-mini-title">MAESTROS DE TALLER</h3>
+          <div id="vanguard-teachers-grid" class="vanguard-teachers-scroller">
+            <!-- Inyectado por JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bloque 5: Contacto Vanguardia -->
+    <section class="vanguard-section" id="vanguard-sec-contact" style="margin-bottom: 5rem;">
+      <h2 class="vanguard-sec-title">&frasl;&frasl; ESTABLECER CONTACTO</h2>
+      <div class="vanguard-grid-2">
+        <div class="vanguard-glass-card" style="padding: 2.5rem;">
+          <form id="vanguard-contact-form" class="vanguard-form">
+            <div class="vanguard-input-group">
+              <input type="text" id="vang-contact-name" class="vanguard-input" required placeholder=" ">
+              <label class="vanguard-label">Nombre y Apellido</label>
+            </div>
+            <div class="vanguard-input-group">
+              <input type="email" id="vang-contact-email" class="vanguard-input" required placeholder=" ">
+              <label class="vanguard-label">Correo de Retorno</label>
+            </div>
+            <div class="vanguard-input-group">
+              <textarea id="vang-contact-msg" class="vanguard-input" rows="4" required placeholder=" "></textarea>
+              <label class="vanguard-label">Mensaje Creativo</label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; text-transform:uppercase; font-weight:800; border-radius:30px;">
+              Enviar a la Peña
+            </button>
+          </form>
+        </div>
+        
+        <div style="display:flex; flex-direction:column; justify-content:center; gap:2rem;">
+          <div style="font-family: var(--font-family-title); font-size: 1.5rem; line-height: 1.6;">
+            <strong>PEÑA DE LAS BELLAS ARTES</strong><br>
+            <span style="color:var(--accent);">CALLE 50 NRO. 543, LA PLATA</span>
+          </div>
+          <p style="color:var(--text-secondary); line-height:1.8;">
+            Asociación civil fundada el 20 de junio de 1936. Comprometida en fomentar y difundir la literatura, la pintura, la cerámica, la escultura y la música en la sociedad. Aporte societario mínimo trimestral: $5.000.
+          </p>
+          <div class="vanguard-radar-map">
+            <div class="radar-dot"></div>
+            <span>CONEXIÓN ACTIVA: SEDE LA PLATA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="vanguard-footer">
+      <p>&frasl;&frasl; PEÑA DE LAS BELLAS ARTES &copy; 2026 &frasl;&frasl; PERSONERÍA JURÍDICA 1290-LP &frasl;&frasl; LA PLATA, BUENOS AIRES</p>
+    </footer>
+  </div>
+
+
+  <!-- ==========================================================================
+       VISTA DEDICADA GLOBAL DEL DASHBOARD DE CONTROL (Para todas las maquetas)
+       ========================================================================== -->
+  <div id="layout-container-admin" class="layout-main-wrapper admin-layout-view">
+    <div class="container admin-panel-header" style="display:flex; justify-content:space-between; align-items:center; padding: 1.5rem 0; border-bottom: 2px solid var(--border-color);">
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <span class="logo-icon" style="border-radius:50%;">D</span>
+        <div>
+          <h2 style="font-size:1.5rem;">Panel de Control Administrativo</h2>
+          <span style="font-size:0.75rem; color:var(--text-secondary);">Administrar contenidos, material y estadísticas del sitio</span>
+        </div>
+      </div>
+      <button class="btn btn-secondary" onclick="app.toggleAdminView()">
+        &larr; Volver a la Página Pública
+      </button>
+    </div>
+
+    <div class="container py-main admin-layout">
+      <!-- Sidebar del Admin -->
+      <aside class="admin-sidebar">
+        <button class="admin-side-btn active" data-tab="metrics">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"/></svg>
+          Métricas e Ingresos
+        </button>
+        <button class="admin-side-btn" data-tab="profile">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg>
+          Editar Perfil / CD
+        </button>
+        <button class="admin-side-btn" data-tab="courses">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A5.905 5.905 0 018 3.743 9.49 9.49 0 0112 3c1.472 0 2.87.336 4.12.936a5.905 5.905 0 015.892 5.592c-.894.218-1.785.492-2.658.813M4.26 10.147a49.117 49.117 0 0115.48 0" /></svg>
+          Talleres y Docentes
+        </button>
+        <button class="admin-side-btn" data-tab="gallery">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 017.5 0z" /></svg>
+          Gestionar Galería
+        </button>
+        <button class="admin-side-btn" data-tab="backup">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+          Subir/Bajar Material
+        </button>
+      </aside>
+
+      <!-- Contenedor de Sub-vistas Administrativas -->
+      <section class="admin-content-area" style="background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow);">
+        
+        <!-- PESTAÑA 1: MÉTRICAS -->
+        <div class="admin-view active" id="admin-tab-metrics">
+          <div class="admin-title-row">
+            <h2>Métricas e Indicadores</h2>
+            <span>Medición y visualización dinámica en tiempo real</span>
+          </div>
+
+          <div class="metrics-row">
+            <div class="metric-card">
+              <div class="metric-header"><span>Socios Registrados</span></div>
+              <div class="metric-value" id="metric-total-socios">0</div>
+              <div class="metric-sub">Aporte Trimestral: $5.000</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header"><span>Talleres Activos</span></div>
+              <div class="metric-value" id="metric-total-courses">0</div>
+              <div class="metric-sub">Cursos vigentes</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header"><span>Maestros de Taller</span></div>
+              <div class="metric-value" id="metric-total-teachers">0</div>
+              <div class="metric-sub">Plantel calificado</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-header"><span>Galería Artística</span></div>
+              <div class="metric-value" id="metric-total-gallery">0</div>
+              <div class="metric-sub">Obras en catálogo</div>
+            </div>
+          </div>
+
+          <!-- Estimador Societario -->
+          <div class="calc-panel" style="margin-bottom: 2rem;">
+            <h3>Estimador Financiero de Aportes</h3>
+            <p>Ajuste el volumen de socios cotizantes para estimar la recaudación trimestral societaria ($5.000 ARS por socio):</p>
+            <div class="calc-row">
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
+                  <strong>Socios Activos: <span id="calc-socios-count" style="color:var(--accent);">0</span></strong>
+                  <span>Máx: 500</span>
+                </div>
+                <input type="range" id="slider-socios" min="10" max="500" value="142" class="calc-slider">
+              </div>
+              <div style="display:flex; align-items:center; gap:1.5rem; background-color:var(--bg-secondary); padding:1rem; border-radius:var(--border-radius); border:1px solid var(--border-color); min-width: 320px;">
+                <svg width="70" height="70" viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="35" fill="none" stroke="var(--border-color)" stroke-width="5" />
+                  <circle cx="40" cy="40" r="35" fill="none" stroke="var(--accent)" stroke-width="5" 
+                          stroke-linecap="round" id="income-progress-circle" transform="rotate(-90 40 40)"
+                          style="transition: stroke-dashoffset 0.3s ease; stroke-dasharray: 219.9; stroke-dashoffset: 50;" />
+                  <text x="40" y="44" text-anchor="middle" font-weight="bold" font-size="12" fill="var(--text-primary)" id="income-progress-text">0%</text>
+                </svg>
+                <div>
+                  <span style="font-size:0.75rem; color:var(--text-secondary); display:block;">Recaudación Trimestral Estimada:</span>
+                  <strong style="font-size:1.4rem; color:var(--accent);" id="calc-total-income">$ 0</strong>
+                  <span style="font-size:0.65rem; color:var(--text-secondary); display:block;">Meta Salón Ambrosio Aliverti: $1.000.000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="chart-box">
+              <h3>Tendencia Mensual de Visitas</h3>
+              <div id="visits-chart-svg" class="chart-svg-container"></div>
+            </div>
+            <div class="chart-box">
+              <h3>Alumnos por Curso</h3>
+              <div id="courses-chart-svg" class="chart-svg-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PESTAÑA 2: EDITAR PERFIL -->
+        <div class="admin-view" id="admin-tab-profile">
+          <div class="admin-title-row">
+            <h2>Datos Institucionales y CD</h2>
+            <span>Editar perfil oficial y junta de directivos</span>
+          </div>
+
+          <form id="edit-profile-form" class="contact-form" style="padding:0; background:none; border:none; box-shadow:none; margin-bottom: 2rem;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+              <div class="form-group">
+                <label>Nombre de la Organización</label>
+                <input type="text" id="edit-prof-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Fecha de Fundación</label>
+                <input type="text" id="edit-prof-founded" class="form-control" required>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+              <div class="form-group">
+                <label>Ubicación</label>
+                <input type="text" id="edit-prof-loc" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Dirección Física</label>
+                <input type="text" id="edit-prof-addr" class="form-control" required>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" id="edit-prof-phone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" id="edit-prof-email" class="form-control" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Horario</label>
+              <input type="text" id="edit-prof-sched" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Misión y Perfil Histórico Completo</label>
+              <textarea id="edit-prof-desc" class="form-control" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Perfil</button>
+          </form>
+
+          <div class="admin-title-row" style="margin-top: 3rem;">
+            <h2>Autoridades de la Comisión Directiva</h2>
+            <button class="btn btn-secondary" onclick="app.addAuthority()">+ Registrar Autoridad</button>
+          </div>
+          <div class="admin-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cargo</th>
+                  <th>Nombre y Apellido</th>
+                  <th>Especialidad</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="admin-authorities-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PESTAÑA 3: CURSOS Y DOCENTES -->
+        <div class="admin-view" id="admin-tab-courses">
+          <div class="admin-title-row">
+            <h2>Gestión de Cursos</h2>
+            <button class="btn btn-primary" onclick="app.openCourseDrawer()">+ Nuevo Curso</button>
+          </div>
+          <div class="admin-table-container" style="margin-bottom:3rem;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre del Taller</th>
+                  <th>Categoría</th>
+                  <th>Docente</th>
+                  <th>Horario</th>
+                  <th>Alumnos</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="admin-courses-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="admin-title-row">
+            <h2>Junta de Docentes</h2>
+            <button class="btn btn-secondary" onclick="app.openTeacherDrawer()">+ Registrar Docente</button>
+          </div>
+          <div class="admin-table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Docente</th>
+                  <th>Especialidad</th>
+                  <th>Biografía</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="admin-teachers-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PESTAÑA 4: GESTIONAR GALERÍA -->
+        <div class="admin-view" id="admin-tab-gallery">
+          <div class="admin-title-row">
+            <h2>Galería y Exhibición</h2>
+            <span>Subir material y remover obras expuestas</span>
+          </div>
+          <div style="display:grid; grid-template-columns: 0.8fr 1.2fr; gap:2rem;">
+            <!-- Carga de Material (Subir Material) -->
+            <form id="art-form" class="contact-form" style="padding:1.5rem; background:var(--bg-secondary);">
+              <div class="form-group">
+                <label>Título del Material</label>
+                <input type="text" id="art-form-title" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Autor / Artista</label>
+                <input type="text" id="art-form-artist" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Categoría</label>
+                <select id="art-form-category" class="form-control">
+                  <option value="Pintura">Pintura</option>
+                  <option value="Escultura">Escultura</option>
+                  <option value="Cerámica">Cerámica</option>
+                  <option value="Dibujo">Dibujo</option>
+                  <option value="Concursos">Concursos/Otros</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Ficha Técnica / Descripción</label>
+                <textarea id="art-form-desc" class="form-control" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Archivo de Imagen (PNG/JPG)</label>
+                <label for="art-form-file" class="file-upload-label" style="background-color: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); font-size: 0.85rem; padding: 0.5rem 1rem; width:100%; justify-content:center;">
+                  Seleccionar Imagen
+                </label>
+                <input type="file" id="art-form-file" accept="image/*" class="file-upload-input">
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:1rem;">
+                Subir y Publicar Material
+              </button>
+            </form>
+
+            <!-- Lista de obras expuestas (Bajar/Eliminar) -->
+            <div>
+              <h3>Catálogo de Obras Expuestas</h3>
+              <div class="admin-table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Obra</th>
+                      <th>Título</th>
+                      <th>Autor</th>
+                      <th>Categoría</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-gallery-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PESTAÑA 5: BACKUP -->
+        <div class="admin-view" id="admin-tab-backup">
+          <div class="admin-title-row">
+            <h2>Descargar y Cargar Respaldos (Bajar/Subir Material)</h2>
+            <span>Administrar toda la base de datos de la Peña</span>
+          </div>
+          <div class="backup-panel">
+            <!-- Bajar Material -->
+            <div class="backup-box">
+              <h3>Bajar Material (Exportar JSON)</h3>
+              <p>Guarde una copia en su disco de toda la información configurada: perfil, socios, catálogo de obras, cursos e inscripciones.</p>
+              <button class="btn btn-primary" onclick="app.exportBackup()">Bajar Base de Datos (JSON)</button>
+            </div>
+            <!-- Subir Material -->
+            <div class="backup-box">
+              <h3>Subir Material (Importar JSON)</h3>
+              <p>Seleccione un archivo JSON de respaldo de la Peña para restaurar o sobrescribir todo el contenido actual del sitio.</p>
+              <label for="backup-file-input" class="file-upload-label">Cargar Archivo de Datos</label>
+              <input type="file" id="backup-file-input" accept=".json" class="file-upload-input">
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       MODALES COMPARTIDOS
+       ========================================================================== -->
+  
+  <!-- 1. DETALLE OBRA -->
+  <div class="modal-overlay" id="gallery-modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="app.closeGalleryModal()">&times;</button>
+      <div class="modal-image-panel" id="modal-img-container"></div>
+      <div class="modal-info-panel">
+        <div>
+          <span class="modal-badge" id="modal-category"></span>
+          <h3 id="modal-title"></h3>
+          <div class="artist" id="modal-artist"></div>
+          <p class="description" id="modal-desc"></p>
+        </div>
+        <button class="btn btn-secondary" onclick="app.closeGalleryModal()">Cerrar Detalles</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. INSCRIPCIÓN TALLER -->
+  <div class="modal-overlay" id="inscripcion-modal-overlay">
+    <div class="modal-content" style="grid-template-columns: 1fr; max-width: 450px; padding: 2rem;">
+      <button class="modal-close-btn" onclick="app.closeInscripcionModal()">&times;</button>
+      <h3 style="text-align: center; margin-bottom: 0.5rem;">Inscripción al Taller</h3>
+      <h4 id="inscripcion-course-title" style="color:var(--accent); text-align:center; margin-bottom: 1.5rem;"></h4>
+      
+      <form id="inscripcion-form">
+        <input type="hidden" id="inscripcion-course-id">
+        <div class="form-group">
+          <label>Nombre y Apellido</label>
+          <input type="text" id="inscripcion-name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" id="inscripcion-email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono de Contacto</label>
+          <input type="tel" id="inscripcion-phone" class="form-control" required>
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:2rem;">
+          <button type="button" class="btn btn-secondary" style="flex:1; justify-content:center;" onclick="app.closeInscripcionModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">Inscribirme</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. DRAWERS CURSOS Y DOCENTES -->
+  <div class="drawer-overlay" id="course-drawer-overlay">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h3 id="course-drawer-title"></h3>
+        <button class="modal-close-btn" style="position:static;" onclick="app.closeCourseDrawer()">&times;</button>
+      </div>
+      <div class="drawer-body">
+        <form id="course-form">
+          <input type="hidden" id="course-form-id">
+          <div class="form-group">
+            <label>Título del Taller</label>
+            <input type="text" id="course-form-title" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Categoría</label>
+            <select id="course-form-category" class="form-control">
+              <option value="Pintura">Pintura</option>
+              <option value="Escultura">Escultura</option>
+              <option value="Cerámica">Cerámica</option>
+              <option value="Dibujo">Dibujo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Docente Asignado</label>
+            <select id="course-form-teacher" class="form-control"></select>
+          </div>
+          <div class="form-group">
+            <label>Horario</label>
+            <input type="text" id="course-form-schedule" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Duración</label>
+            <input type="text" id="course-form-duration" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Costo Mensual</label>
+            <input type="text" id="course-form-price" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Descripción Curricular</label>
+            <textarea id="course-form-desc" class="form-control" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top: 1rem;">Guardar Curso</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-overlay" id="teacher-drawer-overlay">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h3 id="teacher-drawer-title"></h3>
+        <button class="modal-close-btn" style="position:static;" onclick="app.closeTeacherDrawer()">&times;</button>
+      </div>
+      <div class="drawer-body">
+        <form id="teacher-form">
+          <input type="hidden" id="teacher-form-id">
+          <div class="form-group">
+            <label>Nombre del Docente</label>
+            <input type="text" id="teacher-form-name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Especialidad Principal</label>
+            <input type="text" id="teacher-form-specialty" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Biografía Resumida</label>
+            <textarea id="teacher-form-bio" class="form-control" rows="4" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Formación y Experiencia</label>
+            <textarea id="teacher-form-exp" class="form-control" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top: 1rem;">Guardar Docente</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript file -->
+  <script src="app.js"></script>
+</body>
+</html>
