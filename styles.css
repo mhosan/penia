@@ -2112,6 +2112,12 @@ button, .btn {
   color: var(--text-secondary);
 }
 
+.admin-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+}
+
 /* Estilos de Tabla y Contenedores en Admin */
 .admin-table-container {
   width: 100%;
@@ -2275,4 +2281,120 @@ body.layout-admin #layout-container-admin .admin-view.active {
   padding: 2rem;
   overflow-y: auto;
   flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   12. RESPONSIVIDAD (Media Queries)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 992px) {
+  .hero, .info-layout, .history-layout, .contact-layout, 
+  .grid-split, .vanguard-grid-2, .vanguard-history-layout, 
+  .vanguard-courses-layout, .admin-gallery-management-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+  }
+
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    gap: 0.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+  }
+
+  .admin-side-btn {
+    white-space: nowrap;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Global */
+  .control-bar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    grid-template-columns: 1fr;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-image-panel {
+    height: 250px;
+  }
+
+  /* Layout Clásico */
+  .classic-header .header-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-content h2 {
+    font-size: 2rem;
+  }
+
+  /* Layout Periódico */
+  .paper-page {
+    padding: 1rem;
+    outline: none;
+  }
+
+  .paper-title {
+    font-size: 1.8rem;
+  }
+
+  .newspaper-body > * {
+    grid-column: span 12 !important;
+  }
+
+  .article-columns-2 {
+    column-count: 1;
+  }
+
+  /* Layout Gallery Walk */
+  .walk-nav-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .walk-map-nodes {
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
+
+  .room-title {
+    font-size: 1.5rem;
+  }
+
+  /* Layout Vanguardia */
+  .vanguard-giant-title {
+    font-size: 2.8rem;
+  }
+
+  .vanguard-hero {
+    padding: 2rem 1rem;
+  }
+
+  /* Admin Dashboard */
+  .admin-panel-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
 }
