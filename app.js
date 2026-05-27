@@ -246,11 +246,21 @@ class AppState {
       }
     });
 
+    // Cerrar menú móvil si está abierto
+    document.querySelector("#classic-nav-links")?.classList.remove("mobile-open");
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   navigateClassic(viewName) {
     this.setView(viewName);
+  }
+
+  toggleClassicMenu() {
+    const navLinks = document.querySelector("#classic-nav-links");
+    if (navLinks) {
+      navLinks.classList.toggle("mobile-open");
+    }
   }
 
   setAdminTab(tabName) {

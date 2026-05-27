@@ -52,8 +52,14 @@
             <span>Asociación Civil - La Plata</span>
           </div>
         </div>
+        <!-- Menú Hamburguesa para Móvil -->
+        <button class="hamburger-menu" onclick="app.toggleClassicMenu()" aria-label="Abrir menú">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
         <nav>
-          <ul class="nav-links">
+          <ul class="nav-links" id="classic-nav-links">
             <li><span class="nav-link active" data-target="home">Inicio</span></li>
             <li><span class="nav-link" data-target="info">Info</span></li>
             <li><span class="nav-link" data-target="history">Historia</span></li>
