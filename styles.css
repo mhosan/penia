@@ -2052,6 +2052,16 @@ button, .btn {
   margin-bottom: 2rem;
 }
 
+
+body.layout-admin #layout-container-admin .admin-view {
+  display: none !important;
+}
+
+body.layout-admin #layout-container-admin .admin-view.active {
+  display: block !important;
+}
+
+
 /* Acordeón Salas */
 .walk-accordion-header svg {
   transition: transform 0.2s ease;
@@ -2087,4 +2097,61 @@ button, .btn {
   letter-spacing: 1px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   padding-bottom: 0.25rem;
+}
+
+/* Ocultar elementos de plantilla del dashboard que aparecen al final */
+#layout-container-admin .admin-view:not(.active) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. DISEÑO DE DRAWERS (PANELES LATERALES DE ADMINISTRACIÓN)
+   -------------------------------------------------------------------------- */
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: none; /* Se activa con flex desde JS */
+  justify-content: flex-end;
+}
+
+.drawer-content {
+  background-color: var(--bg-primary);
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawer-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-secondary);
+}
+
+.drawer-header h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.drawer-body {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
 }
