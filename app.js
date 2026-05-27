@@ -778,7 +778,7 @@ class AppState {
     if (teachGrid) {
       teachGrid.innerHTML = this.data.teachers.map(teach => `
         <div class="vanguard-teacher-capsule">
-          <strong style="color:#fff; font-size:0.95rem;">${teach.name}</strong>
+          <strong style="font-size:0.95rem;">${teach.name}</strong>
           <span style="display:block; font-size:0.75rem; color:var(--accent); font-weight:800; margin-bottom:0.4rem;">// ${teach.specialty.toUpperCase()}</span>
           <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.4;">${teach.bio}</p>
         </div>
@@ -806,7 +806,7 @@ class AppState {
         ${item.image.startsWith("data:") ? item.image : `<img src="${item.image}"/>`}
         <div class="vanguard-card-info">
           <span style="color:#db2777; font-weight:800; font-size:0.7rem; letter-spacing:1px;">[ ${item.category.toUpperCase()} ]</span>
-          <h4 class="vanguard-card-title" style="margin-top:0.15rem; color:#fff;">${item.title}</h4>
+          <h4 class="vanguard-card-title" style="margin-top:0.15rem;">${item.title}</h4>
           <span style="font-size:0.8rem; color:var(--text-secondary);">Por ${item.artist}</span>
         </div>
       </div>
@@ -1230,8 +1230,8 @@ class AppState {
     table.innerHTML = this.data.gallery.map(item => `
       <tr>
         <td>
-          <div style="width:40px; height:40px; overflow:hidden; border-radius:4px; border:1px solid var(--border-color); background-color:#eee;">
-            ${item.image.startsWith("data:") ? item.image : `<img src="${item.image}" style="width:100%;height:100%;object-fit:cover;"/>`}
+          <div class="admin-gallery-preview">
+            ${item.image.startsWith("data:") ? item.image : `<img src="${item.image}"/>`}
           </div>
         </td>
         <td><strong>${item.title}</strong></td>

@@ -28,17 +28,6 @@
         </div>
       </div>
 
-      <!-- Selector de Temas de Color (Paletas) -->
-      <div class="theme-selector-wrapper">
-        <span class="control-label">PALETA:</span>
-        <div class="theme-selector-container" id="theme-switcher">
-          <div class="theme-opt t-formal" data-theme="formal" data-tooltip="Sobrio (Gris/Bronce)"></div>
-          <div class="theme-opt t-informal" data-theme="informal" data-tooltip="Taller (Tierra)"></div>
-          <div class="theme-opt t-mixed active" data-theme="mixed" data-tooltip="Híbrido (Pizarra)"></div>
-          <div class="theme-opt t-colorful" data-theme="colorful" data-tooltip="Vanguardia (Neon)"></div>
-        </div>
-      </div>
-
       <!-- Botón Flotante/Acceso al Panel de Control Admin -->
       <button class="btn btn-primary btn-control-panel-toggle" onclick="app.toggleAdminView()">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -668,13 +657,13 @@
       <div style="display:flex; align-items:center; gap:0.5rem;">
         <span class="logo-icon" style="border-radius:50%;">D</span>
         <div>
-          <h2 style="font-size:1.5rem;">Panel de Control Administrativo</h2>
-          <span style="font-size:0.75rem; color:var(--text-secondary);">Administrar contenidos, material y estadísticas del sitio</span>
+          <h2>Panel de Control Administrativo</h2>
+          <span>Administrar contenidos, material y estadísticas del sitio</span>
         </div>
       </div>
-      <button class="btn btn-secondary" onclick="app.toggleAdminView()">
+      <!-- <button class="btn btn-secondary" onclick="app.toggleAdminView()">
         &larr; Volver a la Página Pública
-      </button>
+      </button> -->
     </div>
 
     <div class="container py-main admin-layout">
@@ -891,7 +880,7 @@
             <h2>Galería y Exhibición</h2>
             <span>Subir material y remover obras expuestas</span>
           </div>
-          <div style="display:grid; grid-template-columns: 0.8fr 1.2fr; gap:2rem;">
+          <div class="admin-gallery-management-grid">
             <!-- Carga de Material (Subir Material) -->
             <form id="art-form" class="contact-form" style="padding:1.5rem; background:var(--bg-secondary);">
               <div class="form-group">
