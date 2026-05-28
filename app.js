@@ -460,6 +460,7 @@ class AppState {
               <li><a href="#" onclick="app.setView('home'); return false;">Inicio</a></li>
               <li><a href="#" onclick="app.setView('info'); return false;">Perfil</a></li>
               <li><a href="#" onclick="app.setView('gallery'); return false;">Galería</a></li>
+              <li><a href="calendario.html">Calendario de Eventos</a></li>
             </ul>
           </div>
           <div>

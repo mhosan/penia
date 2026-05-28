@@ -28,13 +28,23 @@
         </div>
       </div>
 
-      <!-- Botón Flotante/Acceso al Panel de Control Admin -->
-      <button class="btn btn-primary btn-control-panel-toggle" onclick="app.toggleAdminView()">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-        </svg>
-        <span class="admin-btn-text">Panel de Administración</span>
-      </button>
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <!-- Botón del Calendario de Eventos -->
+        <a href="calendario.html" class="btn btn-primary btn-control-panel-toggle" style="text-decoration:none; display:inline-flex; align-items:center;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-right:4px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zM14.25 15h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-2.25h.008v.008H16.5V15zm0 2.25h.008v.008H16.5v-.008z" />
+          </svg>
+          <span>Calendario</span>
+        </a>
+
+        <!-- Botón Flotante/Acceso al Panel de Control Admin -->
+        <button class="btn btn-primary btn-control-panel-toggle" onclick="app.toggleAdminView()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+          </svg>
+          <span class="admin-btn-text">Administración</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -66,6 +76,7 @@
             <li><span class="nav-link" data-target="gallery">Galería</span></li>
             <li><span class="nav-link" data-target="teachers">Docentes</span></li>
             <li><span class="nav-link" data-target="courses">Cursos</span></li>
+            <li><a href="calendario.html" class="nav-link" style="text-decoration:none;">Calendario</a></li>
             <li><span class="nav-link" data-target="contact">Contacto</span></li>
           </ul>
         </nav>
@@ -186,7 +197,8 @@
         <a href="#news-section-history">2. MEMORIA HISTÓRICA</a> | 
         <a href="#news-section-gallery">3. SALÓN AMBROSIO ALIVERTI</a> | 
         <a href="#news-section-classes">4. ACADEMIA DE TALLERES</a> | 
-        <a href="#news-section-contact">5. CORRESPONDENCIA</a>
+        <a href="#news-section-contact">5. CORRESPONDENCIA</a> | 
+        <a href="calendario.html" style="font-weight:bold; color:var(--accent);">6. CALENDARIO DE EVENTOS</a>
       </nav>
 
       <!-- Cuerpo del Diario -->
@@ -507,6 +519,12 @@
                 </div>
               </div>
 
+              <div style="display:flex; flex-direction:column; gap:1rem; width:100%; align-items:center; margin-top:1.5rem;">
+                <a href="calendario.html" class="btn btn-primary" style="text-decoration:none; background-color:var(--accent); width:100%; max-width:350px; justify-content:center;">
+                  📅 Consultar Calendario de Eventos
+                </a>
+              </div>
+
               <div style="display:flex; gap:1rem; margin-top:2rem;">
                 <button class="btn btn-secondary" onclick="app.changeRoom(3)">&larr; Sala 4</button>
                 <button class="btn btn-primary" onclick="app.setView('home')">Regresar a Inicio</button>
@@ -542,6 +560,12 @@
       </h1>
       <p class="vanguard-tagline" id="vanguard-profile-desc-short"></p>
       
+      <div style="margin-top: 1.5rem; margin-bottom: 2rem;">
+        <a href="calendario.html" class="btn btn-secondary" style="border: 2px solid var(--accent); border-radius: 30px; text-transform: uppercase; font-weight: 800; padding: 0.8rem 2rem; color: var(--text-primary); text-decoration: none; box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2);">
+          // ver calendario cultural
+        </a>
+      </div>
+
       <div class="vanguard-scroll-indicator">
         <span>Desliza para explorar el manifiesto</span>
         <div class="mouse-icon"><div class="wheel"></div></div>
