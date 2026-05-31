@@ -1,0 +1,14 @@
+# Entornos y dependencias
+node_modules/
+.antigravity/
+.git/
+
+# Archivos temporales y de sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Carpetas de compilación o distribución (si las hubiera en el futuro)
+dist/
+build/
+out/
