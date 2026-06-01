@@ -1430,8 +1430,11 @@ window.addEventListener("DOMContentLoaded", () => {
   // Listeners del Recorrido de Salas (Layout 3)
   document.querySelectorAll(".walk-node").forEach(node => {
     node.addEventListener("click", () => {
-      const roomNum = parseInt(node.getAttribute("data-room"));
-      app.changeRoom(roomNum);
+      const roomAttr = node.getAttribute("data-room");
+      if (roomAttr !== null) {
+        const roomNum = parseInt(roomAttr);
+        app.changeRoom(roomNum);
+      }
     });
   });
 

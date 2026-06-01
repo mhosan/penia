@@ -1625,6 +1625,48 @@ button, .btn {
   overflow: hidden;
 }
 
+.vanguard-navigation-bar {
+  background-color: rgba(4, 4, 7, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 40px;
+  z-index: 95;
+}
+
+.vanguard-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.vanguard-nav-nodes {
+  display: flex;
+  gap: 1rem;
+}
+
+.vanguard-nav-node {
+  padding: 0.35rem 0.95rem;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a1a1aa;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.vanguard-nav-node:hover {
+  background-color: #7c3aed;
+  color: #fff;
+  border-color: #7c3aed;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+}
+
 /* Luces Neón en el Fondo */
 .vanguard-bg-glows {
   position: absolute;
