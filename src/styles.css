@@ -474,7 +474,6 @@ button, .btn {
   background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
-  top: 40px; /* Debajo de la barra de control */
   z-index: 100;
 }
 

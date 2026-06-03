@@ -24,6 +24,7 @@
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'teachers'" (click)="navigate('teachers')">Docentes</span></li>
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'courses'" (click)="navigate('courses')">Cursos</span></li>
           <li><a routerLink="/calendario" class="nav-link" style="text-decoration:none;">Calendario</a></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'admin'" (click)="navigate('admin')">Administración</span></li>
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'contact'" (click)="navigate('contact')">Contacto</span></li>
         </ul>
       </nav>
@@ -195,6 +196,11 @@
           </div>
         }
       </div>
+    </section>
+
+    <!-- VISTA: ADMIN -->
+    <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'admin'">
+      <app-layout-admin></app-layout-admin>
     </section>
 
     <!-- VISTA: CONTACTO -->
