@@ -1,0 +1,166 @@
+<div id="layout-container-newspaper" class="layout-main-wrapper">
+
+  <!-- CABECERA PERIÓDICO -->
+  <header class="newspaper-header">
+    <div class="newspaper-eyebrow">
+      <span>{{ today }}</span>
+      <span>La Plata, Provincia de Buenos Aires</span>
+      <span>Año LXXXIX — Nº 3241</span>
+    </div>
+    <div class="newspaper-masthead">
+      <h1>La Peña</h1>
+      <p class="newspaper-subtitle">Órgano Oficial de Difusión Cultural de la Peña de las Bellas Artes</p>
+    </div>
+    <nav class="newspaper-nav">
+      <strong>SECCIONES DE LA EDICIÓN:</strong>
+      <a href="#news-section-editorial">1. EDITORIAL PRINCIPAL</a> |
+      <a href="#news-section-history">2. MEMORIA HISTÓRICA</a> |
+      <a href="#news-section-gallery">3. SALÓN AMBROSIO ALIVERTI</a> |
+      <a href="#news-section-classes">4. ACADEMIA DE TALLERES</a> |
+      <a href="#news-section-contact">5. CORRESPONDENCIA</a> |
+      <a routerLink="/calendario" style="font-weight:bold; color:var(--accent);">6. CALENDARIO DE EVENTOS</a>
+    </nav>
+  </header>
+
+  <main class="newspaper-main container">
+
+    <!-- COLUMNA EDITORIAL -->
+    <section id="news-section-editorial" class="news-section">
+      <div class="news-column-grid">
+        <article class="news-article feature-article">
+          <h2 class="news-headline">{{ state.appData().profile.name }}</h2>
+          <p class="news-lead">Desde nuestros cimientos fundados el <strong>20 de junio de 1936</strong>, la institución ha sido el eje vertebrador de la vida artística platense.</p>
+          <div class="news-divider"></div>
+          <p class="news-body">{{ state.appData().profile.description }}</p>
+        </article>
+
+        <aside class="news-sidebar">
+          <div class="sidebar-box">
+            <h3 class="sidebar-title">COMISIÓN DIRECTIVA</h3>
+            @for (auth of state.appData().authorities; track auth.role) {
+              <div style="margin-bottom:0.75rem; padding-bottom:0.75rem; border-bottom: 1px solid var(--border-color);">
+                <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-secondary);">{{ auth.role }}</div>
+                <strong style="font-size:0.9rem;">{{ auth.name }}</strong>
+              </div>
+            }
+          </div>
+          <div class="sidebar-box" style="margin-top:1.5rem;">
+            <h3 class="sidebar-title">DATOS DE CONTACTO</h3>
+            <p style="font-size:0.85rem; line-height:1.8;">
+              📍 {{ state.appData().profile.address }}<br>
+              📞 {{ state.appData().profile.phone }}<br>
+              ✉️ {{ state.appData().profile.email }}<br>
+              🕐 {{ state.appData().profile.schedule }}
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section id="news-section-history" class="news-section">
+      <h2 class="news-section-header">MEMORIA HISTÓRICA</h2>
+      <div class="news-column-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        @for (para of historyParagraphs; track $index) {
+          <p class="news-body" [innerHTML]="para"></p>
+        }
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="news-section-gallery" class="news-section">
+      <h2 class="news-section-header">SALÓN AMBROSIO ALIVERTI — EXHIBICIÓN PERMANENTE</h2>
+      <div class="gallery-grid" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+        @for (item of state.appData().gallery; track item.id) {
+          <div class="gallery-item" (click)="openGalleryModal(item)">
+            <div class="gallery-img-container">
+              <img [src]="item.image" [alt]="item.title" style="width:100%; height:100%; object-fit:cover;">
+              <span class="gallery-category-badge">{{ item.category }}</span>
+            </div>
+            <div class="gallery-info">
+              <h4>{{ item.title }}</h4>
+              <div class="gallery-artist">{{ item.artist }}</div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- CURSOS -->
+    <section id="news-section-classes" class="news-section">
+      <h2 class="news-section-header">ACADEMIA DE TALLERES ARTÍSTICOS — INSCRIPCIONES ABIERTAS</h2>
+      <div class="courses-grid">
+        @for (course of state.appData().courses; track course.id) {
+          <div class="card course-card">
+            <div>
+              <h3>{{ course.title }}</h3>
+              <span class="gallery-category-badge" style="position:static; display:inline-block;">{{ course.category }}</span>
+              <p>{{ course.description }}</p>
+            </div>
+            <div class="course-meta">
+              <span><strong>Horario:</strong> {{ course.schedule }}</span>
+              <span><strong>Duración:</strong> {{ course.duration }}</span>
+              <span class="course-price">{{ course.price }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="news-section-contact" class="news-section">
+      <h2 class="news-section-header">CORRESPONDENCIA Y CONSULTAS</h2>
+      <form class="contact-form" (submit)="handleContactSubmit($event)">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensaje:</label>
+          <textarea class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Enviar Correspondencia</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="classic-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>{{ state.appData().profile.name }}</h3>
+        <p>Fomentando la cultura en La Plata desde 1936.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Asociación Civil Peña de las Bellas Artes.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- MODAL GALERÍA -->
+@if (showGalleryModal() && selectedGalleryItem()) {
+  <div class="modal-overlay" style="display:flex;" (click)="closeGalleryModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeGalleryModal()">&times;</button>
+      <div class="modal-image-panel">
+        <img [src]="selectedGalleryItem()!.image" [alt]="selectedGalleryItem()!.title" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="modal-info-panel">
+        <div>
+          <span class="modal-badge">{{ selectedGalleryItem()!.category }}</span>
+          <h3>{{ selectedGalleryItem()!.title }}</h3>
+          <div class="artist">{{ selectedGalleryItem()!.artist }}</div>
+          <p class="description">{{ selectedGalleryItem()!.description }}</p>
+        </div>
+        <button class="btn btn-secondary" (click)="closeGalleryModal()">Cerrar Detalles</button>
+      </div>
+    </div>
+  </div>
+}

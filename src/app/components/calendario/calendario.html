@@ -1,0 +1,140 @@
+<div class="calendario-wrapper">
+
+  <!-- HEADER CALENDARIO -->
+  <header class="calendario-header">
+    <a routerLink="/" class="btn btn-secondary" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1.5rem;">
+      ← Volver al Sitio
+    </a>
+    <h1 class="accent-text">Calendario de Eventos</h1>
+    <p style="color:var(--text-secondary); margin-top:0.5rem;">Peña de las Bellas Artes — La Plata</p>
+
+    <!-- FILTROS POR CATEGORÍA -->
+    <div class="calendar-filters">
+      @for (cat of categories; track cat) {
+        <button class="filter-btn" [class.active]="currentFilter() === cat" (click)="currentFilter.set(cat)">
+          {{ cat === 'all' ? 'Todos' : cat }}
+        </button>
+      }
+    </div>
+  </header>
+
+  <main class="calendario-main container">
+    <div class="calendario-grid">
+
+      <!-- GRILLA DEL MES -->
+      <div class="calendar-panel">
+        <!-- Navegación de mes -->
+        <div class="calendar-nav">
+          <button class="btn btn-secondary" (click)="prevMonth()">&#8249;</button>
+          <h2 style="text-transform:capitalize; font-family:var(--font-family-title);">{{ monthDisplay() }}</h2>
+          <button class="btn btn-secondary" (click)="nextMonth()">&#8250;</button>
+        </div>
+
+        <!-- Cabeceras de días -->
+        <div class="calendar-weekdays">
+          @for (day of weekdays; track day) {
+            <div class="weekday-header">{{ day }}</div>
+          }
+        </div>
+
+        <!-- Celdas del calendario -->
+        <div class="calendar-days-grid">
+          @for (dayObj of calendarDays(); track $index) {
+            <div class="calendar-day"
+              [class.other-month]="!dayObj.isCurrentMonth"
+              [class.today]="dayObj.isToday"
+              [class.has-events]="dayObj.events.length > 0">
+              <span class="day-number">{{ dayObj.day }}</span>
+              @for (evt of dayObj.events.slice(0, 2); track evt.id) {
+                <div class="day-event-dot" [class]="getCatClass(evt.category)" (click)="openModal(evt)">
+                  {{ evt.title.substring(0, 18) }}{{ evt.title.length > 18 ? '…' : '' }}
+                </div>
+              }
+              @if (dayObj.events.length > 2) {
+                <div class="day-event-dot" style="background:var(--bg-secondary); color:var(--text-secondary);">
+                  +{{ dayObj.events.length - 2 }} más
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- LISTA DE EVENTOS DEL MES -->
+      <div class="events-sidebar">
+        <h3 style="margin-bottom:1.5rem; text-transform:capitalize; font-family:var(--font-family-title);">
+          Eventos en {{ monthDisplay() }}
+        </h3>
+        @if (monthlyEvents().length === 0) {
+          <p style="color:var(--text-secondary); text-align:center; padding:2rem 0;">
+            No hay eventos para este mes con el filtro seleccionado.
+          </p>
+        }
+        @for (evt of monthlyEvents(); track evt.id) {
+          <div class="event-list-item" [class]="getCatClass(evt.category)" (click)="openModal(evt)">
+            <div class="event-date-badge">{{ formatShortDate(evt.date) }}</div>
+            <div class="event-list-info">
+              <div class="event-list-title">{{ evt.title }}</div>
+              <div class="event-list-meta">{{ evt.time }} · {{ evt.location }}</div>
+            </div>
+            <span class="gallery-category-badge" style="position:static; font-size:0.65rem; align-self:flex-start; flex-shrink:0;">{{ evt.category }}</span>
+          </div>
+        }
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<!-- MODAL DETALLE DE EVENTO -->
+@if (showModal() && selectedEvent()) {
+  <div class="modal-overlay" style="display:flex; align-items:center; justify-content:center;" (click)="closeModal()">
+    <div class="event-modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeModal()">&times;</button>
+
+      <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+        <span class="gallery-category-badge" style="position:static; font-size:0.8rem;">{{ selectedEvent()!.category }}</span>
+      </div>
+
+      <h2 style="font-family:var(--font-family-title); font-size:1.6rem; margin-bottom:0.5rem;">{{ selectedEvent()!.title }}</h2>
+
+      <div class="event-modal-meta">
+        <div class="event-modal-meta-item">
+          <span class="meta-icon">📅</span>
+          <div>
+            <strong>Fecha</strong>
+            <span style="text-transform:capitalize;">{{ formatDate(selectedEvent()!.date) }}</span>
+          </div>
+        </div>
+        <div class="event-modal-meta-item">
+          <span class="meta-icon">🕐</span>
+          <div>
+            <strong>Horario</strong>
+            <span>{{ selectedEvent()!.time }}</span>
+          </div>
+        </div>
+        <div class="event-modal-meta-item">
+          <span class="meta-icon">📍</span>
+          <div>
+            <strong>Lugar</strong>
+            <span>{{ selectedEvent()!.location }}</span>
+          </div>
+        </div>
+        <div class="event-modal-meta-item">
+          <span class="meta-icon">🎙️</span>
+          <div>
+            <strong>A cargo de</strong>
+            <span>{{ selectedEvent()!.speaker }}</span>
+          </div>
+        </div>
+      </div>
+
+      <p style="line-height:1.8; color:var(--text-secondary); margin-top:1.5rem;">{{ selectedEvent()!.description }}</p>
+
+      <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border-color); display:flex; justify-content:flex-end;">
+        <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+}

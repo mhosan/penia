@@ -1,0 +1,192 @@
+<div id="layout-container-gallerywalk" class="layout-main-wrapper">
+
+  <!-- BARRA LATERAL DE SALAS -->
+  <div class="gallerywalk-sidebar">
+    @for (room of rooms; track room.id) {
+      <div class="room-indicator" [class.active]="currentRoom() === room.id" (click)="changeRoom(room.id)">
+        <span class="room-icon">{{ room.icon }}</span>
+        <div>
+          <div class="room-name">{{ room.name }}</div>
+          <div class="room-title-label">{{ room.title }}</div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <main class="gallerywalk-main">
+
+    <!-- SALA I: RECEPCIÓN -->
+    @if (currentRoom() === 1) {
+    <section class="gallerywalk-room" style="animation: fadeIn 0.4s ease;">
+      <div class="room-header">
+        <span class="room-badge">🏛️ Sala I</span>
+        <h2>Recepción e Historia Institucional</h2>
+      </div>
+      <div class="gallerywalk-room-content">
+        <div>
+          <p style="line-height:1.9; color:var(--text-secondary); font-size:1.05rem;">{{ state.appData().profile.description }}</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2rem;">
+            <div class="info-box-stat"><strong>Fundación</strong><br>{{ state.appData().profile.founded }}</div>
+            <div class="info-box-stat"><strong>Sede Social</strong><br>{{ state.appData().profile.address }}</div>
+            <div class="info-box-stat"><strong>Teléfono</strong><br>{{ state.appData().profile.phone }}</div>
+            <div class="info-box-stat"><strong>Horario</strong><br>{{ state.appData().profile.schedule }}</div>
+          </div>
+        </div>
+        <div class="history-img-box">
+          <img src="historiaDeLaPeña.png" alt="Historia de la Peña">
+          <span>Documento original de la Peña</span>
+        </div>
+      </div>
+      <div style="display:flex; gap:1rem; margin-top:2rem; justify-content:flex-end;">
+        <button class="btn btn-primary" (click)="changeRoom(2)">Continuar al Memorial →</button>
+      </div>
+    </section>
+    }
+
+    <!-- SALA II: MEMORIAL -->
+    @if (currentRoom() === 2) {
+    <section class="gallerywalk-room" style="animation: fadeIn 0.4s ease;">
+      <div class="room-header">
+        <span class="room-badge">🖼️ Sala II</span>
+        <h2>Memorial de Maestros — Comisión Directiva</h2>
+      </div>
+      <div class="authorities-list" style="margin-top:1.5rem;">
+        @for (auth of state.appData().authorities; track auth.role) {
+          <div class="authority-item">
+            <div>
+              <span class="authority-role">{{ auth.role }}</span>
+              <div class="authority-name">{{ auth.name }}</div>
+            </div>
+            <span class="authority-desc">{{ auth.specialty }}</span>
+          </div>
+        }
+      </div>
+      <div style="display:flex; gap:1rem; margin-top:2rem; justify-content:space-between;">
+        <button class="btn btn-secondary" (click)="changeRoom(1)">← Sala I</button>
+        <button class="btn btn-primary" (click)="changeRoom(3)">Continuar al Salón →</button>
+      </div>
+    </section>
+    }
+
+    <!-- SALA III: EXPOSICIÓN -->
+    @if (currentRoom() === 3) {
+    <section class="gallerywalk-room" style="animation: fadeIn 0.4s ease;">
+      <div class="room-header">
+        <span class="room-badge">🎨 Sala III</span>
+        <h2>Salón de Exposición — Galería de Socios</h2>
+      </div>
+      <div class="gallery-grid" style="margin-top:1.5rem;">
+        @for (item of state.appData().gallery; track item.id) {
+          <div class="gallery-item">
+            <div class="gallery-img-container">
+              <img [src]="item.image" [alt]="item.title" style="width:100%; height:100%; object-fit:cover;">
+              <span class="gallery-category-badge">{{ item.category }}</span>
+            </div>
+            <div class="gallery-info">
+              <h4>{{ item.title }}</h4>
+              <div class="gallery-artist">{{ item.artist }}</div>
+            </div>
+          </div>
+        }
+      </div>
+      <div style="display:flex; gap:1rem; margin-top:2rem; justify-content:space-between;">
+        <button class="btn btn-secondary" (click)="changeRoom(2)">← Sala II</button>
+        <button class="btn btn-primary" (click)="changeRoom(4)">Continuar a Cátedras →</button>
+      </div>
+    </section>
+    }
+
+    <!-- SALA IV: CÁTEDRAS -->
+    @if (currentRoom() === 4) {
+    <section class="gallerywalk-room" style="animation: fadeIn 0.4s ease;">
+      <div class="room-header">
+        <span class="room-badge">📚 Sala IV</span>
+        <h2>Cátedras y Talleres Artísticos</h2>
+      </div>
+      <div class="courses-grid" style="margin-top:1.5rem;">
+        @for (course of state.appData().courses; track course.id) {
+          <div class="card course-card">
+            <div>
+              <h3>{{ course.title }}</h3>
+              <span class="gallery-category-badge" style="position:static; display:inline-block;">{{ course.category }}</span>
+              <p>{{ course.description }}</p>
+            </div>
+            <div>
+              <div class="course-meta">
+                <span><strong>Docente:</strong> {{ getTeacherName(course.teacherId) }}</span>
+                <span><strong>Horario:</strong> {{ course.schedule }}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+                <span class="course-price">{{ course.price }}</span>
+                <button class="btn btn-primary" (click)="openInscripcionModal(course)">Inscribirme</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div style="display:flex; gap:1rem; margin-top:2rem; justify-content:space-between;">
+        <button class="btn btn-secondary" (click)="changeRoom(3)">← Sala III</button>
+        <button class="btn btn-primary" (click)="changeRoom(5)">Continuar a Salida →</button>
+      </div>
+    </section>
+    }
+
+    <!-- SALA V: SALIDA -->
+    @if (currentRoom() === 5) {
+    <section class="gallerywalk-room" style="animation: fadeIn 0.4s ease;">
+      <div class="room-header">
+        <span class="room-badge">📋 Sala V</span>
+        <h2>Informes y Salida</h2>
+      </div>
+      <p style="color:var(--text-secondary); font-size:1.05rem; line-height:1.8; margin-bottom:2rem;">
+        Gracias por recorrer nuestras salas. Para más información puede comunicarse con la Secretaría o visitar nuestro Calendario de Eventos.
+      </p>
+      <div class="info-box-stat" style="margin-bottom:2rem;">
+        📍 {{ state.appData().profile.address }}<br>
+        📞 {{ state.appData().profile.phone }}<br>
+        ✉️ {{ state.appData().profile.email }}
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:1rem; width:100%; align-items:center; margin-top:1.5rem;">
+        <a routerLink="/calendario" class="btn btn-primary" style="text-decoration:none; width:100%; max-width:350px; justify-content:center;">
+          📅 Consultar Calendario de Eventos
+        </a>
+      </div>
+
+      <div style="display:flex; gap:1rem; margin-top:2rem;">
+        <button class="btn btn-secondary" (click)="changeRoom(4)">← Sala IV</button>
+      </div>
+    </section>
+    }
+
+  </main>
+</div>
+
+<!-- MODAL INSCRIPCIÓN -->
+@if (showInscripcionModal() && selectedCourse()) {
+  <div class="modal-overlay" style="display:flex;" (click)="closeInscripcionModal()">
+    <div class="modal-content" style="grid-template-columns: 1fr; max-width: 450px; padding: 2rem;" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeInscripcionModal()">&times;</button>
+      <h3 style="text-align: center;">Inscripción al Taller</h3>
+      <h4 style="color:var(--accent); text-align:center; margin-bottom:1.5rem;">{{ selectedCourse()!.title }}</h4>
+      <form (submit)="submitInscripcion(); $event.preventDefault()">
+        <div class="form-group">
+          <label>Nombre y Apellido</label>
+          <input type="text" class="form-control" required [(ngModel)]="inscripcionName" name="nombre">
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" class="form-control" required [(ngModel)]="inscripcionEmail" name="email">
+        </div>
+        <div class="form-group">
+          <label>Teléfono de Contacto</label>
+          <input type="tel" class="form-control" required [(ngModel)]="inscripcionPhone" name="tel">
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:2rem;">
+          <button type="button" class="btn btn-secondary" style="flex:1; justify-content:center;" (click)="closeInscripcionModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">Inscribirme</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
