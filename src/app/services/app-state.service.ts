@@ -279,7 +279,7 @@ export class AppStateService {
   private applyTheme(themeName: string) {
     // Reemplaza la clase theme-xxx en el body
     const body = document.body;
-    body.className = body.className.replace(/theme-\S+/g, `theme-${themeName}`);
+    body.className = body.className.replace(/theme-\S+/g, `theme-${themeName}`); 
     if (!body.classList.contains(`theme-${themeName}`)) {
       body.classList.add(`theme-${themeName}`);
     }

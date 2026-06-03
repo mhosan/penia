@@ -10,11 +10,7 @@
           <span>Asociación Civil - La Plata</span>
         </div>
       </div>
-      <button class="hamburger-menu" (click)="toggleMobileMenu()" aria-label="Abrir menú">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
+      
       <nav>
         <ul class="nav-links" [class.mobile-open]="mobileMenuOpen()">
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'home'" (click)="navigate('home')">Inicio</span></li>
@@ -70,6 +66,7 @@
       </div>
     </section>
 
+
     <!-- VISTA: INFO / CD -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'info'">
       <h2 class="section-title accent-text">Perfil y Comisión Directiva</h2>
@@ -103,6 +100,7 @@
       </div>
     </section>
 
+
     <!-- VISTA: HISTORIA -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'history'">
       <h2 class="section-title accent-text">Nuestra Historia</h2>
@@ -118,6 +116,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- VISTA: GALERÍA -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'gallery'">
@@ -151,6 +150,7 @@
       </div>
     </section>
 
+
     <!-- VISTA: DOCENTES -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'teachers'">
       <h2 class="section-title accent-text">Plantel Docente</h2>
@@ -169,6 +169,7 @@
         }
       </div>
     </section>
+
 
     <!-- VISTA: CURSOS -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'courses'">
@@ -198,10 +199,12 @@
       </div>
     </section>
 
+
     <!-- VISTA: ADMIN -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'admin'">
       <app-layout-admin></app-layout-admin>
     </section>
+
 
     <!-- VISTA: CONTACTO -->
     <section class="classic-view view-sub-section" [class.active]="state.currentClassicView() === 'contact'">
@@ -255,6 +258,7 @@
 
   </main>
 
+  
   <!-- FOOTER -->
   <footer class="classic-footer">
     <div class="container footer-grid">

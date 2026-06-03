@@ -13,10 +13,13 @@ import { HISTORY_PARAGRAPHS } from '../../services/app-state.service';
   templateUrl: './layout-classic.html',
   styleUrl: './layout-classic.css',
 })
-export class LayoutClassic implements OnInit {
-  state = inject(AppStateService);
 
-  galleryFilter = signal<string>('all');
+export class LayoutClassic implements OnInit {
+  state = inject(AppStateService); //inyecta servicio de estado global para acceder a datos y funciones compartidas
+
+  //el componente usa signals para manejar su eestado interno, como el filtro de la galería, la búsqueda, 
+  // y el estado del menú móvil. Estas señales actualizan la interfaz automaticamente cuando cambian.
+  galleryFilter = signal<string>('all'); 
   gallerySearch = signal<string>('');
   mobileMenuOpen = signal<boolean>(false);
 
@@ -29,9 +32,10 @@ export class LayoutClassic implements OnInit {
     name: '', email: '', phone: ''
   });
 
+  
   historyParagraphs = HISTORY_PARAGRAPHS;
 
-  galleryCategories = ['all', 'Pintura', 'Escultura', 'Cerámica', 'Dibujo', 'Concursos'];
+  galleryCategories = ['all', 'Pintura', 'Escultura', 'Cerámica', 'Dibujo', 'Conciertos', 'Talleres'];
 
   filteredGallery = computed(() => {
     const items = this.state.appData().gallery;

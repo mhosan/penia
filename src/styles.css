@@ -458,7 +458,7 @@ button, .btn {
   border: 1px solid var(--border-color);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-family-body);
+  font-family: var(--font-family-body); 
 }
 
 .form-control:focus {
