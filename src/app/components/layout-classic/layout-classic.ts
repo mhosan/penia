@@ -43,6 +43,15 @@ export class LayoutClassic implements OnInit {
 
   ngOnInit() {}
 
+  toggleMobileMenu() {
+    this.mobileMenuOpen.update(v => !v);
+  }
+
+  updateInscripcionField(field: string, value: any) {
+    const current = this.inscripcionForm();
+    this.inscripcionForm.set({ ...current, [field]: value });
+  }
+
   navigate(view: string) {
     this.state.setClassicView(view);
     this.mobileMenuOpen.set(false);

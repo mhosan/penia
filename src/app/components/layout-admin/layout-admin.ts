@@ -38,11 +38,6 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   courseForm = signal<Course>({ id: '', title: '', teacherId: '', schedule: '', duration: '', description: '', price: '', category: 'Pintura', studentsCount: 0 });
   teacherForm = signal<Teacher>({ id: '', name: '', specialty: '', bio: '', experience: '' });
 
-  // Gallery form
-  galleryForm = signal<{ title: string; artist: string; category: string; description: string }>({
-    title: '', artist: '', category: 'Pintura', description: ''
-  });
-
   ngOnInit() {
     this.profileForm.set({ ...this.state.appData().profile });
     this.sociosCount.set(this.state.appData().stats.activeMembers);
@@ -60,6 +55,22 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   updateSociosCount(value: number) {
     this.sociosCount.set(value);
     this.state.updateActiveMembers(value);
+  }
+
+  // Form update helpers
+  updateProfileField(field: string, value: any) {
+    const current = this.profileForm();
+    this.profileForm.set({ ...current, [field]: value });
+  }
+
+  updateCourseField(field: string, value: any) {
+    const current = this.courseForm();
+    this.courseForm.set({ ...current, [field]: value });
+  }
+
+  updateTeacherField(field: string, value: any) {
+    const current = this.teacherForm();
+    this.teacherForm.set({ ...current, [field]: value });
   }
 
   saveProfile(event: Event) {
@@ -154,28 +165,7 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     return this.state.appData().teachers.find(t => t.id === teacherId)?.name ?? 'A designar';
   }
 
-  // Galería
-  submitGalleryItem(event: Event) {
-    event.preventDefault();
-    const form = this.galleryForm();
-    const newItem: GalleryItem = {
-      id: `gal-${Date.now()}`,
-      title: form.title,
-      artist: form.artist,
-      category: form.category,
-      description: form.description,
-      image: `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23334155'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='28' fill='white'>${form.title}</text></svg>`
-    };
-    this.state.addGalleryItem(newItem);
-    this.galleryForm.set({ title: '', artist: '', category: 'Pintura', description: '' });
-    alert('¡Obra publicada en la galería!');
-  }
 
-  deleteGalleryItem(id: string) {
-    if (confirm('¿Eliminar esta obra de la galería?')) {
-      this.state.deleteGalleryItem(id);
-    }
-  }
 
   // Backup
   exportBackup() {

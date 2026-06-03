@@ -1087,31 +1087,7 @@ body.layout-admin #layout-container-admin .admin-view.active {
   display: block;
 }
 
-/* Grilla de authorities vanguard */
-.vanguard-auth-bubble strong {
-  display: block;
-  font-family: var(--font-family-title);
-  color: var(--text-primary);
-  font-size: 1.05rem;
-}
-.vanguard-auth-bubble span {
-  font-size: 0.8rem;
-  color: #a1a1aa;
-}
-.vanguard-auth-bubble .role {
-  color: #db2777;
-  font-weight: 700;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-}
-.vanguard-mini-title {
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  margin-bottom: 1.25rem;
-  letter-spacing: 1px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 0.25rem;
-}
+
 
 /* Ocultar elementos de plantilla del dashboard que aparecen al final */
 #layout-container-admin .admin-view:not(.active) {
@@ -1176,8 +1152,7 @@ body.layout-admin #layout-container-admin .admin-view.active {
 
 @media (max-width: 992px) {
   .hero, .info-layout, .history-layout, .contact-layout, 
-  .grid-split, .vanguard-grid-2, .vanguard-history-layout, 
-  .vanguard-courses-layout, .admin-gallery-management-grid {
+  .grid-split, .admin-gallery-management-grid {
     grid-template-columns: 1fr !important;
     gap: 2rem;
   }
@@ -1260,24 +1235,6 @@ body.layout-admin #layout-container-admin .admin-view.active {
     font-size: 2rem;
   }
 
-  /* Layout Periódico */
-  .paper-page {
-    padding: 1rem;
-    outline: none;
-  }
-
-  .paper-title {
-    font-size: 1.8rem;
-  }
-
-  .newspaper-body > * {
-    grid-column: span 12 !important;
-  }
-
-  .article-columns-2 {
-    column-count: 1;
-  }
-
   /* Layout Gallery Walk */
   .walk-nav-container {
     flex-direction: column;
@@ -1292,15 +1249,6 @@ body.layout-admin #layout-container-admin .admin-view.active {
 
   .room-title {
     font-size: 1.5rem;
-  }
-
-  /* Layout Vanguardia */
-  .vanguard-giant-title {
-    font-size: 2.8rem;
-  }
-
-  .vanguard-hero {
-    padding: 2rem 1rem;
   }
 
   /* Admin Dashboard */
