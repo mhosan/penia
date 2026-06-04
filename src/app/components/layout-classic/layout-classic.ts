@@ -57,32 +57,95 @@ export class LayoutClassic implements OnInit {
     this.inscripcionForm.set({ ...current, [field]: value });
   }
 
+
+  /**
+   * Metodo para navegar entre las vistas clásicas.
+   * Actualiza la vista actual en el estado global y cierra el menú móvil.
+   * @param view - Nombre de la vista a mostrar (home, gallery, courses, contact, etc.)
+   */
   navigate(view: string) {
     this.state.setClassicView(view);
     this.mobileMenuOpen.set(false);
   }
 
+
+  /**********************************************************************
+   * 
+   * Metodo para abrir un modal con los detalles de una obra de arte
+   * seleccionada en la galería. Actualiza la señal selectedGalleryItem
+   * con el item seleccionado y muestra el modal.
+   * @param item 
+   * 
+   *********************************************************************/
   openGalleryModal(item: GalleryItem) {
     this.selectedGalleryItem.set(item);
     this.showGalleryModal.set(true);
   }
 
+
+  /**********************************************************************
+   * 
+   * Metodo para cerrar el modal de detalles de la galería. Oculta el 
+   * modal y limpia la señal selectedGalleryItem para que no quede 
+   * información residual del item anterior. Esto asegura que al abrir el
+   * modal nuevamente, no se muestre información incorrecta o desactualizada.
+   * 
+   **********************************************************************/
   closeGalleryModal() {
     this.showGalleryModal.set(false);
     this.selectedGalleryItem.set(null);
   }
 
+  
+  /*********************************************************************
+   * 
+   * Metodo para abrir el modal de inscripción a un taller. Recibe el 
+   * curso seleccionado, actualiza el signal selectedCourse con ese curso,
+   * resetea el formulario de inscripción y muestra el modal. Esto permite
+   * que el usuario vea los detalles del curso al que se va a inscribir y 
+   * tenga un formulario limpio para ingresar sus datos. 
+   * @param course 
+   * 
+   *********************************************************************/
   openInscripcionModal(course: Course) {
     this.selectedCourse.set(course);
     this.inscripcionForm.set({ name: '', email: '', phone: '' });
     this.showInscripcionModal.set(true);
   }
 
+  
+  /*********************************************************************
+   * Metodo para cerrar el modal de inscripción a un taller. Oculta el 
+   * modal y limpia el signal selectedCourse para que no quede información
+   * residual del curso seleccionado. Esto asegura que al abrir el modal
+   * nuevamente, no se muestre información incorrecta o desactualizada
+   * del curso anterior. Además, resetea el formulario de inscripción 
+   * para que esté limpio para la próxima inscripción. 
+   * 
+   * @returns void
+   *********************************************************************/
   closeInscripcionModal() {
     this.showInscripcionModal.set(false);
     this.selectedCourse.set(null);
   }
 
+  /********************************************************************
+   * Metodo para manejar la inscripción a un taller. Valida que haya un
+   * curso seleccionado y que el formulario esté completo. Si todo es 
+   * correcto, crea un nuevo registro de inscripción con los datos del 
+   * formulario y el curso seleccionado, lo agrega al estado global 
+   * usando el servicio AppStateService, muestra una alerta de éxito y
+   * cierra el modal de inscripción. Esto permite que los usuarios se 
+   * inscriban fácilmente a los talleres disponibles y que la información
+   * de las inscripciones se gestione centralizadamente en el estado 
+   * global de la aplicación. 
+   * this.inscripcionForm() es un signal que devuelve el estado actual del
+   * formulario de inscripción, que contiene los campos name, email y phone.
+   * @param event - El evento de envío del formulario de inscripción. 
+   * Se previene su comportamiento por defecto para manejar la lógica 
+   * de inscripción manualmente.
+   * @returns 
+   *******************************************************************/
   submitInscripcion() {
     const form = this.inscripcionForm();
     const course = this.selectedCourse();

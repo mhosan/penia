@@ -1,73 +1,17 @@
 /* ==========================================================================
    SISTEMA DE ESTILOS - PEÑA DE LAS BELLAS ARTES DE LA PLATA
-   Soporte dinámico para 4 temas de color y 4 estructuras de página
+   Layout clásico único
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    1. IMPORTACIÓN DE FUENTES (Google Fonts)
    -------------------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Merriweather:ital,wght@0,300;0,400;1,300&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap');
 
 /* --------------------------------------------------------------------------
-   2. CONFIGURACIÓN DE LOS 4 TEMAS DE COLOR (Mapeo de Variables)
+   2. VARIABLES DE DISEÑO (Tema Clásico Único)
    -------------------------------------------------------------------------- */
-
-/* TEMA 1: Muy Formal, Sobrio y Profesional (Gama de Grises y Oro Viejo) */
-body.theme-formal {
-  --bg-primary: #ffffff;
-  --bg-secondary: #fafaf9;
-  --bg-card: #ffffff;
-  --text-primary: #1c1917;
-  --text-secondary: #57534e;
-  --text-inverse: #ffffff;
-  --accent: #9a7d46;
-  --accent-rgb: 154, 125, 70;
-  --accent-hover: #7c6232;
-  --border-color: #e7e5e4;
-  --border-radius: 0px;
-  --font-family-title: 'Cinzel', serif;
-  --font-family-body: 'Inter', sans-serif;
-  --shadow: 0 0 0 1px #e7e5e4;
-  --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.05);
-  --header-bg: #ffffff;
-  --footer-bg: #1c1917;
-  --footer-text: #fafaf9;
-  --card-filter: grayscale(100%);
-  --card-filter-hover: grayscale(0%);
-  --badge-bg: #f5f5f4;
-  --badge-text: #57534e;
-}
-
-/* TEMA 2: Más Informal (Taller, Tonos Tierra) */
-body.theme-informal {
-  --bg-primary: #fdfaf4;
-  --bg-secondary: #f6efe2;
-  --bg-card: #faf5eb;
-  --text-primary: #3c2f2f;
-  --text-secondary: #6e5c5c;
-  --text-inverse: #fffbeb;
-  --accent: #c2410c;
-  --accent-rgb: 194, 65, 12;
-  --accent-hover: #e05615;
-  --border-color: #d6cfc7;
-  --border-radius: 16px;
-  --font-family-title: 'Fraunces', serif;
-  --font-family-body: 'Lora', serif;
-  --shadow: 3px 3px 0px #3c2f2f;
-  --shadow-hover: 6px 6px 0px #3c2f2f;
-  --header-bg: #f6efe2;
-  --footer-bg: #3c2f2f;
-  --footer-text: #fdfaf4;
-  --card-filter: none;
-  --card-filter-hover: none;
-  --badge-bg: #eae3d5;
-  --badge-text: #3c2f2f;
-  background-image: radial-gradient(rgba(60, 47, 47, 0.02) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-/* TEMA 3: Híbrido, equilibrio institucional-artístico (Pizarra y Naranja Coral) */
-body.theme-mixed {
+:root {
   --bg-primary: #f8fafc;
   --bg-secondary: #f1f5f9;
   --bg-card: #ffffff;
@@ -92,35 +36,8 @@ body.theme-mixed {
   --badge-text: #ea580c;
 }
 
-/* TEMA 4: Muy Actual, Colorido y Alegre (Oscuro Neón / Cyber-Art) */
-body.theme-colorful {
-  --bg-primary: #fdfcfd;
-  --bg-secondary: #f5f3ff;
-  --bg-card: rgba(255, 255, 255, 0.7);
-  --text-primary: #1e1b4b;
-  --text-secondary: #5b21b6;
-  --text-inverse: #ffffff;
-  --accent: #7c3aed;
-  --accent-rgb: 124, 58, 237;
-  --accent-hover: #db2777;
-  --border-color: rgba(124, 58, 237, 0.15);
-  --border-radius: 24px;
-  --font-family-title: 'Syne', sans-serif;
-  --font-family-body: 'Space Grotesk', sans-serif;
-  --shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
-  --shadow-hover: 0 15px 35px rgba(219, 39, 119, 0.15);
-  --header-bg: rgba(253, 252, 253, 0.85);
-  --footer-bg: #f5f3ff;
-  --footer-text: #1e1b4b;
-  --glass-blur: blur(12px);
-  --card-filter: none;
-  --card-filter-hover: scale(1.02);
-  --badge-bg: rgba(124, 58, 237, 0.1);
-  --badge-text: #7c3aed;
-}
-
 /* --------------------------------------------------------------------------
-   3. ESTILOS GLOBALES Y BARRA DE CONTROL SUPERIOR (MAQUETACIÓN Y TEMA)
+   3. ESTILOS GLOBALES
    -------------------------------------------------------------------------- */
 * {
   box-sizing: border-box;
@@ -159,7 +76,7 @@ body {
   gap: 1rem;
 }
 
-.layout-selector-wrapper, .theme-selector-wrapper {
+.layout-selector-wrapper {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -200,40 +117,6 @@ body {
   background-color: var(--accent, #f97316);
   color: white !important;
 }
-
-/* Conmutador de Temas (Premium) */
-.theme-selector-container {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background-color: #1e293b;
-  padding: 0.2rem;
-  border-radius: 20px;
-  border: 1px solid #334155;
-}
-
-.theme-opt {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.theme-opt:hover {
-  transform: scale(1.2);
-}
-
-.theme-opt.active {
-  border-color: #ffffff;
-  box-shadow: 0 0 5px rgba(255,255,255,0.6);
-}
-
-.theme-opt.t-formal { background: linear-gradient(135deg, #1c1917 50%, #9a7d46 50%); }
-.theme-opt.t-informal { background: linear-gradient(135deg, #fffbeb 50%, #c2410c 50%); }
-.theme-opt.t-mixed { background: linear-gradient(135deg, #1e293b 50%, #f97316 50%); }
-.theme-opt.t-colorful { background: linear-gradient(135deg, #050508 50%, #7c3aed 50%); }
 
 .btn-control-panel-toggle {
   background-color: #1e293b;
@@ -1460,11 +1343,6 @@ body.layout-admin #layout-container-admin .admin-view.active {
   background-color: rgba(249, 115, 22, 0.12);
   color: #ea580c;
   border-left-color: #f97316;
-}
-body.theme-colorful .event-painting {
-  background-color: rgba(219, 39, 119, 0.15);
-  color: #db2777;
-  border-left-color: #db2777;
 }
 
 .event-sculpture {

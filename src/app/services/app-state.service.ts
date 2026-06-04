@@ -223,7 +223,6 @@ export const HISTORY_PARAGRAPHS = [
 })
 export class AppStateService {
   // Signals para gestionar el estado reactivo
-  public theme = signal<string>(localStorage.getItem('penia-theme') || 'mixed');
   public layout = signal<string>(localStorage.getItem('penia-layout') || 'classic');
   public isAdminActive = signal<boolean>(false);
   
@@ -247,8 +246,7 @@ export class AppStateService {
   });
 
   constructor() {
-    // Escuchar cambios de tema y aplicarlos al body del DOM
-    this.applyTheme(this.theme());
+    // Aplicar el layout al DOM
     this.applyLayout(this.layout(), this.isAdminActive());
   }
 
@@ -270,32 +268,40 @@ export class AppStateService {
     }
   }
 
-  public setTheme(newTheme: string) {
-    this.theme.set(newTheme);
-    localStorage.setItem('penia-theme', newTheme);
-    this.applyTheme(newTheme);
-  }
 
-  private applyTheme(themeName: string) {
-    // Reemplaza la clase theme-xxx en el body
-    const body = document.body;
-    body.className = body.className.replace(/theme-\S+/g, `theme-${themeName}`); 
-    if (!body.classList.contains(`theme-${themeName}`)) {
-      body.classList.add(`theme-${themeName}`);
-    }
-  }
 
+  /************************************************************************
+   * Metodo para actualizar el diseño de la interfaz. Recibe el nombre del diseño
+   * y un booleano que indica si la vista de administración está activa, y aplica
+   * las clases correspondientes al body del DOM.
+   * @param layoutName - Nombre del diseño a aplicar
+   * @param adminActive - Indica si la vista de administración está activa
+   **********************************************************************/
   public setLayout(newLayout: string) {
     this.layout.set(newLayout);
     localStorage.setItem('penia-layout', newLayout);
     this.applyLayout(newLayout, this.isAdminActive());
   }
 
+  /************************************************************************
+   * Metodo para alternar la vista de administración. Cambia el valor de la
+   * señal isAdminActive a su valor contrario (true/false) y luego reaplica
+   * el layout para que se actualicen las clases del body del DOM según el 
+   * nuevo estado.    
+   ************************************************************************/ 
   public toggleAdminView() {
     this.isAdminActive.update(val => !val);
     this.applyLayout(this.layout(), this.isAdminActive());
   }
 
+  
+  /***********************************************************************
+   * Metodo para aplicar el diseño de la interfaz. Recibe el nombre del diseño
+   * y un booleano que indica si la vista de administración está activa, y aplica
+   * las clases correspondientes al body del DOM.
+   * @param layoutName - Nombre del diseño a aplicar
+   * @param adminActive - Indica si la vista de administración está activa
+   **********************************************************************/
   private applyLayout(layoutName: string, adminActive: boolean) {
     const body = document.body;
     // Limpia layouts anteriores
@@ -312,17 +318,38 @@ export class AppStateService {
     }
   }
 
+
+  /**********************************************************************
+   * Metodo para actualizar la vista clásica. Recibe el nombre de la vista
+   * a activar y actualiza la señal currentClassicView con ese nombre para
+   * que la vista se actualice y muestre el contenido correspondiente.
+   * @param viewName - Nombre de la vista a activar
+   **********************************************************************/
   public setClassicView(viewName: string) {
     this.currentClassicView.set(viewName);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+
+  /**********************************************************************
+   * Metodo para actualizar la pestaña activa en la vista de administración.
+   * Recibe el nombre de la pestaña a activar (metrics, profile, authorities,
+   * courses, teachers, gallery) y actualiza la señal currentAdminTab con ese
+   * nombre para que la vista se actualice y muestre la pestaña correspondiente.
+   * @param tabName - Nombre de la pestaña a activar
+   **********************************************************************/
   public setAdminTab(tabName: string) {
     this.currentAdminTab.set(tabName);
   }
 
-  // --- MUTADORES DE DATOS ---
 
+  /**********************************************************************
+   * Metodo para actualizar el perfil de la organización. Recibe un objeto
+   * OrganizationProfile con los datos actualizados del perfil, actualiza el
+   * estado global con esos datos y luego guarda el estado actualizado en 
+   * localStorage para persistencia.
+   * @param updatedProfile - Objeto con los datos actualizados del perfil
+   **********************************************************************/
   public updateProfile(updatedProfile: OrganizationProfile) {
     this.appData.update(state => {
       const newState = { ...state, profile: updatedProfile };
@@ -331,6 +358,14 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+
+  /**********************************************************************
+   * Metodo para actualizar el número de miembros activos en las 
+   * estadísticas. Recibe el nuevo número de miembros activos, actualiza el
+   * estado global con ese número y luego guarda el estado actualizado en 
+   * localStorage para persistencia.
+   * @param membersCount - Nuevo número de miembros activos
+   **********************************************************************/
   public updateActiveMembers(membersCount: number) {
     this.appData.update(state => {
       const newState = {
@@ -345,7 +380,15 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  // Autoridades CD
+
+  /**********************************************************************
+   * Metodo para agregar una nueva autoridad a la Comisión Directiva. Recibe
+   * un objeto Authority con los datos de la nueva autoridad, lo agrega al
+   * array de autoridades en el estado y luego guarda el estado actualizado
+   * en localStorage para persistencia.
+   * @param auth - Objeto con los datos de la nueva autoridad (rol, nombre,
+   * especialidad)
+   **********************************************************************/
   public addAuthority(auth: Authority) {
     this.appData.update(state => {
       const newState = {
@@ -357,6 +400,17 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+
+  /**********************************************************************
+   * Metodo para editar una autoridad de la Comisión Directiva. Recibe el
+   * índice de la autoridad a editar y un objeto Authority con los datos
+   * actualizados. Actualiza el array de autoridades reemplazando el item
+   * en el índice correspondiente y luego actualiza el estado con el nuevo
+   * array. Luego guarda el estado actualizado en localStorage para 
+   * persistencia.
+   * @param index - Índice de la autoridad a editar
+   * @param updatedAuth - Objeto Authority con los datos actualizados
+   **********************************************************************/
   public editAuthority(index: number, updatedAuth: Authority) {
     this.appData.update(state => {
       const updatedList = [...state.authorities];
@@ -369,6 +423,15 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+
+  /**********************************************************************
+   * Metodo para eliminar una autoridad de la Comisión Directiva. Recibe
+   * el índice de la autoridad a eliminar, actualiza el array de autoridades 
+   * filtrando la autoridad eliminada y actualiza el estado con
+   * el nuevo array. Luego guarda el estado actualizado en localStorage para
+   * persistencia.
+   * @param index - Índice de la autoridad a eliminar
+   **********************************************************************/    
   public deleteAuthority(index: number) {
     this.appData.update(state => {
       const updatedList = state.authorities.filter((_, i) => i !== index);
@@ -380,7 +443,15 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  // Talleres / Cursos
+
+  /**********************************************************************
+   * Metodo para agregar o editar un curso en el sistema. Recibe un 
+   * objeto Course con los datos del curso a agregar o editar. Si el ID
+   * del curso ya existe, se actualizan sus datos, si no existe, se agrega
+   * como nuevo curso. Luego guarda el estado actualizado en localStorage
+   * para persistencia.
+   * @param course - Objeto con los datos del curso a agregar o editar
+   **********************************************************************/
   public saveCourse(course: Course) {
     this.appData.update(state => {
       const existsIndex = state.courses.findIndex(c => c.id === course.id);
@@ -395,6 +466,15 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+
+  /**********************************************************************
+   * Metodo para eliminar un curso del sistema. Recibe el ID del curso
+   * a eliminar, actualiza el array de cursos filtrando el curso 
+   * eliminado y también actualiza los docentes que tenían asignado ese curso
+   * dejando el campo teacherId vacío. Luego guarda el estado actualizado
+   * en localStorage para persistencia.
+   * @param id - ID del curso a eliminar
+   **********************************************************************/
   public deleteCourse(id: string) {
     this.appData.update(state => {
       const updatedList = state.courses.filter(c => c.id !== id);
@@ -403,7 +483,15 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  // Docentes
+  
+  /***********************************************************************
+   * Metodo para agregar o editar un docente en el sistema. Recibe un 
+   * objeto Teacher con los datos del docente a agregar o editar. Si el ID
+   * del docente ya existe, se actualizan sus datos, si no existe, se agrega
+   * como nuevo docente. Luego guarda el estado actualizado en localStorage
+   * para persistencia.
+   * @param teacher - Objeto con los datos del docente a agregar o editar
+   ***********************************************************************/
   public saveTeacher(teacher: Teacher) {
     this.appData.update(state => {
       const existsIndex = state.teachers.findIndex(t => t.id === teacher.id);
@@ -418,6 +506,15 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+
+  /**********************************************************************
+   * Metodo para eliminar un docente del sistema. Recibe el ID del docente
+   * a eliminar, actualiza el array de docentes filtrando el docente 
+   * eliminado y también actualiza los cursos que tenían asignado ese docente
+   * dejando el campo teacherId vacío. Luego guarda el estado actualizado
+   * en localStorage para persistencia.
+   * @param id - ID del docente a eliminar
+   **********************************************************************/
   public deleteTeacher(id: string) {
     this.appData.update(state => {
       // Al eliminar docente, dejamos a los cursos huérfanos o con string vacío
@@ -432,7 +529,14 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  // Galería de Obras
+  
+  /*********************************************************************
+   * Metodo para agregar una nueva obra de arte a la galería. Recibe un 
+   * objeto GalleryItem con los datos de la obra, lo agrega al array de
+   * gallery en el estado y luego guarda el estado actualizado en 
+   * localStorage para persistencia.
+   * @param item - Objeto con los datos de la obra a agregar
+   ********************************************************************/
   public addGalleryItem(item: GalleryItem) {
     this.appData.update(state => {
       return {
@@ -443,6 +547,13 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+  /*********************************************************************
+   * Metodo para eliminar una obra de arte de la galería. Recibe el id 
+   * del item a eliminar, filtra el array de gallery para excluir ese item 
+   * y actualiza el estado con el nuevo array. Luego guarda el estado 
+   * actualizado en localStorage para persistencia.
+   * @param id - ID del item de la galería a eliminar
+   ********************************************************************/
   public deleteGalleryItem(id: string) {
     this.appData.update(state => {
       return {
@@ -453,7 +564,17 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  // Inscripciones
+
+  /*********************************************************************
+   * Metodo para agregar una nueva inscripción a un curso. Recibe un 
+   * objeto Registration con los datos de la inscripción, lo agrega al 
+   * array de inscripciones en el estado y actualiza el contador de alumnos
+   * del curso correspondiente. Luego guarda el estado actualizado en 
+   * localStorage para persistencia.
+   * @param reg - Objeto con los datos de la inscripción (nombre, email,
+   * teléfono, id del curso, fecha)    
+   * @param reg 
+   ********************************************************************/
   public addRegistration(reg: Registration) {
     this.appData.update(state => {
       // Incrementar contador de alumnos en el curso
@@ -472,7 +593,14 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  // Exportar / Importar
+
+  /*********************************************************************
+   * Metodo para importar una copia de seguridad de los datos de la 
+   * aplicación. Recibe un objeto AppData con los datos importados y 
+   * actualiza el estado global con esos datos. Luego guarda el estado 
+   * actualizado en localStorage para persistencia.
+   * @param importedData - Objeto con los datos importados
+   *********************************************************************/
   public importBackup(importedData: AppData) {
     this.appData.set(importedData);
     this.saveToStorage();
