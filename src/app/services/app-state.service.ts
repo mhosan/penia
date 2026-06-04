@@ -241,15 +241,25 @@ export class AppStateService {
     return this.appData().stats.activeMembers * this.sociosTrimestralFee;
   });
 
+  // Estado del menú móvil
   public incomePercent = computed(() => {
     return Math.min((this.calculatedIncome() / 1000000) * 100, 100);
   });
 
   constructor() {
-    // Aplicar el layout al DOM
+    // Aplica el layout inicial al cargar la aplicación
     this.applyLayout(this.layout(), this.isAdminActive());
   }
 
+  /***********************************************************************
+   * Metodo para cargar los datos del estado desde localStorage. Intenta
+   * obtener la cadena JSON almacenada en localStorage bajo la clave
+   * 'penia-app-data' y la convierte en un objeto AppData. Si ocurre algún
+   * error durante este proceso (por ejemplo, si el almacenamiento está lleno
+   * o no se permite el acceso), se captura la excepción y se muestra un
+   * mensaje de error en la consola.
+   * @returns AppData | null - Los datos cargados o null si no hay datos
+   **********************************************************************/
   private loadFromStorage(): AppData | null {
     try {
       const dataStr = localStorage.getItem('penia-app-data');
@@ -260,6 +270,15 @@ export class AppStateService {
     }
   }
 
+  /***********************************************************************
+   * Metodo para guardar el estado actual en localStorage. Convierte el 
+   * estado global appData a una cadena JSON y lo almacena en localStorage
+   * bajo la clave 'penia-app-data'. Si ocurre algún error durante este proceso
+   * (por ejemplo, si el almacenamiento está lleno o no se permite el acceso), 
+   * se captura la excepción y se muestra un mensaje de error en la consola. 
+   * Esto asegura que los datos del estado se puedan persistir entre sesiones
+   * y recuperarse al recargar la aplicación.    
+   * **********************************************************************/  
   public saveToStorage() {
     try {
       localStorage.setItem('penia-app-data', JSON.stringify(this.appData()));

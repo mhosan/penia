@@ -48,21 +48,35 @@ export class LayoutClassic implements OnInit {
 
   ngOnInit() {}
 
+  /***********************************************************************
+   * Metodo para alternar el estado del menú móvil. Cambia el valor de la señal mobileMenuOpen a su opuesto.
+   * Si el menú está cerrado, lo abre; si está abierto, lo cierra. Esto permite que el menú móvil se muestre
+   * o se oculte en función de la interacción del usuario con el botón del menú.
+   ***********************************************************************/
   toggleMobileMenu() {
     this.mobileMenuOpen.update(v => !v);
   }
 
+  /***********************************************************************
+   * Metodo para actualizar un campo del formulario de inscripción. Recibe el
+   * nombre del campo y su nuevo valor, luego actualiza la señal inscripcionForm
+   * con el nuevo valor manteniendo los demás campos intactos. Esto permite que
+   * el formulario de inscripción se mantenga sincronizado con la interfaz de
+   * usuario a medida que el usuario ingresa sus datos.
+   * @param field - El nombre del campo a actualizar (name, email o phone).
+   * @param value - El nuevo valor para el campo especificado.
+   ***********************************************************************/
   updateInscripcionField(field: string, value: any) {
     const current = this.inscripcionForm();
     this.inscripcionForm.set({ ...current, [field]: value });
   }
 
 
-  /**
+  /**********************************************************************
    * Metodo para navegar entre las vistas clásicas.
    * Actualiza la vista actual en el estado global y cierra el menú móvil.
    * @param view - Nombre de la vista a mostrar (home, gallery, courses, contact, etc.)
-   */
+   **********************************************************************/
   navigate(view: string) {
     this.state.setClassicView(view);
     this.mobileMenuOpen.set(false);
@@ -165,11 +179,27 @@ export class LayoutClassic implements OnInit {
     this.closeInscripcionModal();
   }
 
+  /********************************************************************
+   * Metodo para obtener el nombre del profesor a partir de su ID. Busca
+   * en la lista de profesores del estado global el que tenga el ID 
+   * coincidente y devuelve su nombre. Si no se encuentra ningún profesor
+   * con ese ID, devuelve 'A designar' para indicar que el profesor aún
+   * no ha sido asignado. Esto es útil para mostrar el nombre del profesor
+   * en la interfaz de usuario cuando solo se tiene su ID disponible.
+   * @param teacherId - El ID del profesor cuyo nombre se desea obtener.
+   * @returns El nombre del profesor o 'A designar' si no se encuentra.
+   ********************************************************************/
   getTeacherName(teacherId: string): string {
     const teacher = this.state.appData().teachers.find(t => t.id === teacherId);
     return teacher?.name ?? 'A designar';
   }
 
+  /********************************************************************
+   * Metodo para manejar el envío del formulario de contacto.
+   * Previene el comportamiento por defecto del formulario y muestra
+   * una alerta de éxito. Luego, resetea el formulario.
+   * @param event - El evento de envío del formulario de contacto.
+   ********************************************************************/
   handleContactSubmit(event: Event) {
     event.preventDefault();
     alert('¡Mensaje despachado con éxito a la administración de la Peña!');
