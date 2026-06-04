@@ -1,4 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { PersistenceService } from './persistence.service';
 
 export interface OrganizationProfile {
   name: string;
@@ -222,6 +223,10 @@ export const HISTORY_PARAGRAPHS = [
   providedIn: 'root'
 })
 export class AppStateService {
+
+  // Inyección del servicio de persistencia para manejar el almacenamiento de datos,
+  private persistence: PersistenceService;
+
   // Signals para gestionar el estado reactivo
   public layout = signal<string>(localStorage.getItem('penia-layout') || 'classic');
   public isAdminActive = signal<boolean>(false);
@@ -246,7 +251,8 @@ export class AppStateService {
     return Math.min((this.calculatedIncome() / 1000000) * 100, 100);
   });
 
-  constructor() {
+  constructor(persistence: PersistenceService) {
+    this.persistence = persistence;
     // Aplica el layout inicial al cargar la aplicación
     this.applyLayout(this.layout(), this.isAdminActive());
   }
@@ -270,23 +276,25 @@ export class AppStateService {
     }
   }
 
+
   /***********************************************************************
-   * Metodo para guardar el estado actual en localStorage. Convierte el 
-   * estado global appData a una cadena JSON y lo almacena en localStorage
-   * bajo la clave 'penia-app-data'. Si ocurre algún error durante este proceso
-   * (por ejemplo, si el almacenamiento está lleno o no se permite el acceso), 
-   * se captura la excepción y se muestra un mensaje de error en la consola. 
-   * Esto asegura que los datos del estado se puedan persistir entre sesiones
-   * y recuperarse al recargar la aplicación.    
+   * Metodo para guardar el estado actual en persistencia (localStorage o API).
+   * Delegado al servicio de persistencia para permitir migración futura a 
+   * bases de datos sin cambiar esta interfaz.
    * **********************************************************************/  
-  public saveToStorage() {
-    try {
-      localStorage.setItem('penia-app-data', JSON.stringify(this.appData()));
-    } catch (e) {
-      console.error('Error al guardar en localStorage', e);
-    }
+  public async saveToStorage() {
+    await this.persistence.save(this.appData());
   }
 
+
+  /***********************************************************************
+   * Metodo para limpiar el estado persistido (para logout, reset, etc).
+   * Delegado al servicio de persistencia para permitir migración futura a
+   * bases de datos sin cambiar esta interfaz.
+   * **********************************************************************/  
+  public async clearStorage() {
+    await this.persistence.clear();
+  }
 
 
   /************************************************************************
@@ -362,11 +370,11 @@ export class AppStateService {
   }
 
 
-  /**********************************************************************
+  /**
    * Metodo para actualizar el perfil de la organización. Recibe un objeto
    * OrganizationProfile con los datos actualizados del perfil, actualiza el
    * estado global con esos datos y luego guarda el estado actualizado en 
-   * localStorage para persistencia.
+   * persistencia para persistencia.
    * @param updatedProfile - Objeto con los datos actualizados del perfil
    **********************************************************************/
   public updateProfile(updatedProfile: OrganizationProfile) {

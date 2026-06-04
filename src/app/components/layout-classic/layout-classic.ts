@@ -22,17 +22,14 @@ export class LayoutClassic implements OnInit {
   galleryFilter = signal<string>('all'); 
   gallerySearch = signal<string>('');
   mobileMenuOpen = signal<boolean>(false);
-
   showGalleryModal = signal<boolean>(false);
   selectedGalleryItem = signal<GalleryItem | null>(null);
-
   showInscripcionModal = signal<boolean>(false);
   selectedCourse = signal<Course | null>(null);
   inscripcionForm = signal<{ name: string; email: string; phone: string }>({
     name: '', email: '', phone: ''
   });
 
-  
   historyParagraphs = HISTORY_PARAGRAPHS;
 
   galleryCategories = ['all', 'Pintura', 'Escultura', 'Cerámica', 'Dibujo', 'Conciertos', 'Talleres'];
