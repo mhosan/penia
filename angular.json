@@ -13,7 +13,11 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
+            "outputPath": {
+              "base": "docs",
+              "browser": ""
+            },
+            
             "polyfills": [
               "zone.js"
             ],
