@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { PersistenceService } from './persistence.service';
 
 export interface OrganizationProfile {
@@ -224,8 +224,8 @@ export const HISTORY_PARAGRAPHS = [
 })
 export class AppStateService {
 
-  // Inyección del servicio de persistencia para manejar el almacenamiento de datos,
-  private persistence: PersistenceService;
+  // Inyección del servicio de persistencia para manejar el almacenamiento de datos
+  private persistence = inject(PersistenceService);
 
   // Signals para gestionar el estado reactivo
   public layout = signal<string>(localStorage.getItem('penia-layout') || 'classic');
@@ -251,8 +251,7 @@ export class AppStateService {
     return Math.min((this.calculatedIncome() / 1000000) * 100, 100);
   });
 
-  constructor(persistence: PersistenceService) {
-    this.persistence = persistence;
+  constructor() {
     // Aplica el layout inicial al cargar la aplicación
     this.applyLayout(this.layout(), this.isAdminActive());
   }
