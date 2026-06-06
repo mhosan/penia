@@ -1,0 +1,337 @@
+<div id="layout-container-classic" class="layout-main-wrapper">
+
+  <!-- HEADER -->
+  <header class="classic-header">
+    <div class="container header-container">
+      <div class="logo-section">
+        <div class="logo-icon">P</div>
+        <div class="logo-text">
+          <h2>{{ state.appData().profile.name }}</h2>
+          <span>Asociación Civil - La Plata</span>
+        </div>
+      </div>
+      
+      <nav>
+        <ul class="nav-links" [class.mobile-open]="mobileMenuOpen()">
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'home'" (click)="navigate('home')">Inicio</span></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'info'" (click)="navigate('info')">Info</span></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'history'" (click)="navigate('history')">Historia</span></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'gallery'" (click)="navigate('gallery')">Galería</span></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'teachers'" (click)="navigate('teachers')">Docentes</span></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'courses'" (click)="navigate('courses')">Cursos</span></li>
+          <li><a routerLink="/calendario" class="nav-link" style="text-decoration:none;">Calendario</a></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'admin'" (click)="navigate('admin')">Administración</span></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'contact'" (click)="navigate('contact')">Contacto</span></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container py-main">
+
+    <!-- VISTA: INICIO -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'home'">
+      <div class="hero">
+        <div class="hero-content">
+          <h2 class="accent-text">Fomentamos la Expresión Creativa desde 1936</h2>
+          <p>{{ state.appData().profile.description.substring(0, 310) }}...</p>
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button class="btn btn-primary" (click)="navigate('courses')">Ver Cursos</button>
+            <button class="btn btn-secondary" (click)="navigate('info')">Conocer la Peña</button>
+          </div>
+        </div>
+        <div class="hero-art-container">
+          <svg class="hero-art-svg" viewBox="0 0 400 300" fill="none">
+            <rect width="100%" height="100%" fill="var(--bg-secondary)"/>
+            <circle cx="200" cy="150" r="100" fill="var(--accent)" opacity="0.15" />
+            <path d="M50 220 C 150 120, 200 80, 350 180" stroke="var(--accent)" stroke-width="4" fill="none"/>
+            <circle cx="100" cy="180" r="20" fill="var(--accent)" opacity="0.2"/>
+            <rect x="250" y="50" width="60" height="60" rx="8" stroke="var(--accent-hover)" stroke-width="2" fill="none" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="features-grid">
+        <div class="card">
+          <h3>Difusión Artística</h3>
+          <p>Mantenemos desde {{ state.appData().profile.founded }} la vocación de difundir las bellas artes en la ciudad de La Plata.</p>
+        </div>
+        <div class="card">
+          <h3>Formación Continua</h3>
+          <p>Talleres dictados por nuestro plantel docente calificado que cuenta con {{ state.appData().teachers.length }} especialistas.</p>
+        </div>
+        <div class="card">
+          <h3>Comunidad de Socios</h3>
+          <p>Sostenida gracias al aporte voluntario de más de {{ state.appData().stats.activeMembers }} socios activos platenses.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- VISTA: INFO / CD -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'info'">
+      <h2 class="section-title accent-text">Perfil y Comisión Directiva</h2>
+      <div class="info-layout">
+        <div>
+          <h3>Nuestra Asociación</h3>
+          <p style="text-align: justify; margin-top: 1rem; line-height: 1.8;">{{ state.appData().profile.description }}</p>
+          <div class="features-grid" style="margin-top: 2rem; grid-template-columns: 1fr 1fr;">
+            <div class="info-box-stat">
+              <strong>Fundación:</strong><br><span>{{ state.appData().profile.founded }}</span>
+            </div>
+            <div class="info-box-stat">
+              <strong>Sede Social:</strong><br><span>{{ state.appData().profile.address }}, {{ state.appData().profile.location }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="authorities-section">
+          <h3>Comisión Directiva</h3>
+          <div class="authorities-list">
+            @for (auth of state.appData().authorities; track auth.role) {
+              <div class="authority-item">
+                <div>
+                  <span class="authority-role">{{ auth.role }}</span>
+                  <div class="authority-name">{{ auth.name }}</div>
+                </div>
+                <span class="authority-desc">{{ auth.specialty }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- VISTA: HISTORIA -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'history'">
+      <h2 class="section-title accent-text">Nuestra Historia</h2>
+      <div class="history-layout">
+        <div class="history-text">
+          @for (para of historyParagraphs; track $index) {
+            <p [innerHTML]="para"></p>
+          }
+        </div>
+        <div class="history-img-box">
+          <img src="historiaDeLaPeña.png" alt="Historia de la Peña">
+          <span>Manuscrito e impresión original del perfil de la Peña</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- VISTA: GALERÍA -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'gallery'">
+      <h2 class="section-title accent-text">Galería de los Socios</h2>
+      <div class="gallery-controls">
+        <input type="text" placeholder="Buscar obras..." class="search-input" [ngModel]="gallerySearch()" (ngModelChange)="gallerySearch.set($event)">
+        <div class="gallery-filters">
+          @for (cat of galleryCategories; track cat) {
+            <button class="filter-btn" [class.active]="galleryFilter() === cat" (click)="galleryFilter.set(cat)">
+              {{ cat === 'all' ? 'Todas' : cat }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="gallery-grid">
+        @for (item of filteredGallery(); track item.id) {
+          <div class="gallery-item" (click)="openGalleryModal(item)">
+            <div class="gallery-img-container">
+              <img [src]="item.image" [alt]="item.title" style="width:100%; height:100%; object-fit:cover;">
+              <span class="gallery-category-badge">{{ item.category }}</span>
+            </div>
+            <div class="gallery-info">
+              <div>
+                <h4>{{ item.title }}</h4>
+                <div class="gallery-artist">{{ item.artist }}</div>
+                <p class="gallery-desc">{{ item.description }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+
+    <!-- VISTA: DOCENTES -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'teachers'">
+      <h2 class="section-title accent-text">Plantel Docente</h2>
+      <div class="teachers-grid">
+        @for (teacher of state.appData().teachers; track teacher.id) {
+          <div class="teacher-card">
+            <div>
+              <div class="teacher-name">{{ teacher.name }}</div>
+              <div class="teacher-specialty">{{ teacher.specialty }}</div>
+              <p class="teacher-bio">{{ teacher.bio }}</p>
+            </div>
+            <div class="teacher-experience">
+              <strong>Experiencia:</strong> {{ teacher.experience }}
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+
+    <!-- VISTA: CURSOS -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'courses'">
+      <h2 class="section-title accent-text">Talleres Artísticos</h2>
+      <div class="courses-grid">
+        @for (course of state.appData().courses; track course.id) {
+          <div class="card course-card">
+            <div>
+              <h3>{{ course.title }}</h3>
+              <span class="gallery-category-badge" style="position:static; display:inline-block; margin-bottom:0.5rem;">{{ course.category }}</span>
+              <p>{{ course.description }}</p>
+            </div>
+            <div>
+              <div class="course-meta">
+                <span><strong>Docente:</strong> {{ getTeacherName(course.teacherId) }}</span>
+                <span><strong>Horario:</strong> {{ course.schedule }}</span>
+                <span><strong>Duración:</strong> {{ course.duration }}</span>
+                <span><strong>Alumnos:</strong> {{ course.studentsCount }}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="course-price">{{ course.price }}</span>
+                <button class="btn btn-primary" (click)="openInscripcionModal(course)">Inscribirme</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+
+    <!-- VISTA: ADMIN -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'admin'">
+      <app-layout-admin></app-layout-admin>
+    </section>
+
+
+    <!-- VISTA: CONTACTO -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'contact'">
+      <h2 class="section-title accent-text">Contacto</h2>
+      <div class="contact-layout">
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <h4>Sede Social</h4>
+              <p>{{ state.appData().profile.address }}, {{ state.appData().profile.location }}</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <h4>Teléfono</h4>
+              <p>{{ state.appData().profile.phone }}</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">✉️</div>
+            <div class="contact-info-text">
+              <h4>Correo</h4>
+              <p>{{ state.appData().profile.email }}</p>
+            </div>
+          </div>
+          <div class="map-placeholder">
+            <strong>Ubicación de la Sede</strong>
+            <span>{{ state.appData().profile.schedule }}</span>
+          </div>
+        </div>
+        <form class="contact-form" style="padding:2rem;" (submit)="handleContactSubmit($event)">
+          <h3>Déjenos su Consulta</h3><br>
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Mensaje:</label>
+            <textarea class="form-control" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Enviar Mensaje</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <!-- FOOTER -->
+  <footer class="classic-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>{{ state.appData().profile.name }}</h3>
+        <p>Fomentando la cultura en La Plata desde 1936.</p>
+      </div>
+      <div>
+        <h3>Secciones</h3>
+        <ul class="footer-links">
+          <li><a href="#" (click)="navigate('home'); $event.preventDefault()">Inicio</a></li>
+          <li><a href="#" (click)="navigate('info'); $event.preventDefault()">Perfil</a></li>
+          <li><a href="#" (click)="navigate('gallery'); $event.preventDefault()">Galería</a></li>
+          <li><a routerLink="/calendario">Calendario de Eventos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Datos</h3>
+        <p>{{ state.appData().profile.address }}<br>Tel: {{ state.appData().profile.phone }}</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Asociación Civil Peña de las Bellas Artes.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- MODAL GALERÍA -->
+@if (showGalleryModal() && selectedGalleryItem()) {
+  <div class="modal-overlay" style="display:flex;" (click)="closeGalleryModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeGalleryModal()">&times;</button>
+      <div class="modal-image-panel">
+        <img [src]="selectedGalleryItem()!.image" [alt]="selectedGalleryItem()!.title" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="modal-info-panel">
+        <div>
+          <span class="modal-badge">{{ selectedGalleryItem()!.category }}</span>
+          <h3>{{ selectedGalleryItem()!.title }}</h3>
+          <div class="artist">{{ selectedGalleryItem()!.artist }}</div>
+          <p class="description">{{ selectedGalleryItem()!.description }}</p>
+        </div>
+        <button class="btn btn-secondary" (click)="closeGalleryModal()">Cerrar Detalles</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- MODAL INSCRIPCIÓN -->
+@if (showInscripcionModal() && selectedCourse()) {
+  <div class="modal-overlay" style="display:flex;" (click)="closeInscripcionModal()">
+    <div class="modal-content" style="grid-template-columns: 1fr; max-width: 450px; padding: 2rem;" (click)="$event.stopPropagation()">
+      <button class="modal-close-btn" (click)="closeInscripcionModal()">&times;</button>
+      <h3 style="text-align: center; margin-bottom: 0.5rem;">Inscripción al Taller</h3>
+      <h4 style="color:var(--accent); text-align:center; margin-bottom: 1.5rem;">{{ selectedCourse()!.title }}</h4>
+      <form (submit)="submitInscripcion(); $event.preventDefault()">
+        <div class="form-group">
+          <label>Nombre y Apellido</label>
+          <input type="text" class="form-control" required [ngModel]="inscripcionForm().name" (ngModelChange)="updateInscripcionField('name',$event)">
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" class="form-control" required [ngModel]="inscripcionForm().email" (ngModelChange)="updateInscripcionField('email',$event)">
+        </div>
+        <div class="form-group">
+          <label>Teléfono de Contacto</label>
+          <input type="tel" class="form-control" required [ngModel]="inscripcionForm().phone" (ngModelChange)="updateInscripcionField('phone',$event)">
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:2rem;">
+          <button type="button" class="btn btn-secondary" style="flex:1; justify-content:center;" (click)="closeInscripcionModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">Inscribirme</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

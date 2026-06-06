@@ -163,7 +163,7 @@ class AppState {
   constructor() {
     this.data = this.loadFromStorage() || INITIAL_DATA;
     this.currentTheme = localStorage.getItem("penia-theme") || "mixed";
-    this.currentLayout = localStorage.getItem("penia-layout") || "classic";
+    this.currentLayout = "classic";
     this.currentView = "home"; // Específico para el Layout Clásico
     this.currentAdminTab = "metrics";
     this.sociosTrimestralFee = 5000;
@@ -198,11 +198,11 @@ class AppState {
   }
 
   setLayout(layoutName) {
-    this.currentLayout = layoutName;
-    localStorage.setItem("penia-layout", layoutName);
+    this.currentLayout = "classic";
+    localStorage.setItem("penia-layout", "classic");
     
     // Cambiar clases en el body
-    document.body.className = document.body.className.replace(/layout-\S+/g, `layout-${layoutName}`);
+    document.body.className = document.body.className.replace(/layout-\S+/g, `layout-classic`);
     
     // Si el administrador está activo, forzar el layout-admin en el body
     if (this.isAdminActive) {
@@ -211,7 +211,6 @@ class AppState {
       document.body.classList.remove("layout-admin");
     }
 
-    this.updateLayoutSelectorUI();
     this.renderAllActiveLayouts();
   }
 
@@ -286,9 +285,6 @@ class AppState {
   // --------------------------------------------------------------------------
   renderAllActiveLayouts() {
     this.renderLayoutClassic();
-    this.renderLayoutNewspaper();
-    this.renderLayoutGalleryWalk();
-    this.renderLayoutVanguard();
   }
 
   // --- LAYOUT 1: CLÁSICO ---
@@ -519,310 +515,9 @@ class AppState {
   }
 
 
-  // --- LAYOUT 2: PERIÓDICO EDITORIAL ---
-  renderLayoutNewspaper() {
-    // Perfil
-    const pText = document.querySelector("#newspaper-profile-text");
-    if (pText) pText.innerText = this.data.profile.description;
-
-    // Autoridades
-    const authList = document.querySelector("#newspaper-authorities-container");
-    if (authList) {
-      authList.innerHTML = this.data.authorities.map(auth => `
-        <div class="item">
-          <strong>${auth.role}:</strong>
-          <span>${auth.name} (${auth.specialty})</span>
-        </div>
-      `).join('');
-    }
-
-    // Historia
-    const histText = document.querySelector("#newspaper-history-text");
-    if (histText) {
-      histText.innerHTML = HISTORY_PARAGRAPHS.map(p => `<p style="margin-bottom:1rem;">${p}</p>`).join('');
-    }
-
-    // Filtros Galería Periódico
-    const filters = document.querySelector("#newspaper-gallery-filters");
-    if (filters) {
-      const categories = ["all", "Pintura", "Escultura", "Cerámica", "Dibujo", "Concursos"];
-      filters.innerHTML = categories.map(cat => {
-        const activeClass = cat === "all" ? "active" : "";
-        const label = cat === "all" ? "TODAS" : cat.toUpperCase();
-        return `<button class="filter-btn ${activeClass}" onclick="app.filterNewspaperGallery(event, '${cat}')">${label}</button>`;
-      }).join('');
-    }
-    this.renderNewspaperGallery();
-
-    // Docentes
-    const teachCont = document.querySelector("#newspaper-teachers-container");
-    if (teachCont) {
-      teachCont.innerHTML = this.data.teachers.map(teach => `
-        <div class="news-teacher-block">
-          <div class="news-teacher-name">${teach.name}</div>
-          <p style="font-size:0.8rem; font-style:italic; margin-bottom:0.25rem;">Especialidad: ${teach.specialty}</p>
-          <p style="font-size:0.8rem;">${teach.bio}</p>
-        </div>
-      `).join('<div class="news-divider-dashed" style="margin: 0.75rem 0;"></div>');
-    }
-
-    // Cursos
-    const coursesCont = document.querySelector("#newspaper-courses-container");
-    if (coursesCont) {
-      coursesCont.innerHTML = this.data.courses.map(course => {
-        const teacher = this.data.teachers.find(t => t.id === course.teacherId) || { name: "A designar" };
-        return `
-          <div class="news-course-block">
-            <h4>${course.title.toUpperCase()}</h4>
-            <p style="font-size:0.8rem; margin:0.15rem 0;">
-              Clase dictada por <strong>${teacher.name}</strong>. Horario: ${course.schedule}. Costo: ${course.price}.
-            </p>
-            <p style="font-size:0.8rem;">${course.description}</p>
-            <button class="btn" style="border:1px solid #000; padding:0.2rem 0.5rem; font-size:0.7rem; font-family:serif; margin-top:0.4rem; background:none;" onclick="app.openInscripcionModal('${course.id}')">INSCRIBIRSE</button>
-          </div>
-        `;
-      }).join('');
-    }
-  }
-
-  filterNewspaperGallery(e, cat) {
-    const filters = e.target.parentElement.querySelectorAll(".filter-btn");
-    filters.forEach(btn => btn.classList.remove("active"));
-    e.target.classList.add("active");
-    this.renderNewspaperGallery(cat);
-  }
-
-  renderNewspaperGallery(cat = "all") {
-    const grid = document.querySelector("#newspaper-gallery-grid");
-    if (!grid) return;
-    let items = this.data.gallery;
-    if (cat !== "all") {
-      items = items.filter(i => i.category.toLowerCase() === cat.toLowerCase());
-    }
-
-    grid.innerHTML = items.map(item => `
-      <div class="news-gallery-card" onclick="app.openGalleryModal('${item.id}')">
-        <div class="news-gallery-img-box">
-          ${item.image.startsWith("data:") ? item.image : `<img src="${item.image}"/>`}
-        </div>
-        <div class="news-gallery-title">${item.title.toUpperCase()}</div>
-        <div class="news-gallery-artist">Autor: ${item.artist}</div>
-        <p style="font-size:0.75rem; color:#4b5563; margin-top:0.25rem;">${item.description.substring(0, 70)}...</p>
-      </div>
-    `).join('');
-  }
 
 
-  // --- LAYOUT 3: RECORRIDO EXPOSITIVO ---
-  renderLayoutGalleryWalk() {
-    // Perfil
-    const pDesc = document.querySelector("#gallerywalk-profile-desc");
-    if (pDesc) pDesc.innerText = this.data.profile.description;
 
-    // Historia
-    const histText = document.querySelector("#gallerywalk-history-text");
-    if (histText) {
-      histText.innerHTML = HISTORY_PARAGRAPHS.map(p => `<p style="margin-bottom:1rem;">${p}</p>`).join('');
-    }
-
-    // CD Placa
-    const plaqueList = document.querySelector("#gallerywalk-authorities-container");
-    if (plaqueList) {
-      plaqueList.innerHTML = this.data.authorities.map(auth => `
-        <div class="plaque-item">
-          <strong>${auth.role}:</strong>
-          <span>${auth.name}</span>
-        </div>
-      `).join('');
-    }
-
-    // Galería Carrusel Horizontal
-    const galleryScroll = document.querySelector("#gallerywalk-gallery-scroll-container");
-    if (galleryScroll) {
-      galleryScroll.innerHTML = this.data.gallery.map(item => `
-        <div class="walk-gallery-card" onclick="app.openGalleryModal('${item.id}')">
-          <div class="img-box">
-            ${item.image.startsWith("data:") ? item.image : `<img src="${item.image}"/>`}
-          </div>
-          <div class="walk-gallery-label">
-            <strong>${item.title}</strong>
-            <span>Autor: ${item.artist} (${item.category})</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Cursos (Acordeón)
-    const accordion = document.querySelector("#gallerywalk-courses-accordion");
-    if (accordion) {
-      accordion.innerHTML = this.data.courses.map((course, idx) => {
-        const teacher = this.data.teachers.find(t => t.id === course.teacherId) || { name: "A designar" };
-        const activeClass = idx === 0 ? "active" : "";
-        return `
-          <div class="walk-accordion-item ${activeClass}">
-            <div class="walk-accordion-header" onclick="app.toggleWalkAccordion(event)">
-              <span>${course.title}</span>
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
-            </div>
-            <div class="walk-accordion-body" style="${idx === 0 ? 'display:block;' : ''}">
-              <p><strong>Categoría:</strong> ${course.category} | <strong>Docente:</strong> ${teacher.name}</p>
-              <p style="margin: 0.5rem 0;">${course.description}</p>
-              <p><strong>Horario:</strong> ${course.schedule} | <strong>Duración:</strong> ${course.duration}</p>
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem;">
-                <strong style="color:var(--accent); font-size:1.1rem;">${course.price}</strong>
-                <button class="btn btn-primary" onclick="app.openInscripcionModal('${course.id}')">Inscribirme</button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Docentes
-    const teachGrid = document.querySelector("#gallerywalk-teachers-container");
-    if (teachGrid) {
-      teachGrid.innerHTML = this.data.teachers.slice(0, 4).map(teach => `
-        <div class="walk-teacher-card">
-          <strong>${teach.name}</strong><br>
-          <span style="color:var(--accent); font-weight:700; font-size:0.75rem;">${teach.specialty}</span>
-          <p style="margin-top:0.4rem; font-size:0.75rem; color:var(--text-secondary);">${teach.bio.substring(0, 80)}...</p>
-        </div>
-      `).join('');
-    }
-  }
-
-  toggleWalkAccordion(e) {
-    const item = e.target.closest(".walk-accordion-item");
-    const isActive = item.classList.contains("active");
-    
-    // Cerrar todos
-    const accordion = item.parentElement;
-    accordion.querySelectorAll(".walk-accordion-item").forEach(i => {
-      i.classList.remove("active");
-      i.querySelector(".walk-accordion-body").style.display = "none";
-    });
-
-    if (!isActive) {
-      item.classList.add("active");
-      item.querySelector(".walk-accordion-body").style.display = "block";
-    }
-  }
-
-  changeRoom(roomNum) {
-    const container = document.getElementById("rooms-horizontal-container");
-    if (container) {
-      container.style.transform = `translateX(-${roomNum * 100}vw)`;
-    }
-
-    // Actualizar nodos activos en el mapa
-    document.querySelectorAll(".walk-node").forEach((node, idx) => {
-      node.classList.remove("active");
-      if (idx === roomNum) {
-        node.classList.add("active");
-      }
-    });
-  }
-
-
-  // --- LAYOUT 4: VANGUARDIA ---
-  renderLayoutVanguard() {
-    // Perfil
-    const pShort = document.querySelector("#vanguard-profile-desc-short");
-    if (pShort) pShort.innerText = this.data.profile.description.substring(0, 160) + "...";
-    
-    const pFull = document.querySelector("#vanguard-profile-desc-full");
-    if (pFull) pFull.innerText = this.data.profile.description;
-
-    // CD Bubbles
-    const authBubbles = document.querySelector("#vanguard-authorities-container");
-    if (authBubbles) {
-      authBubbles.innerHTML = this.data.authorities.map(auth => `
-        <div class="vanguard-auth-bubble">
-          <span class="role">${auth.role}</span>
-          <strong>${auth.name}</strong>
-          <span>${auth.specialty}</span>
-        </div>
-      `).join('');
-    }
-
-    // Historia
-    const histText = document.querySelector("#vanguard-history-text-container");
-    if (histText) {
-      histText.innerHTML = HISTORY_PARAGRAPHS.map(p => `<p style="margin-bottom:1.25rem;">${p}</p>`).join('');
-    }
-
-    // Filtros Galería Vanguardista
-    const filters = document.querySelector("#vanguard-gallery-filters");
-    if (filters) {
-      const categories = ["all", "Pintura", "Escultura", "Cerámica", "Dibujo", "Concursos"];
-      filters.innerHTML = categories.map(cat => {
-        const activeClass = cat === "all" ? "active" : "";
-        const label = cat === "all" ? "ALL EXHIBITS" : cat.toUpperCase();
-        return `<button class="vanguard-pill ${activeClass}" onclick="app.filterVanguardGallery(event, '${cat}')">${label}</button>`;
-      }).join('');
-    }
-    this.renderVanguardGallery();
-
-    // Cursos (Capsules)
-    const coursesGrid = document.querySelector("#vanguard-courses-grid");
-    if (coursesGrid) {
-      coursesGrid.innerHTML = this.data.courses.map(course => {
-        const teacher = this.data.teachers.find(t => t.id === course.teacherId) || { name: "A designar" };
-        return `
-          <div class="vanguard-course-capsule" onclick="app.openInscripcionModal('${course.id}')">
-            <div>
-              <span style="color:var(--accent); font-weight:800; font-size:0.75rem; letter-spacing:1px;">// TALLER DE ${course.category.toUpperCase()}</span>
-              <h3 class="vanguard-card-title" style="margin-top:0.25rem;">${course.title}</h3>
-              <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem; max-width: 450px;">${course.description.substring(0, 110)}...</p>
-            </div>
-            <div style="text-align:right;">
-              <span style="display:block; font-size:0.75rem; color:var(--text-secondary);">DOCENTE: ${teacher.name.toUpperCase()}</span>
-              <strong style="font-size:1.2rem; color:#db2777; display:block; margin-top:0.4rem;">${course.price}</strong>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Docentes (Scroller)
-    const teachGrid = document.querySelector("#vanguard-teachers-grid");
-    if (teachGrid) {
-      teachGrid.innerHTML = this.data.teachers.map(teach => `
-        <div class="vanguard-teacher-capsule">
-          <strong style="font-size:0.95rem;">${teach.name}</strong>
-          <span style="display:block; font-size:0.75rem; color:var(--accent); font-weight:800; margin-bottom:0.4rem;">// ${teach.specialty.toUpperCase()}</span>
-          <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.4;">${teach.bio}</p>
-        </div>
-      `).join('');
-    }
-  }
-
-  filterVanguardGallery(e, cat) {
-    const filters = e.target.parentElement.querySelectorAll(".vanguard-pill");
-    filters.forEach(btn => btn.classList.remove("active"));
-    e.target.classList.add("active");
-    this.renderVanguardGallery(cat);
-  }
-
-  renderVanguardGallery(cat = "all") {
-    const grid = document.querySelector("#vanguard-gallery-grid");
-    if (!grid) return;
-    let items = this.data.gallery;
-    if (cat !== "all") {
-      items = items.filter(i => i.category.toLowerCase() === cat.toLowerCase());
-    }
-
-    grid.innerHTML = items.map(item => `
-      <div class="vanguard-gallery-card" onclick="app.openGalleryModal('${item.id}')">
-        ${item.image.startsWith("data:") ? item.image : `<img src="${item.image}"/>`}
-        <div class="vanguard-card-info">
-          <span style="color:#db2777; font-weight:800; font-size:0.7rem; letter-spacing:1px;">[ ${item.category.toUpperCase()} ]</span>
-          <h4 class="vanguard-card-title" style="margin-top:0.15rem;">${item.title}</h4>
-          <span style="font-size:0.8rem; color:var(--text-secondary);">Por ${item.artist}</span>
-        </div>
-      </div>
-    `).join('');
-  }
 
   // --- MÉTODOS DE ENVÍO DE FORMULARIOS COMUNES ---
   handleContactSubmit(e) {
@@ -1414,27 +1109,9 @@ window.addEventListener("DOMContentLoaded", () => {
   app.setLayout(app.currentLayout);
   app.setView("home"); // Para el layout clásico
 
-  // Listeners de los conmutadores globales
-  document.querySelectorAll(".layout-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      app.setLayout(btn.getAttribute("data-layout"));
-    });
-  });
-
   document.querySelectorAll(".theme-opt").forEach(opt => {
     opt.addEventListener("click", () => {
       app.setTheme(opt.getAttribute("data-theme"));
-    });
-  });
-
-  // Listeners del Recorrido de Salas (Layout 3)
-  document.querySelectorAll(".walk-node").forEach(node => {
-    node.addEventListener("click", () => {
-      const roomAttr = node.getAttribute("data-room");
-      if (roomAttr !== null) {
-        const roomNum = parseInt(roomAttr);
-        app.changeRoom(roomNum);
-      }
     });
   });
 
@@ -1469,7 +1146,6 @@ window.addEventListener("DOMContentLoaded", () => {
       app.data.stats.activeMembers = parseInt(e.target.value);
       app.saveToStorage();
       app.updateIncomeEstimator();
-      // Refrescar layouts para reflejar en el diario, etc.
       app.renderAllActiveLayouts();
     });
   }
@@ -1489,36 +1165,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const formInscripcion = document.querySelector("#inscripcion-form");
   if (formInscripcion) formInscripcion.addEventListener("submit", (e) => app.handleInscripcionSubmit(e));
-
-  // Formulario Contacto Diario (Periódico)
-  const formNewspContact = document.querySelector("#newspaper-contact-form");
-  if (formNewspContact) {
-    formNewspContact.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert(`¡Comunicado despachado con éxito! Firmado por: ${document.querySelector("#newsp-name").value}`);
-      formNewspContact.reset();
-    });
-  }
-
-  // Formulario Contacto Salas
-  const formWalkContact = document.querySelector("#gallerywalk-contact-form");
-  if (formWalkContact) {
-    formWalkContact.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert(`¡Mensaje enviado correctamente desde la Sala de Informes!`);
-      formWalkContact.reset();
-    });
-  }
-
-  // Formulario Contacto Vanguardia
-  const formVangContact = document.querySelector("#vanguard-contact-form");
-  if (formVangContact) {
-    formVangContact.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert(`¡Conexión establecida! Transmitiendo datos a la Peña.`);
-      formVangContact.reset();
-    });
-  }
 
   // Input de importación de Backup
   const fileBackupInput = document.querySelector("#backup-file-input");
