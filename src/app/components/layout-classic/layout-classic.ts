@@ -1,7 +1,6 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { LayoutAdmin } from '../layout-admin/layout-admin';
 import { Calendario } from '../calendario/calendario';
 import { AppStateService, Course, GalleryItem, Registration } from '../../services/app-state.service';
@@ -10,7 +9,7 @@ import { HISTORY_PARAGRAPHS } from '../../services/app-state.service';
 @Component({
   selector: 'app-layout-classic',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, LayoutAdmin, Calendario],
+  imports: [CommonModule, FormsModule, LayoutAdmin, Calendario],
   templateUrl: './layout-classic.html',
   styleUrl: './layout-classic.css',
 })
