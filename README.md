@@ -1,4 +1,4 @@
-# Penia
+# Peña
 
 ### Pendientes:
 #### Panel de control (dashboard)
@@ -10,7 +10,7 @@ Los datos editables son:
 - Galeria de arte
 - Estado de los visitantes a la galeria
 - Inscripción en los cursos (registración)
--  
+El panel de control permitirá que un usuario autorizado pueda cambiar (crear o modificar) la información de los items anteriores.
 
 ## Arquitectura de Persistencia
 

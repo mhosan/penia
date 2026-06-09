@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import type { AppData } from './app-state.service';
 
-/**
+/**********************************************************************
  * Servicio de persistencia abstracto.
+ * 
  * Proporciona una interfaz unificada para cargar y guardar datos,
- * permitiendo cambiar entre localStorage y una API sin modificar el resto de la aplicación.
- *
+ * permitiendo cambiar entre localStorage y una API sin modificar el
+ * resto de la aplicación.
  * Actualmente usa localStorage, pero puede migrar a HTTP fácilmente.
- */
+ * 
+ **********************************************************************/
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +21,12 @@ export class PersistenceService {
 
   constructor(private http: HttpClient) {}
 
-  /**
+  /********************************************************************
+   * 
    * Carga los datos de persistencia (localStorage o API).
    * @returns Promesa que resuelve a AppData | null
-   */
+   * 
+   *******************************************************************/
   async load(): Promise<AppData | null> {
     try {
       // Descomentar para usar API backend:
@@ -37,10 +41,12 @@ export class PersistenceService {
     }
   }
 
-  /**
+  /**********************************************************************
+   * 
    * Guarda los datos en persistencia (localStorage o API).
    * @param data Datos a guardar
-   */
+   * 
+   **********************************************************************/
   async save(data: AppData): Promise<void> {
     try {
       // Descomentar para usar API backend:
@@ -53,9 +59,11 @@ export class PersistenceService {
     }
   }
 
-  /**
+  /**********************************************************************
+   * 
    * Limpia los datos de persistencia (para logout, reset, etc).
-   */
+   * 
+   **********************************************************************/
   async clear(): Promise<void> {
     try {
       // Descomentar para usar API backend:
