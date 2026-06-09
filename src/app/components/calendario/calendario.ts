@@ -1,6 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 interface Evento {
   id: string;
@@ -27,7 +26,7 @@ const EVENTOS_DATA: Evento[] = [
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './calendario.html',
   styleUrl: './calendario.css',
 })
@@ -73,6 +72,9 @@ export class Calendario {
     return days;
   });
 
+  /**
+   * 
+   */
   monthlyEvents = computed(() => {
     const year = this.selectedYear();
     const month = this.selectedMonth();

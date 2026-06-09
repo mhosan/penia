@@ -4,6 +4,5 @@ import { Calendario } from './components/calendario/calendario';
 
 export const routes: Routes = [
   { path: '', component: LayoutClassic },
-  { path: 'calendario', component: Calendario },
   { path: '**', redirectTo: '' }
 ];

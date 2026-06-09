@@ -10,7 +10,7 @@
           <span>Asociación Civil - La Plata.</span>
         </div>
       </div>
-      
+      <!-- <li><a routerLink="/calendario" class="nav-link" style="text-decoration:none;">Calendario</a></li> -->
       <nav>
         <ul class="nav-links" [class.mobile-open]="mobileMenuOpen()">
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'home'" (click)="navigate('home')">Inicio</span></li>
@@ -19,7 +19,7 @@
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'gallery'" (click)="navigate('gallery')">Galería</span></li>
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'teachers'" (click)="navigate('teachers')">Docentes</span></li>
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'courses'" (click)="navigate('courses')">Cursos</span></li>
-          <li><a routerLink="/calendario" class="nav-link" style="text-decoration:none;">Calendario</a></li>
+          <li><span class="nav-link" [class.active]="state.currentClassicView() === 'calendar'" (click)="navigate('calendar')">Calendario</span></li>
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'admin'" (click)="navigate('admin')">Administración</span></li>
           <li><span class="nav-link" [class.active]="state.currentClassicView() === 'contact'" (click)="navigate('contact')">Contacto</span></li>
         </ul>
@@ -203,6 +203,11 @@
     <!-- VISTA: ADMIN -->
     <section class="classic-view" [class.active]="state.currentClassicView() === 'admin'">
       <app-layout-admin></app-layout-admin>
+    </section>
+
+    <!-- VISTA: Calendario -->
+    <section class="classic-view" [class.active]="state.currentClassicView() === 'calendar'">
+      <app-calendario></app-calendario>
     </section>
 
 
