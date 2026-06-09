@@ -75,7 +75,7 @@ export interface AppData {
 const INITIAL_DATA: AppData = {
   profile: {
     name: "Peña de las Bellas Artes",
-    founded: "20 de junio de 1936",
+    founded: "20 de junio de 1936 tempranito a la mañana",
     location: "La Plata, Provincia de Buenos Aires",
     address: "Calle 50 Nro. 543 e/ 5 y 6, La Plata",
     phone: "+54 (221) 422-8765",
@@ -84,7 +84,7 @@ const INITIAL_DATA: AppData = {
     description: "La Peña de las Bellas Artes es una entidad civil, sin fines de lucro, fundada el 20 de junio de 1936 por un grupo de jóvenes entusiastas de la ciudad de La Plata que entendieron que era una tarea enriquecedora para la sociedad difundir el arte en todas sus formas. Poetas, escritores, músicos, pintores, escultores, ceramistas fueron los sólidos cimientos donde se apoyó la Peña, la ilustrada ciudadanía la proveyó de alumnos que, con el tiempo, fueron artistas orgullo de la joven urbe. A pesar de los avatares de la economía y la política del país, la Institución nunca claudicó en sus principios y, con mayor o menor fortuna, transitó estos ya casi 90 años de vida que nos encuentra disfrutando del sólido edificio propio en el centro de la ciudad, con talleres cómodos y confortables, salón de exposiciones, salón multipropósito que es utilizado como sala de conferencias, Museo, para presentaciones de libros, etc, y otras dependencias."
   },
   authorities: [
-    { role: "Presidente", name: "Dra. Silvina Palermo", specialty: "Escritora y Gestora Cultural" },
+    { role: "Presidente", name: "Dra. Silvina Palermo de Perez", specialty: "Escritora y Gestora Cultural" },
     { role: "Vicepresidente", name: "Prof. Carlos Aliverti", specialty: "Artista Plástico" },
     { role: "Secretario General", name: "Lic. Clara Della Crocce", specialty: "Historiadora de Arte (UNLP)" },
     { role: "Tesorera", name: "Cra. Mercedes Giudice", specialty: "Contadora y Pintora Aficionada" },
