@@ -170,7 +170,7 @@ export class LayoutClassic implements OnInit {
       date: new Date().toISOString().split('T')[0]
     };
 
-    this.state.addRegistration(reg);
+    this.state.saveRegistration(reg);
     alert(`¡Inscripción al taller "${course.title}" realizada con éxito!`);
     this.closeInscripcionModal();
   }

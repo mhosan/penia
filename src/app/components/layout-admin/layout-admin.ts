@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AppStateService, OrganizationProfile, Authority, Course, Teacher, GalleryItem } from '../../services/app-state.service';
+import { AppStateService, OrganizationProfile, Authority, Course, Teacher, GalleryItem, Registration } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-layout-admin',
@@ -38,6 +38,16 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   courseForm = signal<Course>({ id: '', title: '', teacherId: '', schedule: '', duration: '', description: '', price: '', category: 'Pintura', studentsCount: 0 });
   teacherForm = signal<Teacher>({ id: '', name: '', specialty: '', bio: '', experience: '' });
 
+  showGalleryDrawer = signal<boolean>(false);
+  editingGallery = signal<GalleryItem | null>(null);
+  galleryForm = signal<GalleryItem>({ id: '', title: '', artist: '', category: 'Pintura', description: '', image: '' });
+
+  showRegistrationDrawer = signal<boolean>(false);
+  editingRegistration = signal<Registration | null>(null);
+  registrationForm = signal<Registration>({ id: '', name: '', email: '', phone: '', courseId: '', date: '' });
+
+  monthlyVisitsStr = computed(() => this.state.appData().stats.monthlyVisits.join(', '));
+
   ngOnInit() {
     this.profileForm.set({ ...this.state.appData().profile });
     this.sociosCount.set(this.state.appData().stats.activeMembers);
@@ -57,6 +67,19 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.state.updateActiveMembers(value);
   }
 
+  updateVisitorsToday(value: number) {
+    this.state.appData.update(s => ({...s, stats: {...s.stats, visitorsToday: value}}));
+    this.state.saveToStorage();
+  }
+
+  updateMonthlyVisits(value: string) {
+    const arr = value.split(',').map(n => Number(n.trim())).filter(n => !isNaN(n));
+    if (arr.length > 0) {
+      this.state.appData.update(s => ({...s, stats: {...s.stats, monthlyVisits: arr}}));
+      this.state.saveToStorage();
+    }
+  }
+
   // Form update helpers
   updateProfileField(field: string, value: any) {
     const current = this.profileForm();
@@ -71,6 +94,14 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   updateTeacherField(field: string, value: any) {
     const current = this.teacherForm();
     this.teacherForm.set({ ...current, [field]: value });
+  }
+
+  updateGalleryField(field: string, value: any) {
+    this.galleryForm.set({ ...this.galleryForm(), [field]: value });
+  }
+
+  updateRegistrationField(field: string, value: any) {
+    this.registrationForm.set({ ...this.registrationForm(), [field]: value });
   }
 
   saveProfile(event: Event) {
@@ -165,7 +196,62 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     return this.state.appData().teachers.find(t => t.id === teacherId)?.name ?? 'A designar';
   }
 
+  // Galería
+  openGalleryDrawer(item?: GalleryItem) {
+    if (item) {
+      this.galleryForm.set({ ...item });
+      this.editingGallery.set(item);
+    } else {
+      this.galleryForm.set({ id: `gal-${Date.now()}`, title: '', artist: '', category: 'Pintura', description: '', image: '' });
+      this.editingGallery.set(null);
+    }
+    this.showGalleryDrawer.set(true);
+  }
 
+  closeGalleryDrawer() { this.showGalleryDrawer.set(false); }
+
+  saveGallery(event: Event) {
+    event.preventDefault();
+    this.state.saveGalleryItem({ ...this.galleryForm() });
+    this.closeGalleryDrawer();
+  }
+
+  deleteGallery(id: string) {
+    const item = this.state.appData().gallery.find(g => g.id === id);
+    if (item && confirm(`¿Eliminar la obra "${item.title}"?`)) {
+      this.state.deleteGalleryItem(id);
+    }
+  }
+
+  // Inscripciones
+  openRegistrationDrawer(reg?: Registration) {
+    if (reg) {
+      this.registrationForm.set({ ...reg });
+      this.editingRegistration.set(reg);
+    } else {
+      this.registrationForm.set({ id: `reg-${Date.now()}`, name: '', email: '', phone: '', courseId: '', date: new Date().toISOString().split('T')[0] });
+      this.editingRegistration.set(null);
+    }
+    this.showRegistrationDrawer.set(true);
+  }
+
+  closeRegistrationDrawer() { this.showRegistrationDrawer.set(false); }
+
+  saveRegistration(event: Event) {
+    event.preventDefault();
+    this.state.saveRegistration({ ...this.registrationForm() });
+    this.closeRegistrationDrawer();
+  }
+
+  deleteRegistration(id: string) {
+    if (confirm(`¿Eliminar esta inscripción?`)) {
+      this.state.deleteRegistration(id);
+    }
+  }
+
+  getCourseName(courseId: string): string {
+    return this.state.appData().courses.find(c => c.id === courseId)?.title ?? 'Desconocido';
+  }
 
   // Backup
   exportBackup() {

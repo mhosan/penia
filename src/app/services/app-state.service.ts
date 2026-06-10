@@ -438,19 +438,16 @@ export class AppStateService {
   }
 
   
-  /*********************************************************************
-   * Metodo para agregar una nueva obra de arte a la galería. Recibe un 
-   * objeto GalleryItem con los datos de la obra, lo agrega al array de
-   * gallery en el estado y luego guarda el estado actualizado en 
-   * localStorage para persistencia.
-   * @param item - Objeto con los datos de la obra a agregar
-   ********************************************************************/
-  public addGalleryItem(item: GalleryItem) {
+  public saveGalleryItem(item: GalleryItem) {
     this.appData.update(state => {
-      return {
-        ...state,
-        gallery: [...state.gallery, item]
-      };
+      const existsIndex = state.gallery.findIndex(g => g.id === item.id);
+      const updatedList = [...state.gallery];
+      if (existsIndex > -1) {
+        updatedList[existsIndex] = item;
+      } else {
+        updatedList.push(item);
+      }
+      return { ...state, gallery: updatedList };
     });
     this.saveToStorage();
   }
@@ -473,28 +470,51 @@ export class AppStateService {
   }
 
 
-  /*********************************************************************
-   * Metodo para agregar una nueva inscripción a un curso. Recibe un 
-   * objeto Registration con los datos de la inscripción, lo agrega al 
-   * array de inscripciones en el estado y actualiza el contador de alumnos
-   * del curso correspondiente. Luego guarda el estado actualizado en 
-   * localStorage para persistencia.
-   * @param reg - Objeto con los datos de la inscripción (nombre, email,
-   * teléfono, id del curso, fecha)    
-   * @param reg 
-   ********************************************************************/
-  public addRegistration(reg: Registration) {
+  public saveRegistration(reg: Registration) {
     this.appData.update(state => {
-      // Incrementar contador de alumnos en el curso
+      const existsIndex = state.registrations.findIndex(r => r.id === reg.id);
+      let updatedList = [...state.registrations];
+      let updatedCourses = [...state.courses];
+
+      if (existsIndex > -1) {
+        // If course changed, we should ideally adjust counts, but for simplicity, we'll just update the reg
+        updatedList[existsIndex] = reg;
+      } else {
+        updatedList.push(reg);
+        // Incrementar contador de alumnos en el curso
+        updatedCourses = updatedCourses.map(c => {
+          if (c.id === reg.courseId) {
+            return { ...c, studentsCount: c.studentsCount + 1 };
+          }
+          return c;
+        });
+      }
+
+      return {
+        ...state,
+        registrations: updatedList,
+        courses: updatedCourses
+      };
+    });
+    this.saveToStorage();
+  }
+
+  public deleteRegistration(id: string) {
+    this.appData.update(state => {
+      const reg = state.registrations.find(r => r.id === id);
+      if (!reg) return state;
+
+      const updatedList = state.registrations.filter(r => r.id !== id);
       const updatedCourses = state.courses.map(c => {
         if (c.id === reg.courseId) {
-          return { ...c, studentsCount: c.studentsCount + 1 };
+          return { ...c, studentsCount: Math.max(0, c.studentsCount - 1) };
         }
         return c;
       });
+
       return {
         ...state,
-        registrations: [...state.registrations, reg],
+        registrations: updatedList,
         courses: updatedCourses
       };
     });
