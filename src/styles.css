@@ -418,7 +418,7 @@ button, .btn {
 
 .classic-view {
   display: none;
-  animation: fadeIn 0.4s ease forwards;
+  animation: fadeIn 0.1s ease forwards;
 }
 
 .classic-view.active {

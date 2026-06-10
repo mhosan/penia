@@ -120,7 +120,7 @@
       <h2 class="section-title accent-text">Nuestra Historia</h2>
       <div class="history-layout">
         <div class="history-text">
-          @for (para of historyParagraphs; track $index) {
+          @for (para of historyParagraphs(); track $index) {
           <p [innerHTML]="para"></p>
           }
         </div>

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { LayoutAdmin } from '../layout-admin/layout-admin';
 import { Calendario } from '../calendario/calendario';
 import { AppStateService, Course, GalleryItem, Registration } from '../../services/app-state.service';
-import { HISTORY_PARAGRAPHS } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-layout-classic',
@@ -30,7 +29,7 @@ export class LayoutClassic implements OnInit {
     name: '', email: '', phone: ''
   });
 
-  historyParagraphs = HISTORY_PARAGRAPHS;
+  historyParagraphs = computed(() => this.state.historyParagraphs());
 
   galleryCategories = ['all', 'Pintura', 'Escultura', 'Cerámica', 'Dibujo', 'Conciertos', 'Talleres'];
 
