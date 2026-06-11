@@ -112,7 +112,7 @@ export class AppStateService {
   public currentAdminTab = signal<string>('metrics');
 
   // Señal principal de datos
-  public appData = signal<AppData>(this.loadFromStorage() || EMPTY_DATA);
+  public appData = signal<AppData>(EMPTY_DATA);
   public historyParagraphs = signal<string[]>([]);
 
   // Costo cuota de socios
@@ -129,15 +129,19 @@ export class AppStateService {
   });
 
   constructor() {
-    // Aplica el layout inicial al cargar la aplicación
     this.applyLayout(this.layout(), this.isAdminActive());
-
-    // Carga los datos iniciales si no hay nada en storage y appData está con valores por defecto
-    if (!localStorage.getItem('penia-app-data')) {
-      this.loadInitialData();
-    }
+  this.initData();  // ← nuevo método async
   }
 
+  private async initData() {
+  const saved = await this.persistence.load();
+  if (saved) {
+    if (!saved.members) saved.members = [];
+    this.appData.set(saved);
+  } else {
+    await this.loadInitialData();
+  }
+}
   private async loadInitialData() {
     try {
       const response = await fetch('data.json');
@@ -148,6 +152,9 @@ export class AppStateService {
       }
       this.appData.set(appData);
       this.historyParagraphs.set(data.historyParagraphs);
+
+    // Guardar en Supabase para que la próxima carga lo encuentre
+    await this.persistence.save(appData);
     } catch (e) {
       console.error('Error al cargar datos iniciales', e);
     }
@@ -162,7 +169,7 @@ export class AppStateService {
    * mensaje de error en la consola.
    * @returns AppData | null - Los datos cargados o null si no hay datos
    **********************************************************************/
-  private loadFromStorage(): AppData | null {
+  /* private loadFromStorage(): AppData | null {
     try {
       const dataStr = localStorage.getItem('penia-app-data');
       if (!dataStr) return null;
@@ -175,7 +182,7 @@ export class AppStateService {
       console.error('Error al cargar de localStorage', e);
       return null;
     }
-  }
+  } */
 
 
   /***********************************************************************
