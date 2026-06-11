@@ -283,6 +283,41 @@
       </div>
       }
 
+      <!-- TAB: SOCIOS -->
+      @if (activeTab() === 'members') {
+      <div class="admin-title-row">
+        <h2>Gestión de Socios</h2>
+        <button class="btn btn-primary" (click)="openMemberDrawer()">+ Nuevo Socio</button>
+      </div>
+      <div class="admin-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (m of state.appData().members; track m.id) {
+            <tr>
+              <td><strong>{{ m.name }}</strong></td>
+              <td>{{ m.apellido }}</td>
+              <td>{{ m.phone }}</td>
+              <td>{{ m.email }}</td>
+              <td class="table-actions">
+                <button class="action-btn" (click)="openMemberDrawer(m)">Editar</button>
+                <button class="action-btn del" (click)="deleteMember(m.id)">Eliminar</button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }
+
       <!-- TAB: CURSOS Y DOCENTES -->
       @if (activeTab() === 'courses') {
       <div class="admin-title-row">
@@ -494,6 +529,44 @@
         </div>
         <button type="submit" class="btn btn-primary"
           style="width:100%; justify-content:center; margin-top:1rem;">Guardar Curso</button>
+      </form>
+    </div>
+  </div>
+</div>
+}
+
+<!-- DRAWER: SOCIOS -->
+@if (showMemberDrawer()) {
+<div class="drawer-overlay" style="display:flex;" (click)="closeMemberDrawer()">
+  <div class="drawer-content" (click)="$event.stopPropagation()">
+    <div class="drawer-header">
+      <h3>{{ editingMember() ? 'Editar Socio' : 'Nuevo Socio' }}</h3>
+      <button class="modal-close-btn" style="position:static;" (click)="closeMemberDrawer()">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <form (submit)="saveMember($event)">
+        <div class="form-group"><label>Nombre</label>
+          <input type="text" class="form-control" required [ngModel]="memberForm().name"
+            (ngModelChange)="updateMemberField('name',$event)" name="name">
+        </div>
+        <div class="form-group"><label>Apellido</label>
+          <input type="text" class="form-control" required [ngModel]="memberForm().apellido"
+            (ngModelChange)="updateMemberField('apellido',$event)" name="apellido">
+        </div>
+        <div class="form-group"><label>Teléfono</label>
+          <input type="text" class="form-control" required [ngModel]="memberForm().phone"
+            (ngModelChange)="updateMemberField('phone',$event)" name="phone">
+        </div>
+        <div class="form-group"><label>Email</label>
+          <input type="email" class="form-control" required [ngModel]="memberForm().email"
+            (ngModelChange)="updateMemberField('email',$event)" name="email">
+        </div>
+        <div class="form-group"><label>Descripción / Notas</label>
+          <textarea class="form-control" rows="4" [ngModel]="memberForm().description"
+            (ngModelChange)="updateMemberField('description',$event)" name="description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary"
+          style="width:100%; justify-content:center; margin-top:1rem;">Guardar Socio</button>
       </form>
     </div>
   </div>

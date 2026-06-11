@@ -11,12 +11,36 @@
       "description": "La Peña de las Bellas Artes es una entidad civil, sin fines de lucro, fundada el 20 de junio de 1936 por un grupo de jóvenes entusiastas de la ciudad de La Plata que entendieron que era una tarea enriquecedora para la sociedad difundir el arte en todas sus formas. Poetas, escritores, músicos, pintores, escultores, ceramistas fueron los sólidos cimientos donde se apoyó la Peña, la ilustrada ciudadanía la proveyó de alumnos que, con el tiempo, fueron artistas orgullo de la joven urbe. A pesar de los avatares de la economía y la política del país, la Institución nunca claudicó en sus principios y, con mayor o menor fortuna, transitó estos ya casi 90 años de vida que nos encuentra disfrutando del sólido edificio propio en el centro de la ciudad, con talleres cómodos y confortables, salón de exposiciones, salón multipropósito que es utilizado como sala de conferencias, Museo, para presentaciones de libros, etc, y otras dependencias."
     },
     "authorities": [
-      { "role": "Presidente", "name": "Agrim. Ernesto Cela", "specialty": "Agrimensor y Artista Platense" },
-      { "role": "Vicepresidente", "name": "Prof. Carlos Aliverti", "specialty": "Artista Plástico" },
-      { "role": "Secretario General", "name": "Lic. Clara Della Crocce", "specialty": "Historiadora de Arte (UNLP)" },
-      { "role": "Tesorera", "name": "Cra. Mercedes Giudice", "specialty": "Contadora y Pintora Aficionada" },
-      { "role": "Vocal 1", "name": "Prof. Alberto Ortiz", "specialty": "Director de Orquesta y Docente" },
-      { "role": "Vocal 2", "name": "Dra. Dolores López Rosales", "specialty": "Restauradora de Bienes Culturales" }
+      {
+        "role": "Presidente",
+        "name": "Agrim. Ernesto Cela",
+        "specialty": "Agrimensor y Artista Platense"
+      },
+      {
+        "role": "Vicepresidente",
+        "name": "Prof. Carlos Aliverti",
+        "specialty": "Artista Plástico"
+      },
+      {
+        "role": "Secretario General",
+        "name": "Lic. Clara Della Crocce",
+        "specialty": "Historiadora de Arte (UNLP)"
+      },
+      {
+        "role": "Tesorera",
+        "name": "Cra. Mercedes Giudice",
+        "specialty": "Contadora y Pintora Aficionada"
+      },
+      {
+        "role": "Vocal 1",
+        "name": "Prof. Alberto Ortiz",
+        "specialty": "Director de Orquesta y Docente"
+      },
+      {
+        "role": "Vocal 2",
+        "name": "Dra. Dolores López Rosales",
+        "specialty": "Restauradora de Bienes Culturales"
+      }
     ],
     "teachers": [
       {
@@ -129,14 +153,42 @@
       }
     ],
     "stats": {
-      "monthlyVisits": [350, 420, 510, 490, 620, 710, 850, 990, 1100, 1150, 1310, 1420],
+      "monthlyVisits": [
+        350,
+        420,
+        510,
+        490,
+        620,
+        710,
+        850,
+        990,
+        1100,
+        1150,
+        1310,
+        1420
+      ],
       "activeMembers": 142,
       "visitorsToday": 67
     },
     "registrations": [
-      { "id": "reg-1", "name": "Mariano Espósito", "email": "mariano@gmail.com", "phone": "2214321098", "courseId": "cur-1", "date": "2026-05-24" },
-      { "id": "reg-2", "name": "Estefanía Paz", "email": "estefaniap@hotmail.com", "phone": "2215678321", "courseId": "cur-3", "date": "2026-05-25" }
-    ]
+      {
+        "id": "reg-1",
+        "name": "Mariano Espósito",
+        "email": "mariano@gmail.com",
+        "phone": "2214321098",
+        "courseId": "cur-1",
+        "date": "2026-05-24"
+      },
+      {
+        "id": "reg-2",
+        "name": "Estefanía Paz",
+        "email": "estefaniap@hotmail.com",
+        "phone": "2215678321",
+        "courseId": "cur-3",
+        "date": "2026-05-25"
+      }
+    ],
+    "members": []
   },
   "historyParagraphs": [
     "<strong>\"La Peña\"</strong> inició sus actividades en <strong>junio de 1936</strong> y su primer local estuvo emplazado en la <strong>calle 6 entre 49 y 50</strong> de la ciudad de La Plata. En sus inicios, formó a un gran número de adolescentes, muchos de los cuales alcanzaron en el mediano plazo lugares muy destacados y reconocidos en el ámbito de las artes plásticas nacionales e internacionales.",

@@ -79,6 +79,7 @@ export interface AppData {
   gallery: GalleryItem[];
   stats: Stats;
   registrations: Registration[];
+  members: Member[];
 }
 
 const EMPTY_DATA: AppData = {
@@ -90,7 +91,8 @@ const EMPTY_DATA: AppData = {
   courses: [],
   gallery: [],
   stats: { monthlyVisits: [], activeMembers: 0, visitorsToday: 0 },
-  registrations: []
+  registrations: [],
+  members: []
 };
 
 @Injectable({
@@ -104,18 +106,18 @@ export class AppStateService {
   // Signals para gestionar el estado reactivo
   public layout = signal<string>(localStorage.getItem('penia-layout') || 'classic');
   public isAdminActive = signal<boolean>(false);
-  
+
   // Vistas internas
   public currentClassicView = signal<string>('home');
   public currentAdminTab = signal<string>('metrics');
-  
+
   // Señal principal de datos
   public appData = signal<AppData>(this.loadFromStorage() || EMPTY_DATA);
   public historyParagraphs = signal<string[]>([]);
-  
+
   // Costo cuota de socios
   public sociosTrimestralFee = 5000;
-  
+
   // Calculos derivados reactivos mediante computed()
   public calculatedIncome = computed(() => {
     return this.appData().stats.activeMembers * this.sociosTrimestralFee;
@@ -129,7 +131,7 @@ export class AppStateService {
   constructor() {
     // Aplica el layout inicial al cargar la aplicación
     this.applyLayout(this.layout(), this.isAdminActive());
-    
+
     // Carga los datos iniciales si no hay nada en storage y appData está con valores por defecto
     if (!localStorage.getItem('penia-app-data')) {
       this.loadInitialData();
@@ -140,7 +142,11 @@ export class AppStateService {
     try {
       const response = await fetch('data.json');
       const data = await response.json();
-      this.appData.set(data.appData);
+      const appData = data.appData;
+      if (!appData.members) {
+        appData.members = [];
+      }
+      this.appData.set(appData);
       this.historyParagraphs.set(data.historyParagraphs);
     } catch (e) {
       console.error('Error al cargar datos iniciales', e);
@@ -159,7 +165,12 @@ export class AppStateService {
   private loadFromStorage(): AppData | null {
     try {
       const dataStr = localStorage.getItem('penia-app-data');
-      return dataStr ? JSON.parse(dataStr) : null;
+      if (!dataStr) return null;
+      const data = JSON.parse(dataStr) as AppData;
+      if (!data.members) {
+        data.members = [];
+      }
+      return data;
     } catch (e) {
       console.error('Error al cargar de localStorage', e);
       return null;
@@ -171,7 +182,7 @@ export class AppStateService {
    * Metodo para guardar el estado actual en persistencia (localStorage o API).
    * Delegado al servicio de persistencia para permitir migración futura a 
    * bases de datos sin cambiar esta interfaz.
-   * **********************************************************************/  
+   * **********************************************************************/
   public async saveToStorage() {
     await this.persistence.save(this.appData());
   }
@@ -181,7 +192,7 @@ export class AppStateService {
    * Metodo para limpiar el estado persistido (para logout, reset, etc).
    * Delegado al servicio de persistencia para permitir migración futura a
    * bases de datos sin cambiar esta interfaz.
-   * **********************************************************************/  
+   * **********************************************************************/
   public async clearStorage() {
     await this.persistence.clear();
   }
@@ -205,13 +216,13 @@ export class AppStateService {
    * señal isAdminActive a su valor contrario (true/false) y luego reaplica
    * el layout para que se actualicen las clases del body del DOM según el 
    * nuevo estado.    
-   ************************************************************************/ 
+   ************************************************************************/
   public toggleAdminView() {
     this.isAdminActive.update(val => !val);
     this.applyLayout(this.layout(), this.isAdminActive());
   }
 
-  
+
   /***********************************************************************
    * Metodo para aplicar el diseño de la interfaz. Recibe el nombre del diseño
    * y un booleano que indica si la vista de administración está activa, y aplica
@@ -223,7 +234,7 @@ export class AppStateService {
     const body = document.body;
     // Limpia layouts anteriores
     body.className = body.className.replace(/layout-\S+/g, `layout-${layoutName}`);
-    
+
     if (!body.classList.contains(`layout-${layoutName}`)) {
       body.classList.add(`layout-${layoutName}`);
     }
@@ -348,7 +359,7 @@ export class AppStateService {
    * el nuevo array. Luego guarda el estado actualizado en localStorage para
    * persistencia.
    * @param index - Índice de la autoridad a eliminar
-   **********************************************************************/    
+   **********************************************************************/
   public deleteAuthority(index: number) {
     this.appData.update(state => {
       const updatedList = state.authorities.filter((_, i) => i !== index);
@@ -400,7 +411,7 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  
+
   /***********************************************************************
    * Metodo para agregar o editar un docente en el sistema. Recibe un 
    * objeto Teacher con los datos del docente a agregar o editar. Si el ID
@@ -446,7 +457,13 @@ export class AppStateService {
     this.saveToStorage();
   }
 
-  
+  /*********************************************************************
+   * 
+   * Galeria
+   * Guarda un item de la galería, ya sea nuevo o existente.
+   * @param item - Item de la galería a guardar
+   * 
+   *********************************************************************/
   public saveGalleryItem(item: GalleryItem) {
     this.appData.update(state => {
       const existsIndex = state.gallery.findIndex(g => g.id === item.id);
@@ -479,6 +496,13 @@ export class AppStateService {
   }
 
 
+  /*********************************************************************
+   * 
+   * Inscripciones
+   * Guarda una inscripción, ya sea nueva o existente.
+   * @param reg - Datos de la inscripción.
+   * 
+   *******************************************************************/
   public saveRegistration(reg: Registration) {
     this.appData.update(state => {
       const existsIndex = state.registrations.findIndex(r => r.id === reg.id);
@@ -508,6 +532,59 @@ export class AppStateService {
     this.saveToStorage();
   }
 
+  /**********************************************************************
+   * 
+   * Metodo para agregar o editar un socio. Si el ID ya existe, se 
+   * actualizan sus datos; de lo contrario, se agrega a la lista.
+   * 
+   **********************************************************************/
+  public saveMember(member: Member) {
+    this.appData.update(state => {
+      const members = state.members || [];
+      const existsIndex = members.findIndex(m => m.id === member.id);
+      const updatedList = [...members];
+      if (existsIndex > -1) {
+        updatedList[existsIndex] = member;
+      } else {
+        updatedList.push(member);
+      }
+      return { ...state, members: updatedList };
+    });
+    this.saveToStorage();
+  }
+
+  /**********************************************************************
+   * 
+   * Metodo para eliminar un socio del sistema. Recibe el ID del socio
+   * a eliminar, actualiza el array de socios filtrando el socio 
+   * eliminado y también actualiza las inscripciones que tenían asignado ese socio
+   * dejando el campo memberId vacío. Luego guarda el estado actualizado
+   * en localStorage para persistencia.
+   * 
+   * @param id - ID del socio a eliminar
+   * 
+   ***********************************************************************/
+  public deleteMember(id: string) {
+    this.appData.update(state => {
+      const members = state.members || [];
+      const updatedList = members.filter(m => m.id !== id);
+      return { ...state, members: updatedList };
+    });
+    this.saveToStorage();
+  }
+
+
+  /**********************************************************************
+   * 
+   * Metodo para eliminar una inscripción del sistema. Recibe el ID de 
+   * la inscripción a eliminar, actualiza el array de inscripciones filtrando 
+   * la inscripción eliminada y también actualiza los cursos que tenían 
+   * asignado esa inscripción dejando el campo registrationId vacío. Luego 
+   * guarda el estado actualizado en localStorage para persistencia.
+   * 
+   * @param id - ID de la inscripción a eliminar
+   * 
+   ***********************************************************************/
   public deleteRegistration(id: string) {
     this.appData.update(state => {
       const reg = state.registrations.find(r => r.id === id);
@@ -529,7 +606,6 @@ export class AppStateService {
     });
     this.saveToStorage();
   }
-
 
   /*********************************************************************
    * Metodo para importar una copia de seguridad de los datos de la 
