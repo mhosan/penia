@@ -66,3 +66,14 @@ Usar las mismas interfaces que en `app-state.service.ts`:
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Supabase
+- Project url: https://tnuutwqkewghpvtnjuzm.supabase.co
+
+- Project ID: tnuutwqkewghpvtnjuzm
+
+- anon public key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRudXV0d3FrZXdnaHB2dG5qdXptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTIwMDAsImV4cCI6MjA5Njc2ODAwMH0.P0dyyXsT5eLaxmeD0udfP-qO7xP294HIHHumAqkoWKA. La anon public clásica, en formato JWT. Sigue funcionando pero Supabase recomienda migrar a la nueva.
+
+- **Publishable key**: sb_publishable_J-NMhkR1asLueeMRARevDQ_dq28JZax. Esta es la equivalente moderna a la anon key.
+
+-
