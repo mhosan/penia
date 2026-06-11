@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AppStateService, OrganizationProfile, Authority, Course, Teacher, GalleryItem, Registration } from '../../services/app-state.service';
+import { AppStateService, OrganizationProfile, Authority, Course, Teacher, GalleryItem, Registration, Member } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-layout-admin',
@@ -32,11 +32,15 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   // Modals
   showCourseDrawer = signal<boolean>(false);
   showTeacherDrawer = signal<boolean>(false);
+  showMemberDrawer = signal<boolean>(false);
+
   editingCourse = signal<Course | null>(null);
   editingTeacher = signal<Teacher | null>(null);
+  editingMember = signal<Member | null>(null);
 
   courseForm = signal<Course>({ id: '', title: '', teacherId: '', schedule: '', duration: '', description: '', price: '', category: 'Pintura', studentsCount: 0 });
   teacherForm = signal<Teacher>({ id: '', name: '', specialty: '', bio: '', experience: '' });
+  memberForm = signal<Member>({ id: '', name: '', apellido: '', phone: '', email: '', description: '' });
 
   showGalleryDrawer = signal<boolean>(false);
   editingGallery = signal<GalleryItem | null>(null);
@@ -55,12 +59,22 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {}
 
+  /*********************************************************************
+   * Este metodo se llama al hacer clic en una pestaña del menú lateral. 
+   * Actualiza el estado de la pestaña activa y, si se selecciona la 
+   * pestaña de perfil, carga los datos actuales del perfil en el 
+   * formulario para su edición. Esto asegura que el formulario siempre
+   * muestre la información más reciente del perfil de la organización
+   * cuando se accede a esa sección.    
+   * @param tab 
+   *********************************************************************/
   setTab(tab: string) {
     this.state.setAdminTab(tab);
     if (tab === 'profile') {
       this.profileForm.set({ ...this.state.appData().profile });
     }
   }
+
 
   updateSociosCount(value: number) {
     this.sociosCount.set(value);
@@ -94,6 +108,11 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   updateTeacherField(field: string, value: any) {
     const current = this.teacherForm();
     this.teacherForm.set({ ...current, [field]: value });
+  }
+
+  updateMemberField(field: string, value: any) {
+    const current = this.memberForm();
+    this.memberForm.set({ ...current, [field]: value });
   }
 
   updateGalleryField(field: string, value: any) {
@@ -165,7 +184,7 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     }
   }
 
-  // Docentes
+  // Docentes 
   openTeacherDrawer(teacher?: Teacher) {
     if (teacher) {
       this.teacherForm.set({ ...teacher });
@@ -195,6 +214,19 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   getTeacherName(teacherId: string): string {
     return this.state.appData().teachers.find(t => t.id === teacherId)?.name ?? 'A designar';
   }
+
+   // Socios
+  openMemberDrawer(member?: Member) {
+    if (member) {
+      this.memberForm.set({ ...member });
+      this.editingMember.set(member);
+    } else {
+      this.memberForm.set({ id: `doc-${Date.now()}`, name: '', apellido: '', phone: '', email: '', description: '' });
+      this.editingMember.set(null);
+    }
+    this.showMemberDrawer.set(true);
+  }
+
 
   // Galería
   openGalleryDrawer(item?: GalleryItem) {

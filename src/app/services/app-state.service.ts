@@ -26,6 +26,15 @@ export interface Teacher {
   experience: string;
 }
 
+export interface Member {
+  id: string;
+  name: string;
+  apellido: string;
+  phone: string;
+  email: string;
+  description: string;
+}
+
 export interface Course {
   id: string;
   title: string;
