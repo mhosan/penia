@@ -267,7 +267,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (auth of state.appData().authorities; track auth.role; let i = $index) {
+            @for (auth of state.appData().authorities; track i; let i = $index) {
             <tr>
               <td><strong>{{ auth.role }}</strong></td>
               <td>{{ auth.name }}</td>
@@ -681,6 +681,36 @@
         </div>
         <button type="submit" class="btn btn-primary"
           style="width:100%; justify-content:center; margin-top:1rem;">Guardar Inscripción</button>
+      </form>
+    </div>
+  </div>
+</div>
+}
+
+<!-- DRAWER: AUTORIDADES / CD -->
+@if (showAuthorityDrawer()) {
+<div class="authority-modal-overlay" (click)="closeAuthorityDrawer()">
+  <div class="authority-modal-content" (click)="$event.stopPropagation()">
+    <div class="drawer-header">
+      <h3>{{ editingAuthority() ? 'Editar Autoridad' : 'Registrar Autoridad' }}</h3>
+      <button class="modal-close-btn" style="position:static;" (click)="closeAuthorityDrawer()">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <form (submit)="saveAuthority($event)">
+        <div class="form-group"><label>Cargo</label>
+          <input type="text" class="form-control" required [ngModel]="authorityForm().role"
+            (ngModelChange)="updateAuthorityField('role',$event)" name="role">
+        </div>
+        <div class="form-group"><label>Nombre y Apellido</label>
+          <input type="text" class="form-control" required [ngModel]="authorityForm().name"
+            (ngModelChange)="updateAuthorityField('name',$event)" name="name">
+        </div>
+        <div class="form-group"><label>Especialidad / Formación</label>
+          <input type="text" class="form-control" required [ngModel]="authorityForm().specialty"
+            (ngModelChange)="updateAuthorityField('specialty',$event)" name="specialty">
+        </div>
+        <button type="submit" class="btn btn-primary"
+          style="width:100%; justify-content:center; margin-top:1rem;">Guardar Autoridad</button>
       </form>
     </div>
   </div>

@@ -50,6 +50,11 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   editingRegistration = signal<Registration | null>(null);
   registrationForm = signal<Registration>({ id: '', name: '', email: '', phone: '', courseId: '', date: '' });
 
+  showAuthorityDrawer = signal<boolean>(false);
+  editingAuthority = signal<Authority | null>(null);
+  editingAuthorityIndex = signal<number | null>(null);
+  authorityForm = signal<Authority>({ role: '', name: '', specialty: '' });
+
   monthlyVisitsStr = computed(() => this.state.appData().stats.monthlyVisits.join(', '));
 
   ngOnInit() {
@@ -124,6 +129,10 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.registrationForm.set({ ...this.registrationForm(), [field]: value });
   }
 
+  updateAuthorityField(field: string, value: any) {
+    this.authorityForm.set({ ...this.authorityForm(), [field]: value });
+  }
+
   saveProfile(event: Event) {
     event.preventDefault();
     this.state.updateProfile({ ...this.profileForm() });
@@ -133,23 +142,33 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
 
   // Autoridades
   addAuthority() {
-    const role = prompt('Nuevo Cargo:');
-    if (!role) return;
-    const name = prompt('Nombre completo:');
-    if (!name) return;
-    const specialty = prompt('Especialidad/Formación:');
-    if (!specialty) return;
-    this.state.addAuthority({ role, name, specialty });
+    this.authorityForm.set({ role: '', name: '', specialty: '' });
+    this.editingAuthority.set(null);
+    this.editingAuthorityIndex.set(null);
+    this.showAuthorityDrawer.set(true);
   }
 
   editAuthority(index: number, auth: Authority) {
-    const role = prompt('Editar Cargo:', auth.role);
-    if (role === null) return;
-    const name = prompt('Editar Nombre:', auth.name);
-    if (name === null) return;
-    const specialty = prompt('Editar Especialidad:', auth.specialty);
-    if (specialty === null) return;
-    this.state.editAuthority(index, { role, name, specialty });
+    this.authorityForm.set({ ...auth });
+    this.editingAuthority.set(auth);
+    this.editingAuthorityIndex.set(index);
+    this.showAuthorityDrawer.set(true);
+  }
+
+  closeAuthorityDrawer() {
+    this.showAuthorityDrawer.set(false);
+  }
+
+  saveAuthority(event: Event) {
+    event.preventDefault();
+    const auth = { ...this.authorityForm() };
+    const index = this.editingAuthorityIndex();
+    if (index !== null) {
+      this.state.editAuthority(index, auth);
+    } else {
+      this.state.addAuthority(auth);
+    }
+    this.closeAuthorityDrawer();
   }
 
   deleteAuthority(index: number, auth: Authority) {
