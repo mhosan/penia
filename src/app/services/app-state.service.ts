@@ -106,6 +106,7 @@ export class AppStateService {
   // Signals para gestionar el estado reactivo
   public layout = signal<string>(localStorage.getItem('penia-layout') || 'classic');
   public isAdminActive = signal<boolean>(false);
+  public isAdminAuthenticated = signal<boolean>(false);
 
   // Vistas internas
   public currentClassicView = signal<string>('home');

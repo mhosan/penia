@@ -13,6 +13,28 @@ import { AppStateService, OrganizationProfile, Authority, Course, Teacher, Galle
 export class LayoutAdmin implements OnInit, AfterViewInit {
   state = inject(AppStateService);
 
+  // Login
+  loginUser = '';
+  loginPass = '';
+  loginError = signal<boolean>(false);
+
+  handleLogin(event: Event) {
+    event.preventDefault();
+    if (this.loginUser === 'admin' && this.loginPass === 'admin123') {
+      this.state.isAdminAuthenticated.set(true);
+      this.loginError.set(false);
+    } else {
+      this.loginError.set(true);
+    }
+  }
+
+  logout() {
+    this.state.isAdminAuthenticated.set(false);
+    this.loginUser = '';
+    this.loginPass = '';
+    this.loginError.set(false);
+  }
+
   // Tabs
   activeTab = computed(() => this.state.currentAdminTab());
 
