@@ -555,7 +555,7 @@ button,
 /* Historia */
 .history-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  
   gap: 3rem;
   align-items: center;
 }
@@ -568,7 +568,7 @@ button,
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  padding: 1rem;
+  padding: 3rem;
   box-shadow: var(--shadow);
   text-align: center;
 }
