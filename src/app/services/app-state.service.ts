@@ -279,7 +279,7 @@ export class AppStateService {
   }
 
 
-  /**
+  /**********************************************************************
    * Metodo para actualizar el perfil de la organización. Recibe un objeto
    * OrganizationProfile con los datos actualizados del perfil, actualiza el
    * estado global con esos datos y luego guarda el estado actualizado en 

@@ -284,22 +284,16 @@
   <footer class="classic-footer">
     <div class="container footer-grid">
       <div>
-        <h3>{{ state.appData().profile.name }}</h3>
-        <p class="footer-tagline">Fomentando la cultura en La Plata desde 1936.</p>
+        <!-- <h3 >{{ state.appData().profile.name }}</h3> -->
+        <p class="footer-bottom">Fomentando la cultura en La Plata desde 1936.</p>
       </div>
-      <div>
-        <h3>Secciones</h3>
-        <ul class="footer-links">
-          <li><a href="#" (click)="navigate('home'); $event.preventDefault()">Inicio</a></li>
-          <li><a href="#" (click)="navigate('info'); $event.preventDefault()">Perfil</a></li>
-          <li><a href="#" (click)="navigate('gallery'); $event.preventDefault()">Galería</a></li>
-
-        </ul>
+     
+      <div class="footer-bottom">
+        <p>{{ state.appData().profile.address }}&nbsp;&nbsp;&nbsp;&nbsp;
+          Tel: {{ state.appData().profile.phone }}&nbsp;&nbsp;&nbsp;&nbsp; 
+          Email: {{ state.appData().profile.email }}</p>
       </div>
-      <div>
-        <h3>Datos</h3>
-        <p>{{ state.appData().profile.address }}<br>Tel: {{ state.appData().profile.phone }}</p>
-      </div>
+      
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Asociación Civil Peña de las Bellas Artes.</p>

@@ -127,7 +127,7 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     const current = this.profileForm();
     this.profileForm.set({ ...current, [field]: value });
   }
-
+ 
   updateCourseField(field: string, value: any) {
     const current = this.courseForm();
     this.courseForm.set({ ...current, [field]: value });

@@ -8,7 +8,7 @@ import { AppStateService, Course, GalleryItem, Registration } from '../../servic
 @Component({
   selector: 'app-layout-classic',
   standalone: true,
-  imports: [CommonModule, FormsModule, LayoutAdmin, Calendario],
+  imports: [CommonModule, FormsModule, LayoutAdmin, Calendario], 
   templateUrl: './layout-classic.html',
   styleUrl: './layout-classic.css',
 })
