@@ -835,6 +835,11 @@ button,
   color: var(--text-primary);
 }
 
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+}
+
 
 
 /* --------------------------------------------------------------------------
