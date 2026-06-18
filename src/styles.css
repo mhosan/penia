@@ -153,7 +153,9 @@ body {
 }
 
 #layout-container-classic {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* En modo administrador, ocultar todo lo demás y mostrar el panel */
@@ -177,6 +179,7 @@ body.layout-admin .layout-main-wrapper:not(.admin-layout-view) {
 
 .py-main {
   padding: 2.5rem 0;
+  flex: 1;
 }
 
 h2,
