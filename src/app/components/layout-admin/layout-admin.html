@@ -689,8 +689,8 @@
 
 <!-- DRAWER: AUTORIDADES / CD -->
 @if (showAuthorityDrawer()) {
-<div class="authority-modal-overlay" (click)="closeAuthorityDrawer()">
-  <div class="authority-modal-content" (click)="$event.stopPropagation()">
+<div class="drawer-overlay" style="display:flex;" (click)="closeAuthorityDrawer()">
+  <div class="drawer-content" (click)="$event.stopPropagation()">
     <div class="drawer-header">
       <h3>{{ editingAuthority() ? 'Editar Autoridad' : 'Registrar Autoridad' }}</h3>
       <button class="modal-close-btn" style="position:static;" (click)="closeAuthorityDrawer()">&times;</button>
