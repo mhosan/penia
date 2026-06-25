@@ -14,66 +14,16 @@ El panel de control permitirá que un usuario autorizado pueda cambiar (crear o 
 
 ## Arquitectura de Persistencia
 
-La aplicación utiliza un servicio abstracto de persistencia que permite migrar fácilmente de localStorage a una base de datos sin cambios en el resto del código.
+La aplicación utiliza un servicio de persistencia conectado a Supabase para el almacenamiento de datos.
 
 ### Estado Actual
-- **Almacenamiento**: localStorage
-- **Servicio de persistencia**: `PersistenceService` (abstracto)
+- **Almacenamiento**: Supabase
+- **Servicio de persistencia**: `PersistenceService`
 - **Capa de estado**: `AppStateService` (inyecta `PersistenceService`)
 
-### Cómo Migrar a API/BD
-
-#### Paso 1: Actualizar PersistenceService
-En `src/app/services/persistence.service.ts`, descomenta las líneas de HTTP:
-
-```typescript
-// En load():
-return await firstValueFrom(this.http.get<AppData>(this.apiUrl));
-
-// En save():
-await firstValueFrom(this.http.put(this.apiUrl, data));
-
-// En clear():
-await firstValueFrom(this.http.delete(this.apiUrl));
-```
-
-#### Paso 2: Configurar URL del Backend
-En `persistence.service.ts`, actualiza:
-```typescript
-private apiUrl = 'https://tu-backend.com/api/app-data';
-```
-
-#### Paso 3: Backend Esperado
-El backend debe implementar estos endpoints:
-
-- `GET /api/app-data` - Retorna AppData
-- `PUT /api/app-data` - Recibe y guarda AppData
-- `DELETE /api/app-data` - Limpia datos
-
-#### Interfaces del Backend
-Usar las mismas interfaces que en `app-state.service.ts`:
-- `AppData`
-- `Course`, `Teacher`, `GalleryItem`
-- `Registration`, `Stats`
-- etc.
-
-#### Notas Importantes
-- ✅ El resto del código NO necesita cambios
-- ✅ localStorage seguirá siendo el fallback si no hay conexión
-- ✅ Las llamadas a `saveToStorage()` ya están preparadas para async
-- ✅ HttpClient ya está configurado en app.config.ts
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 ## Supabase
 - Project url: https://tnuutwqkewghpvtnjuzm.supabase.co
 
 - Project ID: tnuutwqkewghpvtnjuzm
 
-- anon public key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRudXV0d3FrZXdnaHB2dG5qdXptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExOTIwMDAsImV4cCI6MjA5Njc2ODAwMH0.P0dyyXsT5eLaxmeD0udfP-qO7xP294HIHHumAqkoWKA. La anon public clásica, en formato JWT. Sigue funcionando pero Supabase recomienda migrar a la nueva.
-
-- **Publishable key**: sb_publishable_J-NMhkR1asLueeMRARevDQ_dq28JZax. Esta es la equivalente moderna a la anon key.
-
--

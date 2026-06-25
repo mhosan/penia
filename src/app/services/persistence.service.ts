@@ -8,10 +8,9 @@ import type { AppData } from './app-state.service';
 /**********************************************************************
  * Servicio de persistencia abstracto.
  * 
- * Proporciona una interfaz unificada para cargar y guardar datos,
- * permitiendo cambiar entre localStorage y una API sin modificar el
- * resto de la aplicación.
- * Actualmente usa localStorage, pero puede migrar a HTTP fácilmente.
+ * Proporciona una interfaz unificada para cargar y guardar datos.
+ * Actualmente usa Supabase con una tabla 'app_data' que almacena
+ * todo el estado de la aplicación como JSONB.
  * 
  * Usa una tabla 'app_data' con una sola fila (id=1) que almacena
  * todo el estado de la aplicación como JSONB.
@@ -21,8 +20,7 @@ import type { AppData } from './app-state.service';
   providedIn: 'root'
 })
 export class PersistenceService {
-  // URL del backend (descomentar y configurar cuando se migre a API)
-  // private apiUrl = '/api/app-data';
+  
   private supabase: SupabaseClient;
   private readonly ROW_ID = 1;
   private readonly TABLE = 'app_data';

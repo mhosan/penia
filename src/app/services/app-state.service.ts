@@ -104,7 +104,6 @@ export class AppStateService {
   private persistence = inject(PersistenceService);
 
   // Signals para gestionar el estado reactivo
-  public layout = signal<string>(localStorage.getItem('penia-layout') || 'classic');
   public isAdminActive = signal<boolean>(false);
   public isAdminAuthenticated = signal<boolean>(false);
 
@@ -130,7 +129,8 @@ export class AppStateService {
   });
 
   constructor() {
-    this.applyLayout(this.layout(), this.isAdminActive());
+    this.applyAdminClass();
+    document.body.classList.add('layout-classic');
   this.initData();  // ← nuevo método async
   }
 
@@ -161,35 +161,12 @@ export class AppStateService {
     }
   }
 
-  /***********************************************************************
-   * Metodo para cargar los datos del estado desde localStorage. Intenta
-   * obtener la cadena JSON almacenada en localStorage bajo la clave
-   * 'penia-app-data' y la convierte en un objeto AppData. Si ocurre algún
-   * error durante este proceso (por ejemplo, si el almacenamiento está lleno
-   * o no se permite el acceso), se captura la excepción y se muestra un
-   * mensaje de error en la consola.
-   * @returns AppData | null - Los datos cargados o null si no hay datos
-   **********************************************************************/
-  /* private loadFromStorage(): AppData | null {
-    try {
-      const dataStr = localStorage.getItem('penia-app-data');
-      if (!dataStr) return null;
-      const data = JSON.parse(dataStr) as AppData;
-      if (!data.members) {
-        data.members = [];
-      }
-      return data;
-    } catch (e) {
-      console.error('Error al cargar de localStorage', e);
-      return null;
-    }
-  } */
+
 
 
   /***********************************************************************
-   * Metodo para guardar el estado actual en persistencia (localStorage o API).
-   * Delegado al servicio de persistencia para permitir migración futura a 
-   * bases de datos sin cambiar esta interfaz.
+   * Metodo para guardar el estado actual en persistencia (Supabase).
+   * Delegado al servicio de persistencia.
    * **********************************************************************/
   public async saveToStorage() {
     await this.persistence.save(this.appData());
@@ -207,47 +184,21 @@ export class AppStateService {
 
 
   /************************************************************************
-   * Metodo para actualizar el diseño de la interfaz. Recibe el nombre del diseño
-   * y un booleano que indica si la vista de administración está activa, y aplica
-   * las clases correspondientes al body del DOM.
-   * @param layoutName - Nombre del diseño a aplicar
-   * @param adminActive - Indica si la vista de administración está activa
-   **********************************************************************/
-  public setLayout(newLayout: string) {
-    this.layout.set(newLayout);
-    localStorage.setItem('penia-layout', newLayout);
-    this.applyLayout(newLayout, this.isAdminActive());
-  }
-
-  /************************************************************************
    * Metodo para alternar la vista de administración. Cambia el valor de la
-   * señal isAdminActive a su valor contrario (true/false) y luego reaplica
-   * el layout para que se actualicen las clases del body del DOM según el 
-   * nuevo estado.    
+   * señal isAdminActive a su valor contrario (true/false) y luego actualiza
+   * la clase del body del DOM según el nuevo estado.    
    ************************************************************************/
   public toggleAdminView() {
     this.isAdminActive.update(val => !val);
-    this.applyLayout(this.layout(), this.isAdminActive());
+    this.applyAdminClass();
   }
 
-
   /***********************************************************************
-   * Metodo para aplicar el diseño de la interfaz. Recibe el nombre del diseño
-   * y un booleano que indica si la vista de administración está activa, y aplica
-   * las clases correspondientes al body del DOM.
-   * @param layoutName - Nombre del diseño a aplicar
-   * @param adminActive - Indica si la vista de administración está activa
+   * Metodo para aplicar la clase de administración al body del DOM.
    **********************************************************************/
-  private applyLayout(layoutName: string, adminActive: boolean) {
+  private applyAdminClass() {
     const body = document.body;
-    // Limpia layouts anteriores
-    body.className = body.className.replace(/layout-\S+/g, `layout-${layoutName}`);
-
-    if (!body.classList.contains(`layout-${layoutName}`)) {
-      body.classList.add(`layout-${layoutName}`);
-    }
-
-    if (adminActive) {
+    if (this.isAdminActive()) {
       body.classList.add('layout-admin');
     } else {
       body.classList.remove('layout-admin');
@@ -282,8 +233,7 @@ export class AppStateService {
   /**********************************************************************
    * Metodo para actualizar el perfil de la organización. Recibe un objeto
    * OrganizationProfile con los datos actualizados del perfil, actualiza el
-   * estado global con esos datos y luego guarda el estado actualizado en 
-   * persistencia para persistencia.
+   * estado global con esos datos y luego guarda el estado en persistencia.
    * @param updatedProfile - Objeto con los datos actualizados del perfil
    **********************************************************************/
   public updateProfile(updatedProfile: OrganizationProfile) {
@@ -298,8 +248,7 @@ export class AppStateService {
   /**********************************************************************
    * Metodo para actualizar el número de miembros activos en las 
    * estadísticas. Recibe el nuevo número de miembros activos, actualiza el
-   * estado global con ese número y luego guarda el estado actualizado en 
-   * localStorage para persistencia.
+   * estado global con ese número y luego guarda el estado en persistencia.
    * @param membersCount - Nuevo número de miembros activos
    **********************************************************************/
   public updateActiveMembers(membersCount: number) {
@@ -320,8 +269,7 @@ export class AppStateService {
   /**********************************************************************
    * Metodo para agregar una nueva autoridad a la Comisión Directiva. Recibe
    * un objeto Authority con los datos de la nueva autoridad, lo agrega al
-   * array de autoridades en el estado y luego guarda el estado actualizado
-   * en localStorage para persistencia.
+   * array de autoridades en el estado y luego guarda el estado en persistencia.
    * @param auth - Objeto con los datos de la nueva autoridad (rol, nombre,
    * especialidad)
    **********************************************************************/
@@ -342,8 +290,7 @@ export class AppStateService {
    * índice de la autoridad a editar y un objeto Authority con los datos
    * actualizados. Actualiza el array de autoridades reemplazando el item
    * en el índice correspondiente y luego actualiza el estado con el nuevo
-   * array. Luego guarda el estado actualizado en localStorage para 
-   * persistencia.
+   * array. Luego guarda el estado en persistencia.
    * @param index - Índice de la autoridad a editar
    * @param updatedAuth - Objeto Authority con los datos actualizados
    **********************************************************************/
@@ -364,8 +311,7 @@ export class AppStateService {
    * Metodo para eliminar una autoridad de la Comisión Directiva. Recibe
    * el índice de la autoridad a eliminar, actualiza el array de autoridades 
    * filtrando la autoridad eliminada y actualiza el estado con
-   * el nuevo array. Luego guarda el estado actualizado en localStorage para
-   * persistencia.
+   * el nuevo array. Luego guarda el estado en persistencia.
    * @param index - Índice de la autoridad a eliminar
    **********************************************************************/
   public deleteAuthority(index: number) {
@@ -384,8 +330,7 @@ export class AppStateService {
    * Metodo para agregar o editar un curso en el sistema. Recibe un 
    * objeto Course con los datos del curso a agregar o editar. Si el ID
    * del curso ya existe, se actualizan sus datos, si no existe, se agrega
-   * como nuevo curso. Luego guarda el estado actualizado en localStorage
-   * para persistencia.
+   * como nuevo curso. Luego guarda el estado en persistencia.
    * @param course - Objeto con los datos del curso a agregar o editar
    **********************************************************************/
   public saveCourse(course: Course) {
@@ -407,8 +352,7 @@ export class AppStateService {
    * Metodo para eliminar un curso del sistema. Recibe el ID del curso
    * a eliminar, actualiza el array de cursos filtrando el curso 
    * eliminado y también actualiza los docentes que tenían asignado ese curso
-   * dejando el campo teacherId vacío. Luego guarda el estado actualizado
-   * en localStorage para persistencia.
+   * dejando el campo teacherId vacío. Luego guarda el estado en persistencia.
    * @param id - ID del curso a eliminar
    **********************************************************************/
   public deleteCourse(id: string) {
@@ -424,8 +368,7 @@ export class AppStateService {
    * Metodo para agregar o editar un docente en el sistema. Recibe un 
    * objeto Teacher con los datos del docente a agregar o editar. Si el ID
    * del docente ya existe, se actualizan sus datos, si no existe, se agrega
-   * como nuevo docente. Luego guarda el estado actualizado en localStorage
-   * para persistencia.
+   * como nuevo docente. Luego guarda el estado en persistencia.
    * @param teacher - Objeto con los datos del docente a agregar o editar
    ***********************************************************************/
   public saveTeacher(teacher: Teacher) {
@@ -447,8 +390,7 @@ export class AppStateService {
    * Metodo para eliminar un docente del sistema. Recibe el ID del docente
    * a eliminar, actualiza el array de docentes filtrando el docente 
    * eliminado y también actualiza los cursos que tenían asignado ese docente
-   * dejando el campo teacherId vacío. Luego guarda el estado actualizado
-   * en localStorage para persistencia.
+   * dejando el campo teacherId vacío. Luego guarda el estado en persistencia.
    * @param id - ID del docente a eliminar
    **********************************************************************/
   public deleteTeacher(id: string) {
@@ -489,8 +431,7 @@ export class AppStateService {
   /*********************************************************************
    * Metodo para eliminar una obra de arte de la galería. Recibe el id 
    * del item a eliminar, filtra el array de gallery para excluir ese item 
-   * y actualiza el estado con el nuevo array. Luego guarda el estado 
-   * actualizado en localStorage para persistencia.
+   * y actualiza el estado con el nuevo array. Luego guarda el estado en persistencia.
    * @param id - ID del item de la galería a eliminar
    ********************************************************************/
   public deleteGalleryItem(id: string) {
@@ -566,8 +507,7 @@ export class AppStateService {
    * Metodo para eliminar un socio del sistema. Recibe el ID del socio
    * a eliminar, actualiza el array de socios filtrando el socio 
    * eliminado y también actualiza las inscripciones que tenían asignado ese socio
-   * dejando el campo memberId vacío. Luego guarda el estado actualizado
-   * en localStorage para persistencia.
+   * dejando el campo memberId vacío. Luego guarda el estado en persistencia.
    * 
    * @param id - ID del socio a eliminar
    * 
@@ -588,7 +528,7 @@ export class AppStateService {
    * la inscripción a eliminar, actualiza el array de inscripciones filtrando 
    * la inscripción eliminada y también actualiza los cursos que tenían 
    * asignado esa inscripción dejando el campo registrationId vacío. Luego 
-   * guarda el estado actualizado en localStorage para persistencia.
+   * guarda el estado en persistencia.
    * 
    * @param id - ID de la inscripción a eliminar
    * 
@@ -618,8 +558,7 @@ export class AppStateService {
   /*********************************************************************
    * Metodo para importar una copia de seguridad de los datos de la 
    * aplicación. Recibe un objeto AppData con los datos importados y 
-   * actualiza el estado global con esos datos. Luego guarda el estado 
-   * actualizado en localStorage para persistencia.
+   * actualiza el estado global con esos datos. Luego guarda el estado en persistencia.
    * @param importedData - Objeto con los datos importados
    *********************************************************************/
   public importBackup(importedData: AppData) {
