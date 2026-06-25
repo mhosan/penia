@@ -258,7 +258,15 @@
           <textarea class="form-control" rows="5" [ngModel]="profileForm().description"
             (ngModelChange)="updateProfileField('description', $event)" name="description"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar Perfil</button>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button type="submit" class="btn btn-primary">Guardar Perfil</button>
+          @if (profileSaved()) {
+            <span style="color: var(--success, #28a745); font-weight: 500;">¡Perfil guardado exitosamente!</span>
+          }
+          @if (profileSaveError()) {
+            <span style="color: var(--danger, #dc3545); font-weight: 500;">Error al guardar el perfil. Intente nuevamente.</span>
+          }
+        </div>
       </form>
 
       <div class="admin-title-row" style="margin-top:3rem;">

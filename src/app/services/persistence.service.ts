@@ -60,13 +60,13 @@ export class PersistenceService {
     }
   }
 
-  /**********************************************************************
+  /********************************************************************** 
    * 
    * Guarda los datos en Supabase (upsert sobre la fila id=1).
    * @param data Datos a guardar
    * 
    **********************************************************************/
-  async save(data: AppData): Promise<void> {
+  async save(data: AppData): Promise<boolean> {
     try {
       const { error } = await this.supabase
         .from(this.TABLE)
@@ -74,9 +74,12 @@ export class PersistenceService {
 
       if (error) {
         console.error('Error al guardar datos en Supabase', error);
+        return false;
       }
+      return true;
     } catch (e) {
       console.error('Error inesperado al guardar datos', e);
+      return false;
     }
   }
 

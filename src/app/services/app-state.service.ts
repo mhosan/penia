@@ -164,12 +164,12 @@ export class AppStateService {
 
 
 
-  /***********************************************************************
+  /*********************************************************************** 
    * Metodo para guardar el estado actual en persistencia (Supabase).
    * Delegado al servicio de persistencia.
    * **********************************************************************/
-  public async saveToStorage() {
-    await this.persistence.save(this.appData());
+  public async saveToStorage(): Promise<boolean> {
+    return await this.persistence.save(this.appData());
   }
 
 
@@ -236,12 +236,12 @@ export class AppStateService {
    * estado global con esos datos y luego guarda el estado en persistencia.
    * @param updatedProfile - Objeto con los datos actualizados del perfil
    **********************************************************************/
-  public updateProfile(updatedProfile: OrganizationProfile) {
+  public async updateProfile(updatedProfile: OrganizationProfile): Promise<boolean> {
     this.appData.update(state => {
       const newState = { ...state, profile: updatedProfile };
       return newState;
     });
-    this.saveToStorage();
+    return await this.saveToStorage();
   }
 
 

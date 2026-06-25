@@ -41,6 +41,7 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
   // Profile form
   profileForm = signal<OrganizationProfile>({ ...this.state.appData().profile });
   profileSaved = signal<boolean>(false);
+  profileSaveError = signal<boolean>(false);
 
   // Socios slider
   sociosCount = signal<number>(this.state.appData().stats.activeMembers);
@@ -155,11 +156,19 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.authorityForm.set({ ...this.authorityForm(), [field]: value });
   }
 
-  saveProfile(event: Event) {
+  async saveProfile(event: Event): Promise<boolean> {
     event.preventDefault();
-    this.state.updateProfile({ ...this.profileForm() });
-    this.profileSaved.set(true);
-    setTimeout(() => this.profileSaved.set(false), 3000);
+    const success = await this.state.updateProfile({ ...this.profileForm() });
+    if (success) {
+      this.profileSaved.set(true);
+      this.profileSaveError.set(false);
+      setTimeout(() => this.profileSaved.set(false), 3000); 
+    } else {
+      this.profileSaved.set(false);
+      this.profileSaveError.set(true);
+      setTimeout(() => this.profileSaveError.set(false), 3000); 
+    }
+    return success;
   }
 
   // Autoridades
