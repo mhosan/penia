@@ -156,6 +156,14 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.authorityForm.set({ ...this.authorityForm(), [field]: value });
   }
 
+  /*********************************************************************** 
+   * Metodo para guardar el perfil de la peña.
+   * 
+   * @param event - Evento que desencadena la accion.
+   * @returns boolean - True si se guardo correctamente, false en caso 
+   * contrario.
+   * 
+   ***********************************************************************/
   async saveProfile(event: Event): Promise<boolean> {
     event.preventDefault();
     const success = await this.state.updateProfile({ ...this.profileForm() });
@@ -171,7 +179,10 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     return success;
   }
 
-  // Autoridades
+  /*********************************************************************** 
+   * Metodo para agregar una nueva autoridad a la peña.
+   * Se ejecuta al hacer clic en el boton "Agregar autoridad".
+   ***********************************************************************/
   addAuthority() {
     this.authorityForm.set({ role: '', name: '', specialty: '' });
     this.editingAuthority.set(null);
@@ -179,6 +190,11 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.showAuthorityDrawer.set(true);
   }
 
+  /*********************************************************************** 
+   * Metodo para editar una autoridad existente.
+   * @param index - Indice de la autoridad a editar.
+   * @param auth - Datos de la autoridad a editar.
+   ***********************************************************************/
   editAuthority(index: number, auth: Authority) {
     this.authorityForm.set({ ...auth });
     this.editingAuthority.set(auth);
@@ -186,10 +202,17 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.showAuthorityDrawer.set(true);
   }
 
+  /*********************************************************************** 
+   * Metodo para cerrar el drawer de autoridades.
+   ***********************************************************************/
   closeAuthorityDrawer() {
     this.showAuthorityDrawer.set(false);
   }
 
+  /*********************************************************************** 
+   * Metodo para guardar las autoridades.
+   * @param event - Evento que desencadena la accion.
+   ***********************************************************************/
   saveAuthority(event: Event) {
     event.preventDefault();
     const auth = { ...this.authorityForm() };
@@ -202,13 +225,21 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
     this.closeAuthorityDrawer();
   }
 
+  /*********************************************************************** 
+   * Metodo para eliminar una autoridad de la peña.
+   * @param index - Indice de la autoridad a eliminar.
+   * @param auth - Datos de la autoridad a eliminar.
+   ***********************************************************************/
   deleteAuthority(index: number, auth: Authority) {
     if (confirm(`¿Eliminar a ${auth.name} de la Comisión Directiva?`)) {
       this.state.deleteAuthority(index);
     }
   }
 
-  // Cursos
+  /*********************************************************************** 
+   * Metodo para abrir el drawer de cursos.
+   * @param course - Curso a editar (opcional).
+   ***********************************************************************/
   openCourseDrawer(course?: Course) {
     if (course) {
       this.courseForm.set({ ...course });
@@ -222,12 +253,20 @@ export class LayoutAdmin implements OnInit, AfterViewInit {
 
   closeCourseDrawer() { this.showCourseDrawer.set(false); }
 
+  /*********************************************************************** 
+   * Metodo para guardar un curso de la peña.
+   * @param event - Evento que desencadena la accion.
+   ***********************************************************************/
   saveCourse(event: Event) {
     event.preventDefault();
     this.state.saveCourse({ ...this.courseForm() });
     this.closeCourseDrawer();
   }
 
+  /*********************************************************************** 
+   * Metodo para eliminar un curso de la peña.
+   * @param id - ID del curso a eliminar.
+   ***********************************************************************/
   deleteCourse(id: string) {
     const course = this.state.appData().courses.find(c => c.id === id);
     if (course && confirm(`¿Eliminar el curso "${course.title}"?`)) {
